@@ -16,7 +16,6 @@ export default function ServiceFinalCTA({ title, copy, primaryCtaText }: Service
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-[50%] -right-[20%] w-[800px] h-[800px] bg-blue-500/20 rounded-full blur-[120px] mix-blend-screen animate-pulse" />
         <div className="absolute -bottom-[50%] -left-[20%] w-[600px] h-[600px] bg-indigo-500/20 rounded-full blur-[100px] mix-blend-screen" />
-        <div className="absolute inset-0 bg-[url('/images/noise.png')] opacity-[0.03] mix-blend-overlay" />
       </div>
 
       <Container className="relative z-10 max-w-4xl text-center">

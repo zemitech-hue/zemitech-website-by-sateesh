@@ -30,23 +30,23 @@ app/                          Routes (Next.js App Router — one folder = one UR
 ├─ layout.tsx                 Root layout: fonts, metadata, JSON-LD, chrome
 ├─ globals.css                Design tokens (colors, type, blueprint-grid signature)
 ├─ sitemap.ts                 Auto-generated sitemap.xml (static + dynamic routes)
-├─ robots.ts                  robots.txt (disallows /admin, /api)
+├─ robots.ts                  robots.txt (disallows /api)
 ├─ not-found.tsx               Custom 404
 │
 ├─ about/                     About Us
 ├─ construction/               Construction division
 │  ├─ page.tsx                 Overview
-│  ├─ residential/
-│  ├─ commercial/
-│  └─ infrastructure/
+│  ├─ residential/, commercial/, infrastructure/, industrial/,
+│  │  renovation/, structural-civil-engineering/
+│  │                           6 sub-service pages — all rendered by
+│  │                           components/sections/ServiceSubPage.tsx from
+│  │                           lib/data/services.ts, ~15 lines each
 ├─ interior-design/            Interior Design division
 │  ├─ page.tsx                 Overview
-│  ├─ kitchen/
-│  │  ├─ page.tsx               Kitchen overview (links to both types below)
-│  │  ├─ modular-kitchen/
-│  │  └─ l-shape-kitchen/
-│  ├─ living-room/
-│  └─ bedroom/
+│  ├─ kitchen/, living-room/, bedroom/, office/, custom-joinery/
+│  │                           5 sub-service pages, same ServiceSubPage template
+│  └─ turnkey-home-interiors/  Bespoke (room-by-room interactive), still
+│                               data-driven from lib/data/services.ts
 ├─ projects/
 │  ├─ page.tsx                 Portfolio grid with category filter
 │  └─ [slug]/                  Dynamic project detail (generateStaticParams)
@@ -58,48 +58,44 @@ app/                          Routes (Next.js App Router — one folder = one UR
 │  └─ [slug]/                  Dynamic post detail
 ├─ contact/                    Contact details + enquiry form + map
 ├─ inquiry/                    Dedicated "Get a Free Quote" landing page
-├─ api/inquiry/route.ts        Form submission endpoint (currently logs server-side)
-│
-└─ admin/                      Admin panel (excluded from public nav + robots.txt)
-   ├─ page.tsx                  Login (DEMO AUTH — see §5)
-   └─ dashboard/
-      ├─ page.tsx                Overview
-      ├─ projects/               Add/view projects (image upload + details)
-      ├─ media/                  Single-image gallery upload
-      ├─ videos/                 YouTube / Instagram link manager
-      └─ settings/               Site contact details
+└─ api/inquiry/route.ts        Form submission endpoint (currently logs server-side)
 
 components/
-├─ Header.tsx, Footer.tsx, SiteChrome.tsx   Global chrome (SiteChrome hides
-│                                            header/footer/WhatsApp on /admin)
+├─ Header.tsx, Footer.tsx, SiteChrome.tsx   Global chrome
 ├─ JsonLd.tsx                  Structured data helpers (FAQPage, BreadcrumbList)
-├─ ui/                         Button, Container, SectionHeading, Breadcrumbs, WhatsAppButton
-├─ sections/                   HeroCarousel, PageHero, ServicePageTemplate,
-│                              KitchenTypeTemplate, ProcessSteps, CTASection,
-│                              ProjectCard, BlogCard, TestimonialsSection,
-│                              FaqAccordion, InquiryForm, ProjectsGrid
-└─ admin/                      AdminSidebar, RequireAdminAuth
+├─ ui/                         Button, Container, SectionHeading, Breadcrumbs,
+│                              WhatsAppButton, InitialsAvatar (Team/Testimonials
+│                              avatars — no stock photos of unnamed people
+│                              standing in for real staff)
+└─ sections/                   HeroCarousel, PageHero, ServiceSubPage (the
+                               shared 12-sub-service-page template), CTASection,
+                               ProjectCard, BlogCard, TestimonialsSection,
+                               FaqAccordion, InquiryForm, ProjectsGrid
 
 lib/data/                      ALL page content lives here — this is effectively
-├─ company.ts                  the "CMS" today. Edit these files (or wire the
-├─ nav.ts                      admin panel to Supabase and read from there instead)
-├─ services.ts                 to change copy anywhere on the site.
-├─ kitchens.ts
-├─ projects.ts
-├─ team.ts
-├─ testimonials.ts
-├─ certifications.ts
-├─ blog.ts
-└─ home.ts                     Homepage hero slides + USPs + FAQs
+├─ company.ts                  the "CMS" today. Edit these files to change copy
+├─ nav.ts                      anywhere on the site.
+├─ services.ts                 All 12 construction/interior sub-service pages +
+│                               2 division overviews — hero copy, offering cards,
+│                               scope checklist, materials, FAQs, per page.
+├─ projects.ts                 9 portfolio projects (see §4 on why 9, not more)
+├─ team.ts, testimonials.ts, certifications.ts, blog.ts, home.ts
 
-public/images/                 All images, organized to match the sections above.
-                                Currently populated with GENERATED PLACEHOLDERS —
-                                see §4.
+public/images/                 Images, organized to match lib/data/ — one folder
+                                per sub-service (e.g. images/construction/kitchen/)
+                                holding hero.jpg, card-1..4.jpg, material-1..4.jpg.
+                                See §4 for sourcing/licensing.
 ```
 
-**Page count:** 18 public pages (Home, About, 4 Construction, 4 Interior Design
-incl. 2 kitchen types, Projects, Gallery, Team, Certifications, Blog, Contact,
-Inquiry) + 2 dynamic templates (project detail, blog post) + a 5-screen admin panel.
+**Page count:** 18 public pages (Home, About, 6 Construction sub-services + 1
+overview, 6 Interior Design sub-services + 1 overview, Projects, Gallery, Team,
+Certifications, Blog, Contact, Inquiry) + 2 dynamic templates (project detail,
+blog post).
+
+There is no admin panel — an earlier demo login/dashboard (insecure, non-
+persistent, unlinked from nav) was removed. Wire a real CMS (Supabase Studio,
+or a proper authenticated admin) directly against `lib/data/` when a backend
+is connected, rather than resurrecting the demo.
 
 ---
 
@@ -120,22 +116,33 @@ Defined in `app/globals.css` as CSS variables, mapped into Tailwind via `@theme 
 
 ---
 
-## 4. About the placeholder content
+## 4. About the content and images
 
-You told us the client has no real photos yet, so:
-
-- **All project/gallery/team photos are generated placeholders** — soft
-  blue/green branded panels with a text label, so every page looks finished
-  and on-brand rather than showing broken images. Swap these via
-  `public/images/...` (same filenames) or by wiring Admin → Projects/Gallery
-  to real storage.
+- **Every construction/interior sub-service page is data-driven.** Previously
+  each page hand-rolled its own JSX with headline/card copy disconnected from
+  `lib/data/services.ts` — now all 12 pages (plus the 2 division overviews)
+  read from one typed data file through `ServiceSubPage.tsx`, so editing copy,
+  adding a page, or re-ordering sections means editing data, not JSX.
+- **There are no photos in `public/images/` yet** except the real logo in
+  `brand/`. Every image slot the code references is listed in
+  `public/images/IMAGES_NEEDED.md` with the exact path, folder-by-folder —
+  drop a real photo of the actual project/space at that path (same filename)
+  and it appears on the site automatically, no code changes required. Until
+  then, `GracefulImage`-backed slots (all service pages, most sections) show
+  a clean "Image Coming Soon" placeholder rather than a broken image.
+- **Team and testimonial "photos" are initials avatars**
+  (`components/ui/InitialsAvatar.tsx`), not stock photos of unrelated people
+  standing in for named staff or named clients — a previous version had all
+  three leadership headshots rendering the same unrelated construction-site
+  photo. Swap in real headshots via `lib/data/team.ts` once available.
 - **Testimonials are placeholder text**, clearly flagged as such in
   `lib/data/testimonials.ts`. Replace with real client quotes before launch.
-- **All copy (service descriptions, FAQs, blog posts, process steps) is
-  original content written for this brief** — grounded in the proposal scope,
-  not placeholder lorem ipsum — so the site reads as complete even before real
-  photos exist.
-- **Contact details (phone, email, GSTIN, address) are the real ones** from
+- **Projects portfolio has 9 representative entries** (not padded to a round
+  number) in `lib/data/projects.ts`, each with its own dedicated photo set —
+  no image is reused across two different projects.
+- **All copy** (service descriptions, FAQs, blog posts) is original content
+  written for this brief, not placeholder lorem ipsum.
+- **Contact details** (phone, email, GSTIN, address) are the real ones from
   the brochure/previous site — check `lib/data/company.ts` and update if
   anything has changed.
 
@@ -143,40 +150,26 @@ You told us the client has no real photos yet, so:
 
 ## 5. Before this goes live — a checklist
 
-1. **Real photos.** Replace files under `public/images/` (same paths/filenames
-   used throughout `lib/data/`, so a straight swap is enough) or connect the
-   admin upload flow to real storage (Supabase Storage is a natural fit given
-   the proposal's tech stack).
+1. **Real project photography.** See `public/images/IMAGES_NEEDED.md` for
+   the full list of paths — add photos there as they become available.
 
-2. **Admin authentication is a demo only.** `app/admin/page.tsx` currently
-   accepts any email/password and sets a plain cookie — this is **not secure**.
-   Before launch, replace it with real authentication (Supabase Auth
-   email/password or magic link is the natural fit given the proposed stack)
-   and verify the session server-side, e.g. in `middleware.ts`, rather than
-   trusting a client-set cookie.
+2. **A real CMS/admin.** There's no admin panel today (removed — see §2).
+   Before non-developers need to edit content, wire a real authenticated
+   admin (or Supabase Studio directly) against `lib/data/`, with server-side
+   session verification, not a demo login.
 
-3. **Admin forms don't persist yet.** Projects/Media/Videos/Settings pages
-   show new entries instantly but only for the current browser session (React
-   state, not a database) — reflecting that no backend is connected yet.
-   Wire them to Supabase tables, roughly:
-   - `projects` (title, category, location, year, area, summary, description,
-     scope, cover_image_url, gallery_urls)
-   - `gallery_images` (url, caption, project_id)
-   - `videos` (platform, url, title)
-   - `site_settings` (phone, email, address, social links)
-   Then swap the static imports in `lib/data/` for Supabase queries.
-
-4. **Enquiry form.** `app/api/inquiry/route.ts` currently validates and logs
+3. **Enquiry form.** `app/api/inquiry/route.ts` currently validates and logs
    submissions server-side but doesn't forward them anywhere. Before launch,
    add an email notification (e.g. Resend) and/or save to a Supabase
    `inquiries` table so leads aren't lost.
 
-5. **Domain & metadata.** `lib/data/company.ts` sets `domain: "zemitechurban.com"`
+4. **Domain & metadata.** `lib/data/company.ts` sets `domain: "zemitechurban.com"`
    — this feeds the sitemap, robots.txt, canonical URLs and JSON-LD. Confirm
    it matches wherever this actually deploys.
 
-6. **OG image.** `public/images/og/zemitech-urban-og.jpg` is currently a
-   placeholder — swap for a real 1200×630 social preview image before launch.
+5. **OG image & real testimonials.** `public/images/og/zemitech-urban-og.jpg`
+   and `lib/data/testimonials.ts` are still stand-ins — swap for a real social
+   preview image and real client quotes before launch.
 
 ---
 
@@ -187,8 +180,7 @@ You told us the client has no real photos yet, so:
 - `sitemap.xml` and `robots.txt` generated automatically from route + content
   data (`app/sitemap.ts`, `app/robots.ts`)
 - JSON-LD structured data: `Organization`/`GeneralContractor` sitewide,
-  `FAQPage` on every page with an FAQ section, `BreadcrumbList` on every
-  inner page
+  `FAQPage` + `Service` + `BreadcrumbList` on every service page
 - Semantic breadcrumbs on every inner page (visible + schema)
 - next/image throughout, with explicit `sizes` for responsive loading
 - Canonical URLs on every route

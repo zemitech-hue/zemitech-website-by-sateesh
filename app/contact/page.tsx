@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { MapPin } from "lucide-react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import PageHero from "@/components/sections/PageHero";
@@ -20,7 +21,7 @@ const afterSubmitSteps = [
 ];
 
 export default function ContactPage() {
-  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(company.address.mapEmbedQuery)}&output=embed`;
+  const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(company.address.mapEmbedQuery)}`;
 
   return (
     <>
@@ -35,7 +36,7 @@ export default function ContactPage() {
       <TrustBar />
 
       <section className="py-16 sm:py-20">
-        <Container className="grid lg:grid-cols-5 gap-12">
+        <Container className="grid lg:grid-cols-5 gap-12 items-start">
           <div className="lg:col-span-2 space-y-8">
             <ContactBlock label="Call Us" value={company.phonePrimary} href={company.phonePrimaryHref} />
             <ContactBlock label="Email Us" value={company.emailPrimary} href={`mailto:${company.emailPrimary}`} />
@@ -58,14 +59,20 @@ export default function ContactPage() {
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />
             </div>
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-line">
-              <iframe
-                src={mapSrc}
-                title="Zemitech Urban office location"
-                className="absolute inset-0 w-full h-full"
-                loading="lazy"
-              />
-            </div>
+            <a
+              href={directionsHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 rounded-2xl border border-line bg-bg-tint p-5 hover:border-blue-300 hover:bg-white transition-colors group"
+            >
+              <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-700 shrink-0 group-hover:bg-blue-100">
+                <MapPin className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="font-semibold text-blue-950">Get directions</p>
+                <p className="text-sm text-ink-soft">Open our office location in Google Maps</p>
+              </div>
+            </a>
           </div>
 
           <div className="lg:col-span-3 rounded-2xl border border-line bg-white p-6 sm:p-8">
