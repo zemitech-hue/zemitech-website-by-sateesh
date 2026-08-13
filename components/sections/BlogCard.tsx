@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
-import { BlogPost } from "@/lib/data/blog";
+import { BlogPost } from "@/lib/types/blog";
+import GracefulImage from "@/components/ui/GracefulImage";
 
 export default function BlogCard({ post }: { post: BlogPost }) {
-  const date = new Date(post.date).toLocaleDateString("en-IN", {
+  const date = new Date(post.publishedAt).toLocaleDateString("en-IN", {
     day: "numeric",
     month: "short",
     year: "numeric",
@@ -14,7 +14,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
       className="group block rounded-3xl overflow-hidden border border-slate-200/90 bg-white/90 shadow-md shadow-blue-950/5 hover:shadow-2xl hover:shadow-blue-900/15 hover:-translate-y-1.5 transition-all duration-300 flex flex-col h-full"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-        <Image
+        <GracefulImage
           src={post.coverImage}
           alt={post.title}
           fill

@@ -29,21 +29,21 @@ const subServicesMap: Record<"construction" | "interior", SubService[]> = {
       image: "/images/home/hero-3-residential.jpg",
     },
     {
-      id: "commercial-construction",
-      label: "Commercial & Office Fit-Outs",
-      subText: "Shell & core fit-outs for IT parks, retail showrooms, and corporate offices.",
-      image: "/images/home/hero-5-commercial.jpg",
-    },
-    {
-      id: "infrastructure-construction",
-      label: "Infrastructure & Road Works",
-      subText: "Township internal roads, stormwater drainage, and civil amenities.",
-      image: "/images/home/hero-6-infrastructure.jpg",
-    },
-    {
       id: "general-civil",
       label: "Structural & Civil Construction",
       subText: "RCC frame structures, foundation works, and municipal plan sanctions.",
+      image: "/images/home/hero-1-construction.jpg",
+    },
+    {
+      id: "renovation-construction",
+      label: "Turnkey Home Renovation",
+      subText: "Structural upgrades, floor additions, and full interior handover for existing homes.",
+      image: "/images/home/hero-1-construction.jpg",
+    },
+    {
+      id: "industrial-construction",
+      label: "Industrial Warehouses & Sheds",
+      subText: "Heavy-duty structures engineered for logistics, manufacturing, and storage.",
       image: "/images/home/hero-1-construction.jpg",
     },
   ],

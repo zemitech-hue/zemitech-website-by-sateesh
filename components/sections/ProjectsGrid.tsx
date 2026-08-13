@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Project, projectCategories } from "@/lib/data/projects";
+import { Project, projectCategories } from "@/lib/types/project";
 import ProjectCard from "@/components/sections/ProjectCard";
 
 export default function ProjectsGrid({ projects }: { projects: Project[] }) {

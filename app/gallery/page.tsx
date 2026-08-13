@@ -3,7 +3,7 @@ import Container from "@/components/ui/Container";
 import PageHero from "@/components/sections/PageHero";
 import CTASection from "@/components/sections/CTASection";
 import GalleryGrid, { GalleryPhoto } from "@/components/sections/GalleryGrid";
-import { projects } from "@/lib/data/projects";
+import { getProjects } from "@/lib/supabase/queries";
 
 export const metadata: Metadata = {
   title: "Gallery",
@@ -11,12 +11,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/gallery" },
 };
 
-const galleryImages: GalleryPhoto[] = projects.flatMap((p) => [
-  { src: p.coverImage, alt: `${p.title} — cover photo`, caption: `${p.title}, ${p.location}`, category: p.category },
-  ...p.galleryDetailed.map((img) => ({ src: img.src, alt: img.alt, caption: `${p.title}, ${p.location}`, category: p.category })),
-]);
+export const revalidate = 60;
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+  const projects = await getProjects();
+  const galleryImages: GalleryPhoto[] = projects.flatMap((p) => [
+    ...(p.coverImage ? [{ src: p.coverImage, alt: `${p.title} — cover photo`, caption: `${p.title}, ${p.location}`, category: p.category }] : []),
+    ...p.galleryUrls.map((src, i) => ({ src, alt: `${p.title} — photo ${i + 1}`, caption: `${p.title}, ${p.location}`, category: p.category })),
+  ]);
+
   return (
     <>
       <PageHero

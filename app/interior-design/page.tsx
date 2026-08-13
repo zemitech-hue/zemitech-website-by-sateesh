@@ -7,7 +7,7 @@ import ProjectCard from "@/components/sections/ProjectCard";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
-import { projects } from "@/lib/data/projects";
+import { getProjects } from "@/lib/supabase/queries";
 import JsonLd, { faqJsonLd, breadcrumbJsonLd, serviceJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/data/company";
 import { interiorSubServices } from "@/lib/data/services";
@@ -33,7 +33,10 @@ const interiorFaqs = [
   { question: "Why do you use factory manufacturing instead of site carpentry?", answer: "Factory manufacturing uses automated CNC cutting and edge-banding under controlled conditions — tighter joints, moisture-sealed edges, and a shorter on-site install." },
 ];
 
-export default function InteriorDesignOverviewPage() {
+export const revalidate = 60;
+
+export default async function InteriorDesignOverviewPage() {
+  const projects = await getProjects();
   const interiorProjects = projects.filter((p) => p.category === "interior").slice(0, 4);
   const siteUrl = `https://${company.domain}`;
   const breadcrumbs = [{ name: "Interior Design", href: "/interior-design" }];

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import ImageGrid from "@/components/sections/ImageGrid";
-import { projectCategories } from "@/lib/data/projects";
+import { projectCategories } from "@/lib/types/project";
 
 export type GalleryPhoto = { src: string; alt: string; caption: string; category: string };
 

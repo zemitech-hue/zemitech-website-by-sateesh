@@ -17,8 +17,7 @@ import StepsWithImages from "@/components/sections/StepsWithImages";
 import AreasServedSection from "@/components/sections/AreasServedSection";
 import JsonLd, { faqJsonLd } from "@/components/JsonLd";
 import { homeUsps, homeFaqs, howWeWork } from "@/lib/data/home";
-import { projects } from "@/lib/data/projects";
-import { blogPosts } from "@/lib/data/blog";
+import { getProjects, getBlogPosts } from "@/lib/supabase/queries";
 
 export const metadata: Metadata = {
   title: "Construction & Interior Design Company in Pune",
@@ -27,7 +26,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-export default function HomePage() {
+export const revalidate = 60;
+
+export default async function HomePage() {
+  const [projects, blogPosts] = await Promise.all([getProjects(), getBlogPosts()]);
   const featuredProjects = projects.slice(0, 3);
   const featuredPosts = blogPosts.slice(0, 3);
 
@@ -51,11 +53,9 @@ export default function HomePage() {
               image="/images/home/division-construction.jpg"
               links={[
                 { label: "Residential Villa Construction", href: "/construction/residential" },
-                { label: "Commercial Office Fit-Outs", href: "/construction/commercial" },
-                { label: "Township Infrastructure & Roads", href: "/construction/infrastructure" },
-                { label: "Structural & Civil Engineering", href: "/construction" },
-                { label: "Turnkey Home Renovation", href: "/construction/residential" },
-                { label: "Industrial Warehouses & Sheds", href: "/construction/commercial" },
+                { label: "Structural & Civil Engineering", href: "/construction/structural-civil-engineering" },
+                { label: "Turnkey Home Renovation", href: "/construction/renovation" },
+                { label: "Industrial Warehouses & Sheds", href: "/construction/industrial" },
               ]}
             />
             <DivisionCard
@@ -68,9 +68,8 @@ export default function HomePage() {
                 { label: "Modular Kitchen Interior Design", href: "/interior-design/kitchen" },
                 { label: "Living Room TV Consoles & Ceilings", href: "/interior-design/living-room" },
                 { label: "Master Bedroom Wardrobes & Beds", href: "/interior-design/bedroom" },
-                { label: "Turnkey 2BHK & 3BHK Home Interiors", href: "/interior-design" },
-                { label: "Office Interior Fit-Outs", href: "/construction/commercial" },
-                { label: "Custom Wood & Veneer Wall Joinery", href: "/interior-design/living-room" },
+                { label: "Turnkey 2BHK & 3BHK Home Interiors", href: "/interior-design/turnkey-home-interiors" },
+                { label: "Office Interior Fit-Outs", href: "/interior-design/office" },
               ]}
             />
           </div>

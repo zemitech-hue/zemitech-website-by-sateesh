@@ -3,8 +3,8 @@
 A custom-coded Next.js website for Zemitech Urban Private Limited (Construction &
 Interior Design), built for Dorabeen.
 
-Stack: **Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4**
-Deploy target: **Vercel**. Backend target (not yet wired): **Supabase**.
+Stack: **Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Supabase**
+Deploy target: **Vercel**.
 
 ---
 
@@ -17,89 +17,139 @@ npm run build     # production build
 npm start         # serve the production build
 ```
 
-No environment variables are required to run the site as-is — everything currently
-reads from static files in `lib/data/`. See §5 for what to wire up before launch.
+The site **runs without any setup** — pages render fine with empty Projects/Blog
+sections until Supabase is connected. To make Projects and Blog live (and to use
+the `/admin` panel), see §2 below.
 
 ---
 
-## 2. Folder structure
+## 2. Supabase setup (Projects + Blog + admin panel)
+
+Projects and blog posts are **not** static files — they live in Supabase and are
+managed through `/admin`, so the client can add/edit/remove them without a
+developer or a redeploy. Team, testimonials, company info and all service-page
+copy remain plain files in `lib/data/` (see §4).
+
+1. Create a free project at [supabase.com](https://supabase.com).
+2. **SQL Editor → New query** → paste the entire contents of
+   [`supabase/schema.sql`](supabase/schema.sql) → Run. This creates the
+   `projects` and `blog_posts` tables, row-level-security policies, and two
+   Storage buckets (`project-images`, `blog-images`) for admin-uploaded photos.
+3. **Authentication → Users → Add user** — create yourself an email/password.
+   This is your `/admin` login; there's no separate signup flow by design.
+4. **Project Settings → API** — copy the **Project URL** and **anon public
+   key**. Copy `.env.local.example` to `.env.local` and paste them in:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=https://xxxxxxxx.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=xxxxxxxx
+   ```
+5. Restart `npm run dev`, go to `/admin`, sign in, and add your first project
+   or post. It appears on the live site within a minute (pages revalidate
+   every 60s) — no rebuild needed.
+
+**Video embeds:** the project editor has a "Video URL" field — paste a
+YouTube or Instagram (post/reel) link and it's embedded on that project's
+page automatically. No video files are ever uploaded; only the link is
+stored.
+
+**Photos:** the admin editors upload directly to Supabase Storage (not
+`public/images/`) — that's what the two buckets from the schema are for.
+
+---
+
+## 3. Folder structure
 
 ```
 app/                          Routes (Next.js App Router — one folder = one URL)
 ├─ page.tsx                   Home
 ├─ layout.tsx                 Root layout: fonts, metadata, JSON-LD, chrome
 ├─ globals.css                Design tokens (colors, type, blueprint-grid signature)
-├─ sitemap.ts                 Auto-generated sitemap.xml (static + dynamic routes)
-├─ robots.ts                  robots.txt (disallows /api)
+├─ sitemap.ts                 Auto-generated sitemap.xml (static + Supabase-sourced routes)
+├─ robots.ts                  robots.txt (disallows /admin, /api)
 ├─ not-found.tsx               Custom 404
 │
 ├─ about/                     About Us
 ├─ construction/               Construction division
 │  ├─ page.tsx                 Overview
-│  ├─ residential/, commercial/, infrastructure/, industrial/,
-│  │  renovation/, structural-civil-engineering/
-│  │                           6 sub-service pages — all rendered by
-│  │                           components/sections/ServiceSubPage.tsx from
-│  │                           lib/data/services.ts, ~15 lines each
+│  └─ residential/, industrial/, renovation/, structural-civil-engineering/
+│                              4 sub-service pages — all rendered by
+│                              components/sections/ServiceSubPage.tsx from
+│                              lib/data/services.ts, ~15 lines each
 ├─ interior-design/            Interior Design division
 │  ├─ page.tsx                 Overview
-│  ├─ kitchen/, living-room/, bedroom/, office/, custom-joinery/
-│  │                           5 sub-service pages, same ServiceSubPage template
+│  ├─ kitchen/, living-room/, bedroom/, office/
+│  │                           4 sub-service pages, same ServiceSubPage template
 │  └─ turnkey-home-interiors/  Bespoke (room-by-room interactive), still
 │                               data-driven from lib/data/services.ts
 ├─ projects/
-│  ├─ page.tsx                 Portfolio grid with category filter
-│  └─ [slug]/                  Dynamic project detail (generateStaticParams)
-├─ gallery/                    Photo grid (pulled from project data)
+│  ├─ page.tsx                 Portfolio grid with category filter (Supabase)
+│  └─ [slug]/                  Project detail — description, challenge/solution,
+│                               video embed, gallery (Supabase)
+├─ gallery/                    Photo grid (pulled from Supabase project photos)
 ├─ team/                       Leadership + departments
 ├─ certifications/             Registrations & compliance
 ├─ blog/
-│  ├─ page.tsx                 Blog listing
-│  └─ [slug]/                  Dynamic post detail
-├─ contact/                    Contact details + enquiry form + map
+│  ├─ page.tsx                 Blog listing (Supabase)
+│  └─ [slug]/                  Post detail, Markdown content (Supabase)
+├─ contact/                    Contact details + enquiry form + "Get directions" link
 ├─ inquiry/                    Dedicated "Get a Free Quote" landing page
-└─ api/inquiry/route.ts        Form submission endpoint (currently logs server-side)
+├─ api/inquiry/route.ts        Form submission endpoint (currently logs server-side)
+│
+└─ admin/                      Real Supabase Auth-gated admin (proxy.ts protects
+   ├─ page.tsx                  /admin/dashboard/**) — sign in, then manage:
+   └─ dashboard/
+      ├─ projects/               Create/edit/delete projects, upload photos,
+      │                          set the video URL, publish/unpublish
+      └─ blog/                   Create/edit/delete posts, upload cover photo,
+                                 write body as Markdown, publish/unpublish
 
 components/
-├─ Header.tsx, Footer.tsx, SiteChrome.tsx   Global chrome
+├─ Header.tsx, Footer.tsx, SiteChrome.tsx   Global chrome (hides header/footer
+│                                            on /admin routes)
 ├─ JsonLd.tsx                  Structured data helpers (FAQPage, BreadcrumbList)
+├─ admin/                      ProjectForm, BlogForm, ImageUploadField,
+│                              GalleryUploadField, DeleteButton
 ├─ ui/                         Button, Container, SectionHeading, Breadcrumbs,
 │                              WhatsAppButton, InitialsAvatar (Team/Testimonials
 │                              avatars — no stock photos of unnamed people
 │                              standing in for real staff)
 └─ sections/                   HeroCarousel, PageHero, ServiceSubPage (the
                                shared 12-sub-service-page template), CTASection,
-                               ProjectCard, BlogCard, TestimonialsSection,
+                               ProjectCard, BlogCard, VideoEmbed, TestimonialsSection,
                                FaqAccordion, InquiryForm, ProjectsGrid
 
-lib/data/                      ALL page content lives here — this is effectively
-├─ company.ts                  the "CMS" today. Edit these files to change copy
-├─ nav.ts                      anywhere on the site.
-├─ services.ts                 All 12 construction/interior sub-service pages +
-│                               2 division overviews — hero copy, offering cards,
-│                               scope checklist, materials, FAQs, per page.
-├─ projects.ts                 9 portfolio projects (see §4 on why 9, not more)
-├─ team.ts, testimonials.ts, certifications.ts, blog.ts, home.ts
+lib/
+├─ data/                       Plain-file content that isn't admin-managed —
+│  ├─ company.ts                edit these to change copy anywhere on the site.
+│  ├─ nav.ts
+│  ├─ services.ts               All 12 construction/interior sub-service pages +
+│  │                             2 division overviews.
+│  └─ team.ts, testimonials.ts, certifications.ts, home.ts
+├─ supabase/
+│  ├─ client.ts                 Browser Supabase client
+│  ├─ server.ts                 Server Component/Action Supabase client + cookies
+│  ├─ queries.ts                Typed reads: getProjects, getBlogPosts, etc.
+│  └─ actions.ts                Server Actions: signIn/signOut, project/post CRUD
+└─ types/                       Project, BlogPost types (mirror supabase/schema.sql)
 
-public/images/                 Images, organized to match lib/data/ — one folder
-                                per sub-service (e.g. images/construction/kitchen/)
-                                holding hero.jpg, card-1..4.jpg, material-1..4.jpg.
-                                See §4 for sourcing/licensing.
+supabase/schema.sql             Paste into the Supabase SQL editor — see §2.
+proxy.ts                        Next.js 16's replacement for middleware.ts —
+                                 refreshes the auth session, gates /admin/dashboard.
+
+public/images/                  Local, code-owned images only (logo, service/page
+                                 photography you add yourself — see
+                                 public/images/IMAGES_NEEDED.md). Project and blog
+                                 photos live in Supabase Storage instead.
 ```
 
-**Page count:** 18 public pages (Home, About, 6 Construction sub-services + 1
-overview, 6 Interior Design sub-services + 1 overview, Projects, Gallery, Team,
+**Page count:** 20 public pages (Home, About, 4 Construction sub-services + 1
+overview, 5 Interior Design sub-services + 1 overview, Projects, Gallery, Team,
 Certifications, Blog, Contact, Inquiry) + 2 dynamic templates (project detail,
-blog post).
-
-There is no admin panel — an earlier demo login/dashboard (insecure, non-
-persistent, unlinked from nav) was removed. Wire a real CMS (Supabase Studio,
-or a proper authenticated admin) directly against `lib/data/` when a backend
-is connected, rather than resurrecting the demo.
+blog post) + a Supabase-backed admin panel.
 
 ---
 
-## 3. Design system
+## 4. Design system
 
 Defined in `app/globals.css` as CSS variables, mapped into Tailwind via `@theme inline`:
 
@@ -116,47 +166,40 @@ Defined in `app/globals.css` as CSS variables, mapped into Tailwind via `@theme 
 
 ---
 
-## 4. About the content and images
+## 5. About the content and images
 
-- **Every construction/interior sub-service page is data-driven.** Previously
-  each page hand-rolled its own JSX with headline/card copy disconnected from
-  `lib/data/services.ts` — now all 12 pages (plus the 2 division overviews)
-  read from one typed data file through `ServiceSubPage.tsx`, so editing copy,
+- **Every construction/interior sub-service page is data-driven.** All 12
+  sub-service pages (plus the 2 division overviews) read from one typed data
+  file (`lib/data/services.ts`) through `ServiceSubPage.tsx`, so editing copy,
   adding a page, or re-ordering sections means editing data, not JSX.
-- **There are no photos in `public/images/` yet** except the real logo in
-  `brand/`. Every image slot the code references is listed in
-  `public/images/IMAGES_NEEDED.md` with the exact path, folder-by-folder —
-  drop a real photo of the actual project/space at that path (same filename)
-  and it appears on the site automatically, no code changes required. Until
-  then, `GracefulImage`-backed slots (all service pages, most sections) show
-  a clean "Image Coming Soon" placeholder rather than a broken image.
+- **Projects and blog posts live in Supabase**, managed through `/admin` —
+  see §2. There is no seed/demo data; both tables start empty and the site
+  renders correctly either way (empty-state messaging, not broken layout).
+- **There are no photos in `public/images/`** except the real logo in
+  `brand/`. Every image slot the (non-Supabase) code references is listed in
+  `public/images/IMAGES_NEEDED.md` — drop a real photo at that exact path and
+  it appears automatically. Until then, `GracefulImage`-backed slots show a
+  clean "Image Coming Soon" placeholder rather than a broken image.
 - **Team and testimonial "photos" are initials avatars**
   (`components/ui/InitialsAvatar.tsx`), not stock photos of unrelated people
-  standing in for named staff or named clients — a previous version had all
-  three leadership headshots rendering the same unrelated construction-site
-  photo. Swap in real headshots via `lib/data/team.ts` once available.
+  standing in for named staff or named clients. Swap in real headshots via
+  `lib/data/team.ts` once available.
 - **Testimonials are placeholder text**, clearly flagged as such in
   `lib/data/testimonials.ts`. Replace with real client quotes before launch.
-- **Projects portfolio has 9 representative entries** (not padded to a round
-  number) in `lib/data/projects.ts`, each with its own dedicated photo set —
-  no image is reused across two different projects.
-- **All copy** (service descriptions, FAQs, blog posts) is original content
-  written for this brief, not placeholder lorem ipsum.
 - **Contact details** (phone, email, GSTIN, address) are the real ones from
   the brochure/previous site — check `lib/data/company.ts` and update if
   anything has changed.
 
 ---
 
-## 5. Before this goes live — a checklist
+## 6. Before this goes live — a checklist
 
-1. **Real project photography.** See `public/images/IMAGES_NEEDED.md` for
-   the full list of paths — add photos there as they become available.
+1. **Supabase project.** Follow §2 if you haven't yet — nothing in Projects,
+   Blog, or `/admin` works without it.
 
-2. **A real CMS/admin.** There's no admin panel today (removed — see §2).
-   Before non-developers need to edit content, wire a real authenticated
-   admin (or Supabase Studio directly) against `lib/data/`, with server-side
-   session verification, not a demo login.
+2. **Real project photography.** Add your first projects through `/admin` —
+   see §2. For the remaining static image slots, see
+   `public/images/IMAGES_NEEDED.md`.
 
 3. **Enquiry form.** `app/api/inquiry/route.ts` currently validates and logs
    submissions server-side but doesn't forward them anywhere. Before launch,
@@ -173,7 +216,7 @@ Defined in `app/globals.css` as CSS variables, mapped into Tailwind via `@theme 
 
 ---
 
-## 6. SEO already in place
+## 7. SEO already in place
 
 - Per-page `<title>` / meta description on all 18 pages, following the
   `%s | Zemitech Urban` template

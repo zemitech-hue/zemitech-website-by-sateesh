@@ -83,108 +83,6 @@ export const subServices: Record<string, SubService> = {
     projectCategory: "residential",
   },
 
-  "construction-commercial": {
-    slug: "construction/commercial",
-    division: "construction",
-    parentLabel: "Construction",
-    parentHref: "/construction",
-    navLabel: "Commercial Construction",
-    title: "Commercial Office Spaces Built Around Your Business",
-    metaTitle: "Commercial Construction Contractor Pune | Zemitech Urban",
-    metaDescription:
-      "Office, retail & IT park construction contractor in Pune — MEP coordination, fire compliance, fit-outs delivered on a fixed opening-date schedule.",
-    heroCopy: "From planning and civil works to finishing and handover, manage your office project through one coordinated team.",
-    heroImage: "/images/construction/commercial/hero.jpg",
-    primaryCtaText: "Discuss Your Office Project",
-    cards: {
-      eyebrow: "Spaces",
-      title: "Commercial Spaces We Work On",
-      sub: "Tailored commercial interior and structural construction solutions.",
-      items: [
-        { title: "Corporate Offices", image: "/images/construction/commercial/card-1.jpg", description: "Multi-floor corporate headquarters with custom executive suites and brand integration." },
-        { title: "Startup Workspaces", image: "/images/construction/commercial/card-2.jpg", description: "Flexible workstation clusters, open breakout zones, and high-density desk layouts." },
-        { title: "Glass Conference Facilities", image: "/images/construction/commercial/card-3.jpg", description: "Acoustically sound double-glazed meeting rooms and presentation boardrooms." },
-        { title: "Retail & Showroom Fit-Outs", image: "/images/construction/commercial/card-4.jpg", description: "Shell-and-core and full retail fit-outs sequenced around a fixed opening date." },
-      ],
-    },
-    scope: {
-      eyebrow: "Capabilities",
-      title: "What the Fit-Out Includes",
-      groups: [
-        { category: "Core Works", items: ["Space planning", "Civil modifications", "Partitions", "Doors", "Joinery"] },
-        { category: "Finishing & Services", items: ["Flooring", "Ceiling", "Electrical coordination", "HVAC & fire compliance", "Painting"] },
-      ],
-    },
-    materials: {
-      eyebrow: "Selections",
-      title: "Materials & Finishes",
-      items: [
-        { name: "Double-Glazed Facade Units", image: "/images/construction/commercial/material-1.jpg" },
-        { name: "Fire-Rated Partitions", image: "/images/construction/commercial/material-2.jpg" },
-        { name: "Access & Raised Flooring", image: "/images/construction/commercial/material-3.jpg" },
-        { name: "Acoustic Ceiling Systems", image: "/images/construction/commercial/material-4.jpg" },
-      ],
-    },
-    faqs: [
-      { question: "Do you work inside occupied buildings?", answer: "Yes, we run phased fit-out plans with off-hours work windows where needed to avoid disrupting existing tenants or operations." },
-      { question: "Can you coordinate fire and HVAC vendors directly?", answer: "Yes, MEP vendor coordination is part of our standard commercial scope so trades don't conflict on site." },
-      { question: "What's a realistic timeline for a mid-size office fit-out?", answer: "For an 8,000–20,000 sq. ft. floor, 60–90 working days from design freeze to handover is typical." },
-      { question: "Can construction be sequenced around our lease start date?", answer: "Yes — we plan every commercial project backwards from your opening date, not forwards from a start date." },
-    ],
-    finalCta: { title: "Planning a New Commercial Space?", copy: "Tell us about your floor area and target move-in timeline to get started.", primaryCtaText: "Discuss Your Office Project" },
-    projectCategory: "commercial",
-  },
-
-  "construction-infrastructure": {
-    slug: "construction/infrastructure",
-    division: "construction",
-    parentLabel: "Construction",
-    parentHref: "/construction",
-    navLabel: "Township Infrastructure",
-    title: "Infrastructure Built for Long-Term Performance",
-    metaTitle: "Infrastructure & Township Construction Pune | Zemitech Urban",
-    metaDescription:
-      "Township infrastructure contractor in Pune — internal roads, storm-water drainage, boundary works, phased zone handover aligned to sales timelines.",
-    heroCopy: "Structured execution for roads, site development and civil infrastructure requirements.",
-    heroImage: "/images/construction/infrastructure/hero.jpg",
-    primaryCtaText: "Discuss the Requirement",
-    cards: {
-      eyebrow: "Capabilities",
-      title: "Infrastructure Capabilities",
-      sub: "Civil infrastructure and township land development services.",
-      items: [
-        { title: "Internal Concrete Roads", image: "/images/construction/infrastructure/card-1.jpg", description: "RCC rigid pavement internal roads designed for heavy vehicle transit." },
-        { title: "Township Site Development", image: "/images/construction/infrastructure/card-2.jpg", description: "Mass earthwork, grading, terracing, and plot demarcation for master-planned layouts." },
-        { title: "Stormwater Drainage Systems", image: "/images/construction/infrastructure/card-3.jpg", description: "Reinforced box culverts and roadside RCC storm-water drainage channels." },
-        { title: "Boundary Walls & Utilities", image: "/images/construction/infrastructure/card-4.jpg", description: "Compound boundary walls, security gates, and underground utility ducting." },
-      ],
-    },
-    scope: {
-      eyebrow: "Detailed Process",
-      title: "Road & Civil Construction Process",
-      groups: [
-        { category: "Execution Stages", items: ["Site preparation", "Earthwork & grading", "Sub-base", "Base preparation", "Surface work", "Drainage & finishing"] },
-      ],
-    },
-    materials: {
-      eyebrow: "Selections",
-      title: "Materials & Standards",
-      items: [
-        { name: "WBM & Bitumen Road Base", image: "/images/construction/infrastructure/material-1.jpg" },
-        { name: "RCC Hume Pipe Drainage", image: "/images/construction/infrastructure/material-2.jpg" },
-        { name: "Precast Boundary Panels", image: "/images/construction/infrastructure/material-3.jpg" },
-        { name: "LED Street Lighting", image: "/images/construction/infrastructure/material-4.jpg" },
-      ],
-    },
-    faqs: [
-      { question: "Can construction be phased around our sales possession dates?", answer: "Yes, phasing is planned jointly with your sales timeline so priority blocks are handed over first." },
-      { question: "How is storm-water drainage sized for a township?", answer: "Based on actual catchment area and site grading from the survey stage — not a standard pipe diameter." },
-      { question: "Do you provide as-built documentation after each phase?", answer: "Yes, every phase handover includes as-built drawings and utility maps for future maintenance or later phases." },
-      { question: "Can you also build individual units within the township?", answer: "Yes — many infrastructure clients also engage our residential team for unit-level builds within the same development." },
-    ],
-    finalCta: { title: "Planning Infrastructure for a New Development?", copy: "Tell us what you're building, where you're building it and what you need from our team.", primaryCtaText: "Discuss the Requirement" },
-    projectCategory: "infrastructure",
-  },
 
   "construction-industrial": {
     slug: "construction/industrial",
@@ -539,55 +437,6 @@ export const subServices: Record<string, SubService> = {
     projectCategory: "commercial",
   },
 
-  "interior-custom-joinery": {
-    slug: "interior-design/custom-joinery",
-    division: "interior-design",
-    parentLabel: "Interior Design",
-    parentHref: "/interior-design",
-    navLabel: "Custom Wood & Joinery",
-    title: "Custom Joinery Designed Down to the Detail",
-    metaTitle: "Custom Wood & Veneer Joinery Pune | Zemitech Urban",
-    metaDescription: "Bespoke woodwork, panelling, and furniture crafted with precision and premium materials in Pune.",
-    heroCopy: "Bespoke woodwork, panelling, and furniture crafted with precision and premium materials.",
-    heroImage: "/images/interior/custom-joinery/hero.jpg",
-    primaryCtaText: "Discuss a Custom Requirement",
-    cards: {
-      eyebrow: "Capabilities",
-      title: "What We Create",
-      sub: "Bespoke architectural woodworking and custom joinery crafted to millimeter precision.",
-      items: [
-        { title: "Bespoke Fluted Wall Panelling", image: "/images/interior/custom-joinery/card-1.jpg", description: "Precision CNC slatted vertical wood panels with concealed LED cove lighting and hidden door integration." },
-        { title: "Media Consoles & TV Backdrops", image: "/images/interior/custom-joinery/card-2.jpg", description: "Custom entertainment units combining stone backings, veneer storage cabinets, and concealed wiring." },
-        { title: "Architectural Wardrobe Systems", image: "/images/interior/custom-joinery/card-3.jpg", description: "Floor-to-ceiling sliding and hinged wardrobe shutters manufactured in-factory with soft-close hardware." },
-        { title: "Custom Woodwork & Partitions", image: "/images/interior/custom-joinery/card-4.jpg", description: "Decorative CNC lattice partitions, acoustic wood slatted dividers, and custom furniture joinery." },
-      ],
-    },
-    scope: {
-      eyebrow: "Included",
-      title: "Joinery Scope",
-      groups: [
-        { category: "Standard Scope", items: ["CNC-cut panelling & partitions", "Custom furniture & media units", "Wardrobe & storage systems", "Finish & polish (veneer / laminate / PU)"] },
-      ],
-    },
-    materials: {
-      eyebrow: "Library",
-      title: "Veneer & Material Selection",
-      items: [
-        { name: "Natural Wood Textures", image: "/images/interior/custom-joinery/material-1.jpg" },
-        { name: "Veneers", image: "/images/interior/custom-joinery/material-2.jpg" },
-        { name: "Laminates", image: "/images/interior/custom-joinery/material-3.jpg" },
-        { name: "Polyurethane Finishes", image: "/images/interior/custom-joinery/material-4.jpg" },
-      ],
-    },
-    faqs: [
-      { question: "Can you match existing wood finishes in my home?", answer: "Yes, veneer and laminate finishes are matched against existing woodwork samples before manufacturing starts." },
-      { question: "Do you build custom furniture, not just wall panelling?", answer: "Yes, media consoles, credenzas and other bespoke furniture pieces are part of our custom joinery scope." },
-      { question: "What's the typical lead time for custom joinery?", answer: "Factory manufacturing typically takes 3–5 weeks from approved design, followed by a short on-site installation window." },
-      { question: "Is CNC-cut panelling more expensive than site carpentry?", answer: "It's comparable in cost but delivers tighter tolerances and a faster, less disruptive on-site install." },
-    ],
-    finalCta: { title: "Have a Custom Joinery Requirement?", copy: "Tell us about your interior requirement and let's discuss the right approach.", primaryCtaText: "Start a Conversation" },
-    projectCategory: "interior",
-  },
 };
 
 export type TurnkeyRoom = { name: string; image: string; scope: string[] };
@@ -626,8 +475,6 @@ export const turnkeyHomeInteriors = {
 
 export const constructionSubServices = [
   subServices["construction-residential"],
-  subServices["construction-commercial"],
-  subServices["construction-infrastructure"],
   subServices["construction-structural-civil-engineering"],
   subServices["construction-renovation"],
   subServices["construction-industrial"],
@@ -639,5 +486,4 @@ export const interiorSubServices = [
   subServices["interior-bedroom"],
   { ...turnkeyHomeInteriors, division: "interior-design" as const },
   subServices["interior-office"],
-  subServices["interior-custom-joinery"],
 ];

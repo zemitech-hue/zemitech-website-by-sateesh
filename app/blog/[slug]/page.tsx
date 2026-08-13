@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Container from "@/components/ui/Container";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
 import CTASection from "@/components/sections/CTASection";
 import BlogCard from "@/components/sections/BlogCard";
 import BlogContent from "@/components/sections/BlogContent";
-import { blogPosts } from "@/lib/data/blog";
+import GracefulImage from "@/components/ui/GracefulImage";
+import { getBlogPost, getBlogPosts } from "@/lib/supabase/queries";
 
-export function generateStaticParams() {
-  return blogPosts.map((p) => ({ slug: p.slug }));
-}
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,
@@ -19,7 +17,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = await getBlogPost(slug);
   if (!post) return {};
   return {
     title: post.title,
@@ -34,11 +32,12 @@ export default async function BlogDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = await getBlogPost(slug);
   if (!post) return notFound();
 
-  const date = new Date(post.date).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
-  const related = blogPosts.filter((p) => p.category === post.category && p.slug !== post.slug).slice(0, 3);
+  const date = new Date(post.publishedAt).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+  const allPosts = await getBlogPosts();
+  const related = allPosts.filter((p) => p.category === post.category && p.slug !== post.slug).slice(0, 3);
 
   return (
     <>
@@ -54,13 +53,13 @@ export default async function BlogDetailPage({
 
       <Container className="max-w-3xl">
         <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-blue-100">
-          <Image src={post.coverImage} alt={post.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 768px" priority />
+          <GracefulImage src={post.coverImage} alt={post.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 768px" priority />
         </div>
       </Container>
 
       <section className="py-12">
         <Container className="max-w-3xl">
-          <BlogContent blocks={post.content} />
+          <BlogContent content={post.contentMd} />
         </Container>
       </section>
 

@@ -8,8 +8,6 @@ type Step = "MAJOR_SERVICE" | "SUB_SERVICE" | "LEAD_FORM" | "SUCCESS";
 const subServices = {
   construction: [
     "Residential Villa Construction",
-    "Commercial Office Fit-Outs",
-    "Township Infrastructure",
     "Structural & Civil Engineering",
     "Turnkey Home Renovation",
     "Industrial Warehouses",
@@ -20,7 +18,6 @@ const subServices = {
     "Master Bedroom & Wardrobes",
     "Turnkey 2BHK & 3BHK",
     "Office Interior Fit-Outs",
-    "Custom Wall Joinery",
   ],
 };
 

@@ -3,16 +3,20 @@ import Container from "@/components/ui/Container";
 import PageHero from "@/components/sections/PageHero";
 import CTASection from "@/components/sections/CTASection";
 import ProjectsGrid from "@/components/sections/ProjectsGrid";
-import { projects } from "@/lib/data/projects";
+import { getProjects } from "@/lib/supabase/queries";
 
 export const metadata: Metadata = {
   title: "Project Portfolio",
   description:
-    "15+ completed residential, commercial, infrastructure & interior design projects across Narhe, Kondhwa, Wagholi, Hinjewadi and wider Pune — filter by category.",
+    "Completed residential, commercial, infrastructure & interior design projects across Narhe, Kondhwa, Wagholi, Hinjewadi and wider Pune — filter by category.",
   alternates: { canonical: "/projects" },
 };
 
-export default function ProjectsPage() {
+export const revalidate = 60;
+
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+
   return (
     <>
       <PageHero

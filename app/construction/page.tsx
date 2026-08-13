@@ -8,7 +8,7 @@ import ProjectCard from "@/components/sections/ProjectCard";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
-import { projects } from "@/lib/data/projects";
+import { getProjects } from "@/lib/supabase/queries";
 import JsonLd, { faqJsonLd, breadcrumbJsonLd, serviceJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/data/company";
 import { constructionSubServices } from "@/lib/data/services";
@@ -39,7 +39,10 @@ const constructionFaqs = [
   },
 ];
 
-export default function ConstructionOverviewPage() {
+export const revalidate = 60;
+
+export default async function ConstructionOverviewPage() {
+  const projects = await getProjects();
   const constructionProjects = projects.filter((p) => p.category === "residential" || p.category === "commercial" || p.category === "infrastructure").slice(0, 4);
   const siteUrl = `https://${company.domain}`;
   const breadcrumbs = [{ name: "Construction", href: "/construction" }];

@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
-import { Project } from "@/lib/data/projects";
+import { Project } from "@/lib/types/project";
+import GracefulImage from "@/components/ui/GracefulImage";
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
@@ -9,7 +9,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       className="group block rounded-3xl overflow-hidden border border-slate-200/90 bg-white/90 shadow-md shadow-blue-950/5 hover:shadow-2xl hover:shadow-blue-900/15 hover:-translate-y-1.5 transition-all duration-300 flex flex-col h-full"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
-        <Image
+        <GracefulImage
           src={project.coverImage}
           alt={project.title}
           fill
