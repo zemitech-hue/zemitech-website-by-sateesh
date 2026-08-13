@@ -45,7 +45,7 @@ export const blogPosts: BlogPost[] = [
       { type: "image", src: "/images/blog/kitchen-layout-guide-parallel.jpg", alt: "Parallel galley kitchen layout with two facing counters", caption: "A parallel (galley) layout, two facing counters" },
       { type: "h2", text: "L-shape kitchens: when a corner earns its keep" },
       { type: "p", text: "An L-shape layout wraps cabinetry across two adjoining walls and needs roughly 8x8 ft to work well. Its real advantage over a straight or parallel kitchen isn't the two walls themselves — it's the corner, which, properly fitted with a carousel or magic-corner pull-out, recovers storage that would otherwise sit dead behind two intersecting cabinet runs." },
-      { type: "p", text: "L-shape is our most common recommendation for open-plan apartments specifically because it keeps the cooking zone contained on two walls while leaving the third side open toward the living or dining area — see our full [L-shape kitchen](/interior-design/kitchen/l-shape-kitchen) page for corner-storage options and material specification." },
+      { type: "p", text: "L-shape is our most common recommendation for open-plan apartments specifically because it keeps the cooking zone contained on two walls while leaving the third side open toward the living or dining area — see our [kitchen design](/interior-design/kitchen) page for corner-storage options and material specification." },
       { type: "h2", text: "A quick layout comparison" },
       {
         type: "table",
@@ -79,7 +79,7 @@ export const blogPosts: BlogPost[] = [
       { type: "h2", text: "How we decide which layout fits your kitchen" },
       { type: "p", text: "We start with a tape measure, not a mood board — full room width and depth, door and window swing clearances, and where existing plumbing and gas points sit, since relocating either adds cost. From there the layout choice is mostly arithmetic: if you've got one long wall, straight or parallel; if you've got two connecting walls with reasonable depth, L-shape becomes the stronger option." },
       { type: "p", text: "If your kitchen is larger and opens onto a living-dining area, it's also worth reading about [Island and U-Shape kitchens](/interior-design/kitchen#island-kitchen) on our kitchen overview page — both need more clearance than a standard apartment kitchen offers, but are worth considering in bigger, open-plan homes." },
-      { type: "p", text: "Whichever layout fits, every kitchen we build — [modular](/interior-design/kitchen/modular-kitchen) or L-shape — ships with the same soft-close hardware and factory-finished carcass as standard, so the layout decision is about fit, not about which one is 'better built.'" },
+      { type: "p", text: "Whichever layout fits, every [kitchen we build](/interior-design/kitchen) ships with the same soft-close hardware and factory-finished carcass as standard, so the layout decision is about fit, not about which one is 'better built.'" },
     ],
   },
   {

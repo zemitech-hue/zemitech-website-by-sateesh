@@ -32,8 +32,7 @@ export default function HeroCarousel() {
   // Helper to color key words in headline with vibrant blue accent
   const renderHighlightedHeadline = (headline: string) => {
     const highlights = ["outlast the blueprint.", "same team.", "how you actually live.", "everyone actually uses.", "opens on schedule.", "infrastructure", "custom wall joinery."];
-    let result = headline;
-    
+
     for (const h of highlights) {
       if (headline.includes(h)) {
         const parts = headline.split(h);

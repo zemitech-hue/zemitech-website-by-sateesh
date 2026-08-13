@@ -75,7 +75,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex flex-col bg-background text-foreground">
         <script
           type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
+           
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <SiteChrome>{children}</SiteChrome>

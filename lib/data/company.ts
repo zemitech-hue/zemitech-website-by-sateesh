@@ -1,6 +1,5 @@
 // Single source of truth for company facts.
-// Editing this file (or the equivalent row in the admin "Site Settings" panel
-// once wired to Supabase) updates the footer, contact page, and structured data everywhere.
+// Editing this file updates the footer, contact page, and structured data everywhere.
 
 export const company = {
   legalName: "Zemitech Urban Private Limited",

@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
 import ServiceHero from "@/components/sections/ServiceHero";
-import ServiceProblemCards from "@/components/sections/ServiceProblemCards";
-
 import MaterialBoard from "@/components/sections/MaterialBoard";
 import FaqAccordion from "@/components/sections/FaqAccordion";
 import ServiceFinalCTA from "@/components/sections/ServiceFinalCTA";
@@ -14,9 +11,7 @@ import Button from "@/components/ui/Button";
 import { projects } from "@/lib/data/projects";
 import JsonLd, { faqJsonLd, breadcrumbJsonLd, serviceJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/data/company";
-import { services } from "@/lib/data/services";
-
-const service = services["construction"];
+import { constructionSubServices } from "@/lib/data/services";
 
 export const metadata: Metadata = {
   title: "Construction Services in Pune — Residential, Commercial & Infrastructure",
@@ -25,57 +20,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/construction" },
 };
 
-const constructionServices = [
-  {
-    title: "Residential Villa Construction",
-    href: "/construction/residential",
-    image: "/images/home/hero-3-residential.jpg",
-    description:
-      "Custom independent homes, duplexes and luxury villas built from groundwork to final coat of paint. Vastu-aware layouts, fixed-scope BOQ, and stage-wise billing.",
-    features: ["Custom Villa & Duplex Layouts", "Vastu-Aware Architectural Design", "8–11 Months Target Delivery", "12-Month Structural Warranty"],
-  },
-  {
-    title: "Commercial Office Fit-Outs",
-    href: "/construction/commercial",
-    image: "/images/home/hero-5-commercial.jpg",
-    description:
-      "Offices, retail stores, showrooms and IT park building fit-outs sequenced backwards from your target opening date. Full MEP trade coordination on one drawing.",
-    features: ["Schedule-First Opening Target", "MEP & Fire Code Compliance", "Off-Hours Work Windows", "As-Built Documentation"],
-  },
-  {
-    title: "Township Infrastructure & Roads",
-    href: "/construction/infrastructure",
-    image: "/images/home/hero-6-infrastructure.jpg",
-    description:
-      "Township-scale civil works: internal road networks, storm-water drainage sized to catchment, boundary walls, and clubhouse amenity structures.",
-    features: ["Phased Zone Handover", "Storm-water Catchment Sizing", "Utility Ducting Pre-surfacing", "Developer Timeline Alignment"],
-  },
-  {
-    title: "Structural & Civil Engineering",
-    href: "/construction/structural-civil-engineering",
-    image: "/images/services/civil/thumb.jpg",
-    description:
-      "Foundation design, RCC framework, retrofitting, seismic structural auditing, and civil engineering supervision for complex architectural plans.",
-    features: ["Fe 550D TMT Reinforcement", "Concrete Mix Design & Testing", "Structural Stability Audit", "Resident Site Engineers"],
-  },
-  {
-    title: "Turnkey Home Renovation",
-    href: "/construction/renovation",
-    image: "/images/services/renovation/thumb.jpg",
-    description:
-      "Full structural upgrades, floor additions, wall re-alignments, exterior waterproofing, and modern facade revamps for existing homes and properties.",
-    features: ["Structural Integrity Checks", "Clean Site Containment", "Fixed Renovation BOQ", "Complete Interior Handover"],
-  },
-  {
-    title: "Industrial Warehouses & Sheds",
-    href: "/construction/industrial",
-    image: "/images/services/industrial/hero.jpg",
-    description:
-      "PEB steel sheds, industrial warehouses, factory floors, and heavy-duty concrete aprons designed for high equipment load and logistics workflows.",
-    features: ["Pre-Engineered Steel Framework", "Heavy-Duty Trimix Flooring", "High Clearance & Crane Beams", "Industrial Safety Compliant"],
-  },
-];
-
 const constructionFaqs = [
   {
     question: "What types of construction projects does Zemitech Urban handle?",
@@ -83,23 +27,15 @@ const constructionFaqs = [
   },
   {
     question: "How is pricing structured for construction projects?",
-    answer: "We provide a fully itemized Bill of Quantities (BOQ) with material grades, steel/cement specifications, and labor costs agreed upon upfront. Payments are linked to verified site milestones (e.g. footing, slab, brickwork) rather than calendar dates.",
+    answer: "We provide a fully itemized Bill of Quantities (BOQ) with material grades and labor costs agreed upfront. Payments are linked to verified site milestones, not calendar dates.",
   },
   {
     question: "Do you manage municipal plan sanctions and approvals?",
-    answer: "Yes, our team coordinates architectural drawings, structural stability certifications, municipal plan sanctions (PMC / PCMC / PMRDA), and completion certificates as part of our turnkey execution.",
+    answer: "Yes, our team coordinates architectural drawings, structural certifications, municipal plan sanctions and completion certificates as part of our turnkey execution.",
   },
   {
     question: "Do you hire third-party subcontractors?",
-    answer: "No, core structural engineering, masonry, steel-binding, and site supervision are handled by our own in-house engineers and dedicated site crews to guarantee consistent craftsmanship.",
-  },
-  {
-    question: "What is your typical project timeline?",
-    answer: "Independent villas take 8–11 months, commercial fit-outs take 60–90 days, and infrastructure phases range from 8–14 months depending on acreage and site complexity.",
-  },
-  {
-    question: "How do you handle construction during Pune's monsoon season?",
-    answer: "Site activities are planned around monsoon seasons. Foundation and structural concrete pours are scheduled ahead of heavy rain, and waterproofing protocols are applied before finishing work begins.",
+    answer: "No — core structural engineering, masonry, and site supervision are handled by our own in-house engineers and site crews.",
   },
 ];
 
@@ -112,9 +48,9 @@ export default function ConstructionOverviewPage() {
     <>
       <JsonLd data={faqJsonLd(constructionFaqs)} />
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", href: siteUrl }, ...breadcrumbs].map(b => ({ name: b.name, url: b.href.startsWith("http") ? b.href : `${siteUrl}${b.href}` })))} />
-      <JsonLd data={serviceJsonLd({ name: service.title, description: service.metaDescription, url: `${siteUrl}/${service.slug}`, siteUrl, legalName: company.legalName })} />
+      <JsonLd data={serviceJsonLd({ name: "Construction Services", description: metadata.description as string, url: `${siteUrl}/construction`, siteUrl, legalName: company.legalName })} />
 
-      {/* SECTION 1 — HERO */}
+      {/* Section 1 — Hero */}
       <ServiceHero
         headline="End-to-End Construction Services in Pune"
         copy="From independent villas and commercial fit-outs to township infrastructure — built by one accountable engineering team with fixed BOQs and weekly photo reports."
@@ -122,30 +58,29 @@ export default function ConstructionOverviewPage() {
         primaryCtaLink="/contact"
         secondaryCtaText="Explore Portfolio"
         secondaryCtaLink="/projects"
-        image="/images/home/hero-1-construction.jpg"
-        breadcrumbs={breadcrumbs}
+        image="/images/construction/overview/hero.jpg"
       />
 
-      {/* SECTION 2 — CONSTRUCTION SERVICES & DIVISIONS (NAVIGATION CARDS) */}
+      {/* Section 2 — Sub-service navigation cards (pulled from lib/data/services.ts) */}
       <section className="py-20 bg-white border-b border-slate-200">
         <Container>
           <SectionHeading
             eyebrow="Specializations"
             title="Explore Our Construction Services"
-            sub="Select a construction division to view detailed scope, technical specifications, timelines, and past project photos."
+            sub="Select a construction division to view detailed scope, technical specifications, and material standards."
             align="center"
           />
 
           <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {constructionServices.map((s) => (
+            {constructionSubServices.map((s) => (
               <div
-                key={s.href}
+                key={s.slug}
                 className="group flex flex-col bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-blue-700/60 hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
                   <Image
-                    src={s.image}
-                    alt={s.title}
+                    src={s.heroImage}
+                    alt={s.navLabel}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -158,24 +93,15 @@ export default function ConstructionOverviewPage() {
 
                 <div className="p-6 flex-1 flex flex-col">
                   <h3 className="text-xl font-bold text-blue-950 group-hover:text-blue-700 transition-colors">
-                    {s.title}
+                    {s.navLabel}
                   </h3>
                   <p className="text-slate-600 text-sm mt-3 leading-relaxed flex-1">
-                    {s.description}
+                    {s.heroCopy}
                   </p>
 
-                  <ul className="mt-5 space-y-2 border-t border-slate-100 pt-4">
-                    {s.features.map((feat) => (
-                      <li key={feat} className="flex items-center text-xs font-medium text-slate-700 gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-
                   <div className="mt-6 pt-4 border-t border-slate-100">
-                    <Button href={s.href} variant="primary" className="w-full justify-center">
-                      Explore {s.title.split(" ")[0]} →
+                    <Button href={`/${s.slug}`} variant="primary" className="w-full justify-center">
+                      Explore {s.navLabel.split(" ")[0]} →
                     </Button>
                   </div>
                 </div>
@@ -185,38 +111,20 @@ export default function ConstructionOverviewPage() {
         </Container>
       </section>
 
-
-
-      {/* SECTION 4 — QUALITY & MATERIAL STANDARDS */}
+      {/* Section 3 — Quality & material standards */}
       <MaterialBoard
         eyebrow="Quality Standards"
         title="Engineering & Material Specifications"
         sub="We specify exact material grades in writing before work starts — no vague allowances or mid-project compromises."
         materials={[
-          { name: "Fe 550D TMT Reinforcement Steel", image: "/images/services/residential/mat-steel.jpg" },
-          { name: "OPC 53 & PPC Grade Cement", image: "/images/services/residential/mat-concrete.jpg" },
-          { name: "Red Clay Bricks & AAC Blocks", image: "/images/services/residential/mat-brick.jpg" },
-          { name: "Crystalline & Polymer Waterproofing", image: "/images/services/residential/mat-finish.jpg" },
-          { name: "Vitrified Tiles & Natural Stone", image: "/images/services/residential/mat-floor.jpg" },
-          { name: "ISI-Marked Copper & UPVC Conduiting", image: "/images/services/residential/mat-doors.jpg" },
+          { name: "Fe 550D TMT Reinforcement Steel", image: "/images/construction/overview/material-1.jpg" },
+          { name: "OPC 53 & PPC Grade Cement", image: "/images/construction/overview/material-2.jpg" },
+          { name: "Red Clay Bricks & AAC Blocks", image: "/images/construction/overview/material-3.jpg" },
+          { name: "Vitrified Tiles & Natural Stone", image: "/images/construction/overview/material-4.jpg" },
         ]}
       />
 
-      {/* SECTION 5 — WHY ZEMITECH CONSTRUCTION (USPS) */}
-      <ServiceProblemCards
-        eyebrow="The Zemitech Standard"
-        title="Why Property Owners Choose Our Construction Team"
-        cards={[
-          { title: "In-House Engineers", description: "Dedicated site engineers and supervisors present on-site daily, not sub-contracted out." },
-          { title: "Fixed BOQ Guarantee", description: "Detailed itemized Bill of Quantities agreed before work starts — no hidden surprises." },
-          { title: "Weekly Photo Reports", description: "Transparent weekly photo-logged updates and milestone progress tracking." },
-          { title: "Approval Coordination", description: "Complete handling of municipal plan sanctions, structural audits, and NOCs." },
-          { title: "Milestone-Linked Billing", description: "Payments tied directly to inspected, verified site milestones like foundation or slab pour." },
-          { title: "12-Month Defect Liability", description: "Post-handover defect warranty on structural work and waterproofing." },
-        ]}
-      />
-
-      {/* SECTION 6 — FEATURED CONSTRUCTION PROJECTS */}
+      {/* Section 4 — Featured construction projects */}
       {constructionProjects.length > 0 && (
         <section className="py-20 bg-slate-50 border-b border-slate-200">
           <Container>
@@ -235,7 +143,7 @@ export default function ConstructionOverviewPage() {
         </section>
       )}
 
-      {/* SECTION 7 — FREQUENTLY ASKED QUESTIONS */}
+      {/* Section 5 — FAQ */}
       <section className="py-20 bg-white border-b border-slate-200">
         <Container className="max-w-3xl">
           <SectionHeading eyebrow="FAQ" title="Construction Questions & Answers" align="center" />
@@ -245,7 +153,7 @@ export default function ConstructionOverviewPage() {
         </Container>
       </section>
 
-      {/* SECTION 8 — FINAL CALL TO ACTION */}
+      {/* Section 6 — Final CTA */}
       <ServiceFinalCTA
         title="Planning a Construction Project in Pune?"
         copy="Tell us about your plot location, proposed built-up area and timeline. Our structural engineering team will schedule a free site visit and feasibility assessment."

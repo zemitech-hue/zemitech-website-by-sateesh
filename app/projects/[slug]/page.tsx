@@ -106,23 +106,21 @@ export default async function ProjectDetailPage({
               <p className="text-ink-soft leading-relaxed">{project.solution}</p>
             </div>
           </div>
+
+          {project.clientQuote && (
+            <div className="mt-12 max-w-2xl mx-auto text-center">
+              <svg width="28" height="28" viewBox="0 0 24 24" className="mx-auto text-green-500" aria-hidden="true">
+                <path d="M7 8c-2.2 0-4 1.8-4 4v4h6v-6H6c0-1.1.9-2 2-2V8zm10 0c-2.2 0-4 1.8-4 4v4h6v-6h-3c0-1.1.9-2 2-2V8z" fill="currentColor" />
+              </svg>
+              <blockquote className="text-lg sm:text-xl text-blue-950 leading-relaxed mt-4 font-display">
+                &ldquo;{project.clientQuote.quote}&rdquo;
+              </blockquote>
+              <p className="mt-5 text-sm font-semibold text-blue-950">{project.clientQuote.author}</p>
+              <p className="text-xs text-ink-soft">{project.clientQuote.location}</p>
+            </div>
+          )}
         </Container>
       </section>
-
-      {project.clientQuote && (
-        <section className="py-16 sm:py-20">
-          <Container className="max-w-2xl text-center">
-            <svg width="28" height="28" viewBox="0 0 24 24" className="mx-auto text-green-500" aria-hidden="true">
-              <path d="M7 8c-2.2 0-4 1.8-4 4v4h6v-6H6c0-1.1.9-2 2-2V8zm10 0c-2.2 0-4 1.8-4 4v4h6v-6h-3c0-1.1.9-2 2-2V8z" fill="currentColor" />
-            </svg>
-            <blockquote className="text-lg sm:text-xl text-blue-950 leading-relaxed mt-4 font-display">
-              &ldquo;{project.clientQuote.quote}&rdquo;
-            </blockquote>
-            <p className="mt-5 text-sm font-semibold text-blue-950">{project.clientQuote.author}</p>
-            <p className="text-xs text-ink-soft">{project.clientQuote.location}</p>
-          </Container>
-        </section>
-      )}
 
       {project.galleryDetailed.length > 0 && (
         <section className={`pb-16 sm:pb-20 ${project.clientQuote ? "" : "pt-0"}`}>

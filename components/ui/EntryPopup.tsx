@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { X, Building2, Home, CheckCircle2, ShieldCheck, Clock } from "lucide-react";
-import Button from "@/components/ui/Button";
 
 type Step = "MAJOR_SERVICE" | "SUB_SERVICE" | "LEAD_FORM" | "SUCCESS";
 
@@ -211,7 +210,9 @@ export default function EntryPopup() {
                 <CheckCircle2 className="w-10 h-10 text-green-600" />
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-2">Request Received!</h3>
-              <p className="text-slate-500">Our expert will call you shortly.</p>
+              <p className="text-slate-500">
+                {subService ? `Our expert will call you shortly about ${subService.toLowerCase()}.` : "Our expert will call you shortly."}
+              </p>
             </div>
           )}
         </div>

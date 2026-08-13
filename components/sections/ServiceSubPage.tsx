@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
 import ServiceHero from "@/components/sections/ServiceHero";
-import RoomByRoomInteractive from "@/components/sections/RoomByRoomInteractive";
+import ServiceProblemCards from "@/components/sections/ServiceProblemCards";
+import ServiceScopeGrid from "@/components/sections/ServiceScopeGrid";
 import MaterialBoard from "@/components/sections/MaterialBoard";
 import FaqAccordion from "@/components/sections/FaqAccordion";
 import ServiceFinalCTA from "@/components/sections/ServiceFinalCTA";
@@ -8,18 +8,15 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import JsonLd, { faqJsonLd, breadcrumbJsonLd, serviceJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/data/company";
-import { turnkeyHomeInteriors as service } from "@/lib/data/services";
+import type { SubService } from "@/lib/data/services";
 
-export const metadata: Metadata = {
-  title: service.metaTitle,
-  description: service.metaDescription,
-  alternates: { canonical: `/${service.slug}` },
-};
-
-export default function TurnkeyInteriorsPage() {
+// Renders every construction/interior-design sub-service page from one data
+// object — Hero, Offerings, Scope, Materials, FAQ, Final CTA. Exactly 6
+// sections, always in this order, so every sub-service page stays consistent.
+export default function ServiceSubPage({ service }: { service: SubService }) {
   const siteUrl = `https://${company.domain}`;
   const breadcrumbs = [
-    { name: "Interior Design", href: "/interior-design" },
+    { name: service.parentLabel, href: service.parentHref },
     { name: service.navLabel, href: `/${service.slug}` },
   ];
 
@@ -35,7 +32,13 @@ export default function TurnkeyInteriorsPage() {
         )}
       />
       <JsonLd
-        data={serviceJsonLd({ name: service.title, description: service.metaDescription, url: `${siteUrl}/${service.slug}`, siteUrl, legalName: company.legalName })}
+        data={serviceJsonLd({
+          name: service.title,
+          description: service.metaDescription,
+          url: `${siteUrl}/${service.slug}`,
+          siteUrl,
+          legalName: company.legalName,
+        })}
       />
 
       <ServiceHero
@@ -46,14 +49,26 @@ export default function TurnkeyInteriorsPage() {
         image={service.heroImage}
       />
 
-      <RoomByRoomInteractive
-        eyebrow="Scope"
-        title="What's Included?"
-        sub="A detailed breakdown of our room-by-room design and fit-out capabilities."
-        rooms={service.rooms}
+      <ServiceProblemCards
+        eyebrow={service.cards.eyebrow}
+        title={service.cards.title}
+        sub={service.cards.sub}
+        cards={service.cards.items}
       />
 
-      <MaterialBoard eyebrow="Library" title="Materials & Finishes" materials={service.materials} />
+      <ServiceScopeGrid
+        eyebrow={service.scope.eyebrow}
+        title={service.scope.title}
+        sub={service.scope.sub}
+        groups={service.scope.groups}
+      />
+
+      <MaterialBoard
+        eyebrow={service.materials.eyebrow}
+        title={service.materials.title}
+        sub={service.materials.sub}
+        materials={service.materials.items}
+      />
 
       <section className="py-16 sm:py-20 bg-slate-50 border-b border-slate-200">
         <Container className="max-w-3xl">

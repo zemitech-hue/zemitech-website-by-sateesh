@@ -2,9 +2,6 @@ export type TeamMember = {
   name: string;
   role: string;
   bio: string;
-  photo: string;
-  workPhoto: string;
-  workPhotoAlt: string;
 };
 
 export const leadership: TeamMember[] = [
@@ -12,25 +9,16 @@ export const leadership: TeamMember[] = [
     name: "Er. Manish K. Sah",
     role: "Director",
     bio: "Leads project delivery and client relationships across Zemitech Urban's construction division, with oversight of site execution standards.",
-    photo: "/images/team/manish-k-sah.jpg",
-    workPhoto: "/images/team/manish-k-sah-at-work.jpg",
-    workPhotoAlt: "Er. Manish K. Sah reviewing site progress with the construction team",
   },
   {
     name: "Er. Ashutosh Kumar",
     role: "Director",
     bio: "Oversees engineering, structural planning and technical compliance across residential, commercial and infrastructure projects.",
-    photo: "/images/team/ashutosh-kumar.jpg",
-    workPhoto: "/images/team/ashutosh-kumar-at-work.jpg",
-    workPhotoAlt: "Er. Ashutosh Kumar reviewing structural drawings",
   },
   {
     name: "Dr. Kumar S. Chandra",
     role: "Principal Adviser",
     bio: "Provides strategic and technical advisory across major projects, with a focus on sustainability and long-term asset quality.",
-    photo: "/images/team/kumar-s-chandra.jpg",
-    workPhoto: "/images/team/kumar-s-chandra-at-work.jpg",
-    workPhotoAlt: "Dr. Kumar S. Chandra in a client advisory meeting",
   },
 ];
 

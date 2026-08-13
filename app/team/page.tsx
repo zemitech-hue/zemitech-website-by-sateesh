@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import PageHero from "@/components/sections/PageHero";
 import CTASection from "@/components/sections/CTASection";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import InitialsAvatar from "@/components/ui/InitialsAvatar";
 import { leadership, departments, widerTeam } from "@/lib/data/team";
 
 export const metadata: Metadata = {
@@ -29,20 +29,11 @@ export default function TeamPage() {
           <SectionHeading eyebrow="Leadership" title="Directors & advisers" />
           <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {leadership.map((member) => (
-              <div key={member.name} className="rounded-2xl border border-line bg-white overflow-hidden">
-                <div className="grid grid-cols-2">
-                  <div className="relative aspect-[4/5] bg-blue-100">
-                    <Image src={member.photo} alt={member.name} fill className="object-cover" sizes="(max-width: 768px) 50vw, 17vw" />
-                  </div>
-                  <div className="relative aspect-[4/5] bg-blue-100">
-                    <Image src={member.workPhoto} alt={member.workPhotoAlt} fill className="object-cover" sizes="(max-width: 768px) 50vw, 17vw" />
-                  </div>
-                </div>
-                <div className="p-5">
-                  <p className="font-semibold text-blue-950">{member.name}</p>
-                  <p className="text-sm text-green-700 font-mono-label uppercase tracking-wide text-xs mt-0.5">{member.role}</p>
-                  <p className="text-sm text-ink-soft mt-2 leading-relaxed">{member.bio}</p>
-                </div>
+              <div key={member.name} className="rounded-2xl border border-line bg-white overflow-hidden p-6">
+                <InitialsAvatar name={member.name} className="w-16 h-16 text-lg" />
+                <p className="font-semibold text-blue-950 mt-4">{member.name}</p>
+                <p className="text-sm text-green-700 font-mono-label uppercase tracking-wide text-xs mt-0.5">{member.role}</p>
+                <p className="text-sm text-ink-soft mt-2 leading-relaxed">{member.bio}</p>
               </div>
             ))}
           </div>

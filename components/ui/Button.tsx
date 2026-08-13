@@ -54,19 +54,17 @@ export default function Button({
     .filter(Boolean)
     .join(" ");
 
-  const arrow = (
-    <ArrowRight
-      size={16}
-      strokeWidth={2.2}
-      aria-hidden="true"
-      className="opacity-70 transition-transform duration-200 group-hover:translate-x-0.5"
-    />
-  );
-
   const content = (
     <>
       <span>{children}</span>
-      {arrow}
+      {showArrow && (
+        <ArrowRight
+          size={16}
+          strokeWidth={2.2}
+          aria-hidden="true"
+          className="opacity-70 transition-transform duration-200 group-hover:translate-x-0.5"
+        />
+      )}
     </>
   );
 
