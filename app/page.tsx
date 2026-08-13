@@ -50,7 +50,7 @@ export default async function HomePage() {
               title="Construction Services"
               description="Residential, commercial and infrastructure construction — in-house site teams, fixed-scope BOQ, weekly reporting."
               href="/construction"
-              image="/images/home/division-construction.jpg"
+              image="/images/MainHeroBannersCarousel/Construction%20Division.png"
               links={[
                 { label: "Residential Villa Construction", href: "/construction/residential" },
                 { label: "Structural & Civil Engineering", href: "/construction/structural-civil-engineering" },
@@ -63,7 +63,7 @@ export default async function HomePage() {
               title="Interior Design Services"
               description="Design and execution by one team — modular kitchens, living rooms, bedrooms and full turnkey homes."
               href="/interior-design"
-              image="/images/home/division-interior.jpg"
+              image="/images/MainHeroBannersCarousel/Interior%20Design%20Division.png"
               links={[
                 { label: "Modular Kitchen Interior Design", href: "/interior-design/kitchen" },
                 { label: "Living Room TV Consoles & Ceilings", href: "/interior-design/living-room" },

@@ -106,7 +106,7 @@ export default function EntryPopup() {
                 <div className="relative w-full aspect-[4/3] overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/home/division-construction.jpg"
+                    src="/images/MainHeroBannersCarousel/Construction%20Division.png"
                     alt="Construction"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -129,7 +129,7 @@ export default function EntryPopup() {
                 <div className="relative w-full aspect-[4/3] overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/home/division-interior.jpg"
+                    src="/images/MainHeroBannersCarousel/Interior%20Design%20Division.png"
                     alt="Interior Design"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />

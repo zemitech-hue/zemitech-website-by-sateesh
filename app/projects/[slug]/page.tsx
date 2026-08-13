@@ -42,8 +42,8 @@ export default async function ProjectDetailPage({
 
   return (
     <>
-      <section className="relative bg-blue-950">
-        <div className="relative h-[320px] sm:h-[380px] lg:h-[460px]">
+      <section className="relative bg-blue-950 w-full" style={{ height: "100dvh", minHeight: "100svh" }}>
+        <div className="absolute inset-0">
           <GracefulImage src={project.coverImage} alt={project.title} fill className="object-cover opacity-70" priority sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-t from-blue-950 via-blue-950/40 to-blue-950/10" />
         </div>

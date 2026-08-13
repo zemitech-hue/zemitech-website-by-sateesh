@@ -26,25 +26,25 @@ const subServicesMap: Record<"construction" | "interior", SubService[]> = {
       id: "residential-construction",
       label: "Residential Villa & Home Construction",
       subText: "Turnkey G+1 & G+2 independent villas built by in-house civil teams in Pune.",
-      image: "/images/home/hero-3-residential.jpg",
+      image: "/images/MainHeroBannersCarousel/Residential%20Construction.png",
     },
     {
       id: "general-civil",
       label: "Structural & Civil Construction",
       subText: "RCC frame structures, foundation works, and municipal plan sanctions.",
-      image: "/images/home/hero-1-construction.jpg",
+      image: "/images/MainHeroBannersCarousel/Construction%20Division.png",
     },
     {
       id: "renovation-construction",
       label: "Turnkey Home Renovation",
       subText: "Structural upgrades, floor additions, and full interior handover for existing homes.",
-      image: "/images/home/hero-1-construction.jpg",
+      image: "/images/MainHeroBannersCarousel/Construction%20Division.png",
     },
     {
       id: "industrial-construction",
       label: "Industrial Warehouses & Sheds",
       subText: "Heavy-duty structures engineered for logistics, manufacturing, and storage.",
-      image: "/images/home/hero-1-construction.jpg",
+      image: "/images/MainHeroBannersCarousel/Construction%20Division.png",
     },
   ],
   interior: [
@@ -52,25 +52,25 @@ const subServicesMap: Record<"construction" | "interior", SubService[]> = {
       id: "kitchen-interior",
       label: "Modular Kitchen Design",
       subText: "L-Shape, Parallel, and Island kitchens with marine-grade ply & soft-close hardware.",
-      image: "/images/home/hero-4-kitchen.jpg",
+      image: "/images/MainHeroBannersCarousel/Kitchen%20Design.png",
     },
     {
       id: "living-room-interior",
       label: "Living Room Joinery & TV Walls",
       subText: "Custom TV wall panels, false ceilings, ambient LED lights, and sofa joinery.",
-      image: "/images/home/hero-7-living-room.jpg",
+      image: "/images/MainHeroBannersCarousel/Living%20Room%20Design.png",
     },
     {
       id: "bedroom-interior",
       label: "Bedroom Wardrobes & Storage",
       subText: "Floor-to-ceiling sliding wardrobes, headboards, and hydraulic storage beds.",
-      image: "/images/interior/hero-bedroom.jpg",
+      image: "/images/MainHeroBannersCarousel/Interior%20Design%20Division.png",
     },
     {
       id: "turnkey-interior",
       label: "Full-Home Turnkey Interior Design",
       subText: "End-to-end 2BHK & 3BHK interior execution from 3D design to final cleanup.",
-      image: "/images/home/hero-2-interior.jpg",
+      image: "/images/MainHeroBannersCarousel/Interior%20Design%20Division.png",
     },
   ],
 };
@@ -166,7 +166,7 @@ ${notes ? `• Scope Details: ${notes}` : ""}`;
               >
                 <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden mb-4 border border-slate-200">
                   <Image
-                    src="/images/home/division-construction.jpg"
+                    src="/images/MainHeroBannersCarousel/Construction%20Division.png"
                     alt="Construction Services"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -183,7 +183,7 @@ ${notes ? `• Scope Details: ${notes}` : ""}`;
               >
                 <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden mb-4 border border-slate-200">
                   <Image
-                    src="/images/home/division-interior.jpg"
+                    src="/images/MainHeroBannersCarousel/Interior%20Design%20Division.png"
                     alt="Interior Design Services"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"

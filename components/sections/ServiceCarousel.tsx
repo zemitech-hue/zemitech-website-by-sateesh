@@ -44,6 +44,15 @@ const constructionServices: ServiceItem[] = [
     image: "/images/services/service-villa.jpg",
     highlights: ["Structural Integrity Checks", "Fixed Renovation BOQ", "Complete Interior Handover"],
   },
+  {
+    title: "Industrial Warehouses & Sheds",
+    category: "construction",
+    tag: "Industrial",
+    description: "Heavy-duty PEB steel warehouses, factory floors, and logistics facilities engineered for high equipment load.",
+    href: "/construction/industrial",
+    image: "/images/services/service-industrial.jpg",
+    highlights: ["Pre-Engineered Steel Framework", "Heavy-Duty Trimix Flooring", "High Clearance & Crane Beams"],
+  },
 ];
 
 const interiorServices: ServiceItem[] = [

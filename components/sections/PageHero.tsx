@@ -57,7 +57,10 @@ export default function PageHero({
 
   return (
     <>
-      <section className="relative overflow-hidden bg-white w-full h-[calc(100vh-80px)] min-h-[560px] sm:min-h-[640px] lg:min-h-[720px] max-h-[960px] flex items-center">
+      <section
+        className="relative overflow-hidden bg-slate-950 w-full flex items-center"
+        style={{ height: "100dvh", minHeight: "100svh" }}
+      >
         {/* Full Viewport Ultra HD Photo */}
         <div className="absolute inset-0 z-0">
           <Image
