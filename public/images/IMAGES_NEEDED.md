@@ -55,8 +55,14 @@ Each of these needs: 1 hero + 4 "capability" cards + 4 material photos.
 
 ## Home page (`/`)
 
-- `home/hero-1-construction.jpg` … `hero-4-kitchen.jpg`, `hero-7-living-room.jpg` — 5 hero carousel slides
-- `home/division-construction.jpg`, `division-interior.jpg` — the two division cards
+**Already done** — the hero carousel (5 slides) and both division cards
+(Construction/Interior Design) read from
+`public/images/MainHeroBannersCarousel/`: `Construction Division.png`,
+`Interior Design Division.png`, `Residential Construction.png`,
+`Kitchen Design.png`, `Living Room Design.png`. All 5 are already in place —
+nothing to add here.
+
+Still needed:
 - `home/how-we-work-1-consult.jpg` … `how-we-work-4-handover.jpg` — 4 process-step photos
 - `home/areas-served-map.jpg` — map or area-served visual
 
@@ -70,6 +76,11 @@ Each of these needs: 1 hero + 4 "capability" cards + 4 material photos.
 ## Team page (`/team`)
 
 - `team/hero-team.jpg` — leadership photos are intentionally NOT images (see below)
+
+## Projects listing page hero (`/projects`)
+
+- `projects/hero-projects.jpg` — just the list page's own banner; individual
+  project photos are uploaded per-project through `/admin` instead.
 
 ## Gallery page (`/gallery`)
 
@@ -92,7 +103,7 @@ Each of these needs: 1 hero + 4 "capability" cards + 4 material photos.
 
 ## Homepage service carousel (`components/sections/ServiceCarousel.tsx`)
 
-- `services/service-villa.jpg`, `service-civil.jpg`, `service-kitchen.jpg`, `service-living.jpg`, `service-bedroom.jpg`, `service-turnkey.jpg`
+- `services/service-villa.jpg`, `service-civil.jpg`, `service-industrial.jpg`, `service-kitchen.jpg`, `service-living.jpg`, `service-bedroom.jpg`, `service-turnkey.jpg`
 
 ## Social preview
 
