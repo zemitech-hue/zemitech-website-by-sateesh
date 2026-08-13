@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"console.log\\(require.resolve\\('sharp'\\)\\)\")",
+      "Bash(node --experimental-strip-types -e ' *)",
+      "Bash(npm run *)",
+      "Bash(curl -sf http://localhost:3000 -o /dev/null)",
+      "Read(//private/tmp/**)",
+      "Bash(npx --no-install playwright --version)",
+      "Bash(node -e \"require.resolve\\('playwright'\\)\")",
+      "Bash(node -e \"require.resolve\\('puppeteer'\\)\")",
+      "Bash(curl -sf http://localhost:3001 -o /dev/null -w \"%{http_code}\\\\n\")",
+      "Bash(npx --no-install playwright install-deps chromium)",
+      "Bash(npx --no-install playwright install chromium)",
+      "Bash(mkdir -p /private/tmp/claude-501/-Users-sateshgavara-Desktop-Agency-zemitech-urban-website/95397955-0c41-4562-bfcc-7f774267b6e0/scratchpad/pw-check)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(npx playwright *)",
+      "Bash(cd /private/tmp/claude-501/-Users-sateshgavara-Desktop-Agency-zemitech-urban-website/95397955-0c41-4562-bfcc-7f774267b6e0/scratchpad/pw-check && npx playwright install chromium 2>&1 | tail -30 && ls -la ~/Library/Caches/ms-playwright/ 2>&1 | head -10)",
+      "Read(//Users/sateshgavara/Library/Caches/ms-playwright/**)",
+      "Bash(node check.mjs)",
+      "Bash(node diagnose.mjs)",
+      "Bash(md5 public/images/home/division-construction.jpg public/images/home/how-we-work-3-build.jpg public/images/home/hero-2-interior.jpg public/images/home/how-we-work-4-handover.jpg public/images/home/hero-5-commercial.jpg public/images/home/how-we-work-1-consult.jpg public/images/home/hero-7-living-room.jpg public/images/home/how-we-work-2-design.jpg public/images/home/hero-4-kitchen.jpg public/images/home/video-thumbnail-walkthrough.jpg)",
+      "Bash(curl -sf http://localhost:3001 -o /dev/null -w \"3001: %{http_code}\\\\n\")",
+      "Bash(curl -sf http://localhost:3000 -o /dev/null -w \"3000: %{http_code}\\\\n\")"
+    ]
+  }
+}

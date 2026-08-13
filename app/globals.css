@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand palette — derived from the Zemitech Urban logo */
+  --zu-blue-950: #0a1f3d;
+  --zu-blue-900: #0f2e5c;
+  --zu-blue-800: #14397a;
+  --zu-blue-700: #1b4b91;   /* primary brand blue */
+  --zu-blue-600: #2160b3;
+  --zu-blue-500: #3878cf;
+  --zu-blue-100: #e3ecf9;
+  --zu-blue-50:  #f2f6fc;
+
+  --zu-green-700: #5c9427;
+  --zu-green-600: #6ba82f;
+  --zu-green-500: #7cb93d;  /* CTA green accent */
+  --zu-green-400: #97c95e;
+  --zu-green-100: #e9f3da;
+
+  --zu-ink: #0f172a;
+  --zu-ink-soft: #475569;
+  --zu-line: #e2e8f0;
+
+  --zu-bg: #ffffff;
+  --zu-bg-tint: #f8fafc;
+
+  --background: var(--zu-bg);
+  --foreground: var(--zu-ink);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-blue-950: var(--zu-blue-950);
+  --color-blue-900: var(--zu-blue-900);
+  --color-blue-800: var(--zu-blue-800);
+  --color-blue-700: var(--zu-blue-700);
+  --color-blue-600: var(--zu-blue-600);
+  --color-blue-500: var(--zu-blue-500);
+  --color-blue-100: var(--zu-blue-100);
+  --color-blue-50: var(--zu-blue-50);
+
+  --color-green-700: var(--zu-green-700);
+  --color-green-600: var(--zu-green-600);
+  --color-green-500: var(--zu-green-500);
+  --color-green-400: var(--zu-green-400);
+  --color-green-100: var(--zu-green-100);
+
+  --color-ink: var(--zu-ink);
+  --color-ink-soft: var(--zu-ink-soft);
+  --color-line: var(--zu-line);
+  --color-bg-tint: var(--zu-bg-tint);
+
+  /* Unified Apple-Style Font System (SF Pro / Inter) */
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background: #ffffff;
+  color: var(--foreground);
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "SF Pro Text", ui-sans-serif, system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100svh;
+}
+
+html {
+  height: 100%;
+}
+
+h1, h2, h3, h4, .font-display, .font-mono-label {
+  font-family: var(--font-display), -apple-system, BlinkMacSystemFont, "SF Pro Display", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Glassmorphism & Modern Utility Classes */
+.glass-header {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.glass-card {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  box-shadow: 0 4px 20px -5px rgba(15, 23, 42, 0.04);
+}
+
+.glass-card-hover {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(27, 75, 145, 0.12);
+  border-color: rgba(27, 75, 145, 0.5);
+}
+
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(27, 75, 145, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 75, 145, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.blueprint-grid-dark {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Marquee Scrolling Animations */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 35s linear infinite;
+}
+
+.animate-marquee:hover, .animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:focus-visible {
+  outline: 2px solid var(--zu-blue-700);
+  outline-offset: 2px;
+}
