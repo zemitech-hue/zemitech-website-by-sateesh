@@ -52,7 +52,7 @@ export default function HeroCarousel() {
   return (
     <>
       <section
-        className="relative overflow-hidden bg-slate-950 w-full flex items-center"
+        className="relative overflow-hidden bg-slate-950 w-full flex items-end pb-20 sm:pb-24 lg:pb-28"
         style={{ height: '100dvh', minHeight: '100svh' }}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
@@ -94,12 +94,12 @@ export default function HeroCarousel() {
             </span>
             
             {/* Headline with Vibrant Blue Keyword Highlights */}
-            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight drop-shadow-md">
+            <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-white leading-[1.15] tracking-tight drop-shadow-md">
               {renderHighlightedHeadline(slide.headline)}
             </h1>
-            
+
             {/* Sub Headline */}
-            <p className="mt-4 text-slate-100 text-base sm:text-lg leading-relaxed max-w-xl font-medium drop-shadow-xs">
+            <p className="mt-4 text-slate-100 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl font-medium drop-shadow-xs">
               {slide.sub}
             </p>
 

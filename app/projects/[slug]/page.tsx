@@ -47,14 +47,14 @@ export default async function ProjectDetailPage({
           <GracefulImage src={project.coverImage} alt={project.title} fill className="object-cover opacity-70" priority sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-t from-blue-950 via-blue-950/40 to-blue-950/10" />
         </div>
-        <Container className="absolute inset-x-0 bottom-0 pb-8">
+        <Container className="absolute inset-x-0 bottom-0 pb-20 sm:pb-24 lg:pb-28">
           <div className="mb-4 [&_a]:text-blue-100/70 [&_span]:!text-white">
             <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Projects", href: "/projects" }, { name: project.title, href: `/projects/${project.slug}` }]} />
           </div>
           <span className="inline-block font-mono-label text-xs uppercase tracking-wide text-green-400 mb-2">
             {project.category}
           </span>
-          <h1 className="text-3xl sm:text-4xl font-semibold text-white">{project.title}</h1>
+          <h1 className="text-2xl sm:text-3xl font-semibold text-white">{project.title}</h1>
           <p className="text-blue-100/80 mt-1">{project.location} · {project.year}</p>
         </Container>
       </section>
