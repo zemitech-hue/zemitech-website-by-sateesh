@@ -29,7 +29,7 @@ export default function ContactPage() {
         eyebrow="Contact Us"
         headline="Let's talk about your project"
         sub="Call, WhatsApp, or send an enquiry — we typically respond within one business day. Based in Narhe, working across Narhe, Kondhwa, Wagholi, Hinjewadi, Baner, Viman Nagar, Pirangut and the wider Pune region."
-        image="/images/contact/hero-contact.jpg"
+        image="/images/contact/hero-contact.png"
         breadcrumbs={[{ name: "Contact", href: "/contact" }]}
       />
 
@@ -52,7 +52,7 @@ export default function ContactPage() {
             </div>
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-line reg-corners">
               <Image
-                src="/images/contact/office-exterior.jpg"
+                src="/images/contact/office-exterior.png"
                 alt="Exterior of the Zemitech Urban office in Narhe, Pune"
                 fill
                 className="object-cover"

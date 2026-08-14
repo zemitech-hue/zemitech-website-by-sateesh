@@ -21,21 +21,21 @@ const timeline = [
     year: "2019",
     title: "Zemitech Urban founded in Narhe",
     body: "Started as a small in-house team taking on residential construction contracts across Narhe and the surrounding Pune suburbs — the founding bet was that keeping core execution in-house, rather than sub-contracting it out, was the only way to hold both quality and timelines.",
-    image: "/images/about/timeline-2019-founding.jpg",
+    image: "/images/about/timeline-2019-founding.png",
     alt: "Zemitech Urban's founding team on an early residential construction site in Narhe, Pune, 2019",
   },
   {
     year: "2022",
     title: "Interior Design division launches",
     body: "Formalized interior design as its own division with a dedicated factory-manufacturing partnership for modular kitchens and wardrobes, instead of sub-contracting interior fit-outs project by project — the same in-house-first principle that founded the company, applied to a second discipline.",
-    image: "/images/about/timeline-2022-division-split.jpg",
+    image: "/images/about/timeline-2022-division-split.png",
     alt: "Zemitech Urban Interior Design division's first dedicated design studio, 2022",
   },
   {
     year: "2024–25",
     title: "240+ projects, both divisions at scale",
     body: "Crossed 240 completed projects across residential, commercial, infrastructure and interior categories, with construction and interior design now running as genuinely coordinated divisions — many clients move directly from a construction handover into a full interior fit-out with the same project manager staying involved.",
-    image: "/images/about/timeline-2024-scale.jpg",
+    image: "/images/about/timeline-2024-scale.png",
     alt: "Zemitech Urban team celebrating the 240-plus completed projects milestone",
   },
 ];
@@ -55,7 +55,7 @@ export default function AboutPage() {
         eyebrow="About Us"
         headline="Construction and interior design, under one roof"
         sub="Zemitech Urban Private Limited has delivered 240+ projects across Pune since 2019 — built by in-house teams, not stitched together across sub-contractors."
-        image="/images/about/hero-about.jpg"
+        image="/images/about/hero-about.png"
         breadcrumbs={[{ name: "About Us", href: "/about" }]}
       />
 
@@ -68,7 +68,7 @@ export default function AboutPage() {
           "The first two years were almost entirely residential construction, built by a small in-house team rather than sub-contracted crews. That in-house-first decision, made before the company had the scale to make it easy, is the one piece of the original founding bet that hasn't changed since: we still run our own site supervision and design teams today, at 240+ projects, for the same reason we did at project one.",
           "Today, whether you need a single modular kitchen or a complete building from foundation to final coat of paint, the same company — and typically the same project manager, if you engage both divisions — stays accountable from first site visit to final handover.",
         ]}
-        image="/images/about/office-team.jpg"
+        image="/images/about/office-team.png"
         imageAlt="Zemitech Urban leadership and site team outside the Narhe office"
         imageCaption="Zemitech Urban team, Narhe office"
       />
@@ -147,10 +147,10 @@ export default function AboutPage() {
           <div className="mt-10">
             <ImageGrid
               images={[
-                { src: "/images/about/office-exterior.jpg", alt: "Exterior of the Zemitech Urban office in Narhe, Pune", caption: "Narhe office exterior" },
-                { src: "/images/about/team-site-review.jpg", alt: "Zemitech Urban team conducting a site review meeting", caption: "Site review meeting" },
-                { src: "/images/about/design-studio.jpg", alt: "Interior design studio where mood boards and 3D renders are prepared", caption: "Interior design studio" },
-                { src: "/images/about/site-walkthrough.jpg", alt: "Zemitech Urban project manager walking a client through a completed site", caption: "Client site walkthrough" },
+                { src: "/images/about/office-exterior.png", alt: "Exterior of the Zemitech Urban office in Narhe, Pune", caption: "Narhe office exterior" },
+                { src: "/images/about/team-site-review.png", alt: "Zemitech Urban team conducting a site review meeting", caption: "Site review meeting" },
+                { src: "/images/about/design-studio.png", alt: "Interior design studio where mood boards and 3D renders are prepared", caption: "Interior design studio" },
+                { src: "/images/about/site-walkthrough.png", alt: "Zemitech Urban project manager walking a client through a completed site", caption: "Client site walkthrough" },
               ]}
               columns={4}
             />

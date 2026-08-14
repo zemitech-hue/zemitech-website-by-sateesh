@@ -20,10 +20,10 @@ export const metadata: Metadata = {
 };
 
 const interiorStyles = [
-  { name: "Contemporary", description: "Clean lines, neutral tones, and sleek handleless cabinetry. Our most popular style for Pune apartments.", image: "/images/interior/overview/style-1.jpg" },
-  { name: "Minimalist", description: "Concealed storage, handleless shutters, and a restrained two-tone palette for clutter-free living.", image: "/images/interior/overview/style-2.jpg" },
-  { name: "Classic", description: "Warm wood grains, panelled shutters, cornice detailing, and rich brass/bronze hardware accents.", image: "/images/interior/overview/style-3.jpg" },
-  { name: "Industrial", description: "Exposed textures, concrete-finish laminate, matte black metal frames, and warm ambient filament lighting.", image: "/images/interior/overview/style-4.jpg" },
+  { name: "Contemporary", description: "Clean lines, neutral tones, and sleek handleless cabinetry. Our most popular style for Pune apartments.", image: "/images/interior/overview/style-1.png" },
+  { name: "Minimalist", description: "Concealed storage, handleless shutters, and a restrained two-tone palette for clutter-free living.", image: "/images/interior/overview/style-2.png" },
+  { name: "Classic", description: "Warm wood grains, panelled shutters, cornice detailing, and rich brass/bronze hardware accents.", image: "/images/interior/overview/style-3.png" },
+  { name: "Industrial", description: "Exposed textures, concrete-finish laminate, matte black metal frames, and warm ambient filament lighting.", image: "/images/interior/overview/style-4.png" },
 ];
 
 const interiorFaqs = [
@@ -55,7 +55,7 @@ export default async function InteriorDesignOverviewPage() {
         primaryCtaLink="/contact"
         secondaryCtaText="Explore Interior Portfolio"
         secondaryCtaLink="/projects"
-        image="/images/interior/overview/hero.jpg"
+        image="/images/interior/overview/hero.png"
       />
 
       {/* Section 2 — Sub-service navigation cards (pulled from lib/data/services.ts) */}

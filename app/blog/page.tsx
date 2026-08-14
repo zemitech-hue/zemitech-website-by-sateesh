@@ -22,7 +22,7 @@ export default async function BlogPage() {
         eyebrow="Blog / News"
         headline="Guides on construction and interior design"
         sub="Practical, specific answers to the questions we hear most from clients — not generic advice."
-        image="/images/blog/hero-blog.jpg"
+        image="/images/blog/hero-blog.png"
         breadcrumbs={[{ name: "Blog", href: "/blog" }]}
       />
       <section className="py-16 sm:py-20">

@@ -61,7 +61,7 @@ export default async function ConstructionOverviewPage() {
         primaryCtaLink="/contact"
         secondaryCtaText="Explore Portfolio"
         secondaryCtaLink="/projects"
-        image="/images/construction/overview/hero.jpg"
+        image="/images/construction/overview/hero.png"
       />
 
       {/* Section 2 — Sub-service navigation cards (pulled from lib/data/services.ts) */}
@@ -120,10 +120,10 @@ export default async function ConstructionOverviewPage() {
         title="Engineering & Material Specifications"
         sub="We specify exact material grades in writing before work starts — no vague allowances or mid-project compromises."
         materials={[
-          { name: "Fe 550D TMT Reinforcement Steel", image: "/images/construction/overview/material-1.jpg" },
-          { name: "OPC 53 & PPC Grade Cement", image: "/images/construction/overview/material-2.jpg" },
-          { name: "Red Clay Bricks & AAC Blocks", image: "/images/construction/overview/material-3.jpg" },
-          { name: "Vitrified Tiles & Natural Stone", image: "/images/construction/overview/material-4.jpg" },
+          { name: "Fe 550D TMT Reinforcement Steel", image: "/images/construction/overview/material-1.png" },
+          { name: "OPC 53 & PPC Grade Cement", image: "/images/construction/overview/material-2.png" },
+          { name: "Red Clay Bricks & AAC Blocks", image: "/images/construction/overview/material-3.png" },
+          { name: "Vitrified Tiles & Natural Stone", image: "/images/construction/overview/material-4.png" },
         ]}
       />
 

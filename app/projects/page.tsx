@@ -23,7 +23,7 @@ export default async function ProjectsPage() {
         eyebrow="Portfolio"
         headline="Projects across construction and interior design"
         sub="A sample of recently completed residential, commercial, infrastructure and interior work across Pune."
-        image="/images/projects/hero-projects.jpg"
+        image="/images/projects/hero-projects.png"
         breadcrumbs={[{ name: "Projects", href: "/projects" }]}
       />
       <section className="py-16 sm:py-20">

@@ -38,13 +38,13 @@ export const metadata: Metadata = {
     description:
       "Residential, commercial and infrastructure construction, and full-home interior design — delivered by one accountable team in Pune.",
     url: siteUrl,
-    images: ["/images/og/zemitech-urban-og.jpg"],
+    images: ["/images/og/zemitech-urban-og.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: `${company.brandName} — Construction & Interior Design in Pune`,
     description: "Construction and interior design in Pune, delivered by one accountable team.",
-    images: ["/images/og/zemitech-urban-og.jpg"],
+    images: ["/images/og/zemitech-urban-og.png"],
   },
   alternates: { canonical: siteUrl },
 };

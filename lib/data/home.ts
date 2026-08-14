@@ -93,25 +93,25 @@ export const howWeWork: VisualStep[] = [
   {
     title: "Consult",
     description: "A free site visit or call to understand your brief, budget and timeline — no obligation to proceed.",
-    image: "/images/home/how-we-work-1-consult.jpg",
+    image: "/images/home/how-we-work-1-consult.png",
     alt: "Zemitech Urban team conducting a free client consultation and site visit",
   },
   {
     title: "Design",
     description: "Structural drawings or 3D renders, refined until you approve the final layout and material sheet.",
-    image: "/images/home/how-we-work-2-design.jpg",
+    image: "/images/home/how-we-work-2-design.png",
     alt: "Design and 3D approval stage with client reviewing renders",
   },
   {
     title: "Build",
     description: "Our own site or factory teams execute against the approved plan, with weekly photo-logged updates.",
-    image: "/images/home/how-we-work-3-build.jpg",
+    image: "/images/home/how-we-work-3-build.png",
     alt: "Construction and execution stage with site team at work",
   },
   {
     title: "Handover",
     description: "Final walkthrough, snag-list closure, and documentation — followed by post-handover support.",
-    image: "/images/home/how-we-work-4-handover.jpg",
+    image: "/images/home/how-we-work-4-handover.png",
     alt: "Handover and final walkthrough stage with client and project manager",
   },
 ];

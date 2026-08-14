@@ -12,7 +12,8 @@ main `README.md` §2.
 
 **Recommended sizes:** hero images ≈ 1920×1080 (landscape, they're full-bleed
 backgrounds); card images ≈ 1200×750 (16:10); material/style swatches ≈
-1000×1000 (square). JPG or PNG, ideally under ~500KB each after export.
+1000×1000 (square). **Save every file as `.png`** (that's the extension the
+code looks for) — ideally under ~500KB each after export.
 
 Use real photos of actual completed projects wherever you have them —
 that's the whole point of replacing the placeholders. Where you don't have a
@@ -32,8 +33,8 @@ Each of these needs: 1 hero + 4 "capability" cards + 4 material photos.
 
 ## Construction — division overview page (`/construction`)
 
-- `construction/overview/hero.jpg`
-- `construction/overview/material-1..4.jpg` — general material standards shown on the overview page
+- `construction/overview/hero.png`
+- `construction/overview/material-1..4.png` — general material standards shown on the overview page
 
 ## Interior Design — 4 sub-services (same pattern as construction)
 
@@ -44,14 +45,14 @@ Each of these needs: 1 hero + 4 "capability" cards + 4 material photos.
 
 ## Interior Design — turnkey homes (special layout, `/interior-design/turnkey-home-interiors`)
 
-- `interior/turnkey-home-interiors/hero.jpg`
-- `interior/turnkey-home-interiors/room-living.jpg`, `room-kitchen.jpg`, `room-bedroom.jpg`, `room-guest.jpg`, `room-dining.jpg` — one photo per room type
-- `interior/turnkey-home-interiors/material-1..4.jpg`
+- `interior/turnkey-home-interiors/hero.png`
+- `interior/turnkey-home-interiors/room-living.png`, `room-kitchen.png`, `room-bedroom.png`, `room-guest.png`, `room-dining.png` — one photo per room type
+- `interior/turnkey-home-interiors/material-1..4.png`
 
 ## Interior Design — division overview page (`/interior-design`)
 
-- `interior/overview/hero.jpg`
-- `interior/overview/style-1..4.jpg` — one per design style shown (Contemporary, Minimalist, Classic, Industrial)
+- `interior/overview/hero.png`
+- `interior/overview/style-1..4.png` — one per design style shown (Contemporary, Minimalist, Classic, Industrial)
 
 ## Home page (`/`)
 
@@ -63,51 +64,51 @@ Each of these needs: 1 hero + 4 "capability" cards + 4 material photos.
 nothing to add here.
 
 Still needed:
-- `home/how-we-work-1-consult.jpg` … `how-we-work-4-handover.jpg` — 4 process-step photos
-- `home/areas-served-map.jpg` — map or area-served visual
+- `home/how-we-work-1-consult.png` … `how-we-work-4-handover.png` — 4 process-step photos
+- `home/areas-served-map.png` — map or area-served visual
 
 ## About page (`/about`)
 
-- `about/hero-about.jpg`
-- `about/office-team.jpg` — used inline in the "our story" section
-- `about/timeline-2019-founding.jpg`, `timeline-2022-division-split.jpg`, `timeline-2024-scale.jpg` — 3 milestone photos
-- `about/office-exterior.jpg`, `team-site-review.jpg`, `design-studio.jpg`, `site-walkthrough.jpg` — "where we work" image grid (4 photos)
+- `about/hero-about.png`
+- `about/office-team.png` — used inline in the "our story" section
+- `about/timeline-2019-founding.png`, `timeline-2022-division-split.png`, `timeline-2024-scale.png` — 3 milestone photos
+- `about/office-exterior.png`, `team-site-review.png`, `design-studio.png`, `site-walkthrough.png` — "where we work" image grid (4 photos)
 
 ## Team page (`/team`)
 
-- `team/hero-team.jpg` — leadership photos are intentionally NOT images (see below)
+- `team/hero-team.png` — leadership photos are intentionally NOT images (see below)
 
 ## Projects listing page hero (`/projects`)
 
-- `projects/hero-projects.jpg` — just the list page's own banner; individual
+- `projects/hero-projects.png` — just the list page's own banner; individual
   project photos are uploaded per-project through `/admin` instead.
 
 ## Gallery page (`/gallery`)
 
-- `gallery/hero-gallery.jpg` (the gallery grid itself pulls from Supabase project photos — nothing else needed)
+- `gallery/hero-gallery.png` (the gallery grid itself pulls from Supabase project photos — nothing else needed)
 
 ## Contact / Inquiry
 
-- `contact/hero-contact.jpg`, `contact/office-exterior.jpg`
-- `inquiry/hero-inquiry.jpg`, `inquiry/consultation-call.jpg`
+- `contact/hero-contact.png`, `contact/office-exterior.png`
+- `inquiry/hero-inquiry.png`, `inquiry/consultation-call.png`
 
 ## Certifications (`/certifications`)
 
-- `certifications/hero-certifications.jpg`
-- `certifications/quality-check-structural.jpg`, `quality-check-electrical.jpg`, `quality-check-interior-installation.jpg`, `quality-check-interior-finish.jpg`
-- `certifications/site-safety-ppe.jpg`
+- `certifications/hero-certifications.png`
+- `certifications/quality-check-structural.png`, `quality-check-electrical.png`, `quality-check-interior-installation.png`, `quality-check-interior-finish.png`
+- `certifications/site-safety-ppe.png`
 
 ## Blog listing page hero
 
-- `blog/hero-blog.jpg` (post covers are uploaded per-post through `/admin` instead)
+- `blog/hero-blog.png` (post covers are uploaded per-post through `/admin` instead)
 
 ## Homepage service carousel (`components/sections/ServiceCarousel.tsx`)
 
-- `services/service-villa.jpg`, `service-civil.jpg`, `service-industrial.jpg`, `service-kitchen.jpg`, `service-living.jpg`, `service-bedroom.jpg`, `service-turnkey.jpg`
+- `services/service-villa.png`, `service-civil.png`, `service-industrial.png`, `service-kitchen.png`, `service-living.png`, `service-bedroom.png`, `service-turnkey.png`
 
 ## Social preview
 
-- `og/zemitech-urban-og.jpg` — 1200×630, shown when the site is shared on WhatsApp/social media
+- `og/zemitech-urban-og.png` — 1200×630, shown when the site is shared on WhatsApp/social media
 
 ---
 

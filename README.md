@@ -210,7 +210,7 @@ Defined in `app/globals.css` as CSS variables, mapped into Tailwind via `@theme 
    — this feeds the sitemap, robots.txt, canonical URLs and JSON-LD. Confirm
    it matches wherever this actually deploys.
 
-5. **OG image & real testimonials.** `public/images/og/zemitech-urban-og.jpg`
+5. **OG image & real testimonials.** `public/images/og/zemitech-urban-og.png`
    and `lib/data/testimonials.ts` are still stand-ins — swap for a real social
    preview image and real client quotes before launch.
 

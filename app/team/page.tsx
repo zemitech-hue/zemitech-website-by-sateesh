@@ -20,7 +20,7 @@ export default function TeamPage() {
         eyebrow="Our Team"
         headline="The people behind every handover"
         sub="Zemitech Urban is led by a small team of engineers and advisers who stay close to every active project — backed by the site, design and coordination teams who actually build it."
-        image="/images/team/hero-team.jpg"
+        image="/images/team/hero-team.png"
         breadcrumbs={[{ name: "Team", href: "/team" }]}
       />
 
