@@ -33,9 +33,9 @@ export const primaryNav: NavItem[] = [
 export const footerSitemap = {
   company: [
     { label: "About Us", href: "/about" },
-    { label: "Our Team", href: "/team" },
     { label: "Certifications", href: "/certifications" },
-    { label: "Careers", href: "/contact" },
+    { label: "Project Portfolio", href: "/projects" },
+    { label: "Contact Us", href: "/contact" },
   ],
   construction: [
     { label: "Residential Construction", href: "/construction/residential" },

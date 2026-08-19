@@ -1,19 +1,25 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import PageHero from "@/components/sections/PageHero";
 import CTASection from "@/components/sections/CTASection";
-import CaptionedImage from "@/components/ui/CaptionedImage";
 import JsonLd, { breadcrumbJsonLd } from "@/components/JsonLd";
-import { certifications, qualityProcess, siteSafetyImage } from "@/lib/data/certifications";
+import { certifications, qualityProcess } from "@/lib/data/certifications";
 import { company } from "@/lib/data/company";
+import { HardHat, Zap, ShieldCheck, CheckCircle2, FileCheck, Check } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Certifications",
   description: "Zemitech Urban's registrations, compliance and stage-wise quality inspection process — what gets checked at every construction & interior milestone.",
   alternates: { canonical: "/certifications" },
 };
+
+const stageIcons = [
+  <HardHat key="1" className="w-8 h-8 text-amber-500" />,
+  <Zap key="2" className="w-8 h-8 text-blue-600" />,
+  <ShieldCheck key="3" className="w-8 h-8 text-indigo-600" />,
+  <CheckCircle2 key="4" className="w-8 h-8 text-emerald-600" />,
+];
 
 export default function CertificationsPage() {
   const siteUrl = `https://${company.domain}`;
@@ -39,73 +45,69 @@ export default function CertificationsPage() {
           <SectionHeading eyebrow="Registrations & Standards" title="What we operate under" />
           <div className="mt-10 grid sm:grid-cols-2 gap-6">
             {certifications.map((cert) => (
-              <div key={cert.name} className="rounded-2xl border border-line bg-white p-6">
-                <p className="font-mono-label text-xs uppercase tracking-wide text-green-700">{cert.issuer}</p>
+              <div key={cert.name} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
+                <p className="font-mono-label text-xs uppercase tracking-wide text-green-700 font-bold">{cert.issuer}</p>
                 <p className="font-semibold text-blue-950 text-lg mt-1">{cert.name}</p>
-                <p className="text-sm text-ink-soft mt-2 leading-relaxed">{cert.description}</p>
+                <p className="text-sm text-slate-600 mt-2 leading-relaxed">{cert.description}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-10 rounded-2xl bg-bg-tint border border-line p-6 grid sm:grid-cols-2 gap-4 text-sm">
+          <div className="mt-10 rounded-2xl bg-slate-50 border border-slate-200 p-6 grid sm:grid-cols-2 gap-4 text-sm">
             <div>
-              <p className="font-mono-label text-xs uppercase tracking-wide text-green-700 mb-1">Legal Entity</p>
-              <p className="text-ink">{company.legalName}</p>
+              <p className="font-mono-label text-xs uppercase tracking-wide text-green-700 font-bold mb-1">Legal Entity</p>
+              <p className="text-slate-900 font-semibold">{company.legalName}</p>
             </div>
             <div>
-              <p className="font-mono-label text-xs uppercase tracking-wide text-green-700 mb-1">GSTIN</p>
-              <p className="text-ink">{company.gstin}</p>
+              <p className="font-mono-label text-xs uppercase tracking-wide text-green-700 font-bold mb-1">GSTIN</p>
+              <p className="text-slate-900 font-semibold">{company.gstin}</p>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* Quality process, expanded */}
-      <section className="py-16 sm:py-20 bg-bg-tint">
+      {/* Quality Process — 4 Steps of Inspection with Icons */}
+      <section className="py-16 sm:py-20 bg-slate-50 border-t border-slate-200">
         <Container>
           <SectionHeading
             eyebrow="Our Quality Process"
-            title="What a quality check actually inspects"
-            sub="Every project moves through stage-wise inspection, documented and photo-logged — not a single check at handover. Here's what gets reviewed at each milestone."
+            title="4 Steps of Milestone Quality Inspection"
+            sub="Every project moves through stage-wise inspection, documented and photo-logged — not a single check at handover. Here is what gets reviewed at each milestone."
+            align="center"
           />
-          <div className="mt-12 space-y-8">
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {qualityProcess.map((q, i) => (
-              <div key={q.stage} className="grid lg:grid-cols-5 gap-8 items-start rounded-2xl bg-white border border-line p-6 sm:p-8">
-                <div className="lg:col-span-3">
-                  <p className="font-mono-label text-xs uppercase tracking-wide text-green-700">Stage {String(i + 1).padStart(2, "0")}</p>
-                  <p className="font-semibold text-blue-950 text-lg mt-1">{q.stage}</p>
-                  <ul className="mt-4 space-y-2">
+              <div
+                key={q.stage}
+                className="bg-white rounded-3xl border border-slate-200 p-7 sm:p-8 shadow-sm hover:shadow-md hover:border-blue-700/50 transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center shadow-xs">
+                      {stageIcons[i] || <FileCheck className="w-8 h-8 text-blue-700" />}
+                    </div>
+                    <span className="font-mono-label text-xs uppercase font-extrabold tracking-wider text-blue-700 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200/80">
+                      Step 0{i + 1} Inspection
+                    </span>
+                  </div>
+
+                  <h3 className="font-extrabold text-blue-950 text-xl tracking-tight mb-4">
+                    {q.stage}
+                  </h3>
+
+                  <ul className="space-y-3">
                     {q.inspects.map((item) => (
-                      <li key={item} className="flex items-start gap-2.5 text-sm text-ink-soft">
-                        <svg width="14" height="14" viewBox="0 0 16 16" className="shrink-0 mt-1 text-green-600" aria-hidden="true">
-                          <path d="M3 8.5l3 3 7-7" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        {item}
+                      <li key={item} className="flex items-start gap-3 text-sm text-slate-700 font-medium">
+                        <span className="w-5 h-5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 font-bold">
+                          <Check className="w-3.5 h-3.5" />
+                        </span>
+                        <span className="leading-snug">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-                <div className="lg:col-span-2">
-                  <CaptionedImage src={q.image} alt={q.alt} aspect="aspect-[4/3]" />
-                </div>
               </div>
             ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* Site safety */}
-      <section className="py-16 sm:py-20">
-        <Container className="grid lg:grid-cols-5 gap-10 items-center">
-          <div className="lg:col-span-3">
-            <SectionHeading
-              eyebrow="Site Safety"
-              title="PPE and safety compliance on every active site"
-              sub="Helmets, safety vests and boots are mandatory for all site personnel and visitors, with periodic safety audits documented alongside our quality inspection records."
-            />
-          </div>
-          <div className="lg:col-span-2 relative aspect-[4/3] rounded-2xl overflow-hidden reg-corners">
-            <Image src={siteSafetyImage.src} alt={siteSafetyImage.alt} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
           </div>
         </Container>
       </section>
