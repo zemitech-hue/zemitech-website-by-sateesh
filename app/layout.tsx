@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 // Self-hosted via @fontsource (npm) rather than next/font/google, so the build
 // never depends on reaching fonts.googleapis.com/fonts.gstatic.com at build time.
 import "@fontsource/space-grotesk/500.css";
@@ -109,6 +110,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <SiteChrome>{children}</SiteChrome>
+        <Analytics />
       </body>
     </html>
   );
