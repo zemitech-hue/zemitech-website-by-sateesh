@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+  <!-- Pure White Background -->
+  <rect width="1200" height="750" fill="#ffffff" />
+  
+  <defs>
+    <!-- Soft Studio Shadow -->
+    <filter id="roomShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="#0f172a" flood-opacity="0.1" />
+    </filter>
+
+    <linearGradient id="wallPanel" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f1f5f9" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+
+    <linearGradient id="marbleFloor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </linearGradient>
+
+    <linearGradient id="woodConsole" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#78350f" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+
+    <linearGradient id="sofaFabric" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e2e8f0" />
+      <stop offset="100%" stop-color="#cbd5e1" />
+    </linearGradient>
+    
+    <linearGradient id="coveGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#fef08a" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Floor Ground Shadow -->
+  <ellipse cx="600" cy="660" rx="420" ry="22" fill="#0f172a" opacity="0.07" />
+
+  <g filter="url(#roomShadow)" transform="translate(180, 80)">
+    <!-- Room Back Wall Structure -->
+    <rect x="40" y="40" width="760" height="460" fill="url(#wallPanel)" stroke="#cbd5e1" stroke-width="2" rx="12" />
+    
+    <!-- Polished Marble Floor -->
+    <polygon points="40,500 760,500 840,620 -40,620" fill="url(#marbleFloor)" stroke="#cbd5e1" stroke-width="1.5" />
+    <!-- Marble Floor Tile Grid Lines -->
+    <line x1="200" y1="500" x2="160" y2="620" stroke="#cbd5e1" stroke-width="1" opacity="0.6" />
+    <line x1="400" y1="500" x2="400" y2="620" stroke="#cbd5e1" stroke-width="1" opacity="0.6" />
+    <line x1="600" y1="500" x2="640" y2="620" stroke="#cbd5e1" stroke-width="1" opacity="0.6" />
+
+    <!-- False Ceiling Cove Light Slot -->
+    <rect x="70" y="40" width="700" height="25" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
+    <rect x="80" y="65" width="680" height="15" fill="url(#coveGlow)" />
+
+    <!-- Centered Wooden Fluted Feature TV Wall -->
+    <rect x="220" y="100" width="400" height="360" rx="8" fill="url(#woodConsole)" />
+    <!-- Vertical Fluted Slats -->
+    <line x1="260" y1="100" x2="260" y2="460" stroke="#451a03" stroke-width="2" />
+    <line x1="300" y1="100" x2="300" y2="460" stroke="#451a03" stroke-width="2" />
+    <line x1="340" y1="100" x2="340" y2="460" stroke="#451a03" stroke-width="2" />
+    <line x1="380" y1="100" x2="380" y2="460" stroke="#451a03" stroke-width="2" />
+    <line x1="420" y1="100" x2="420" y2="460" stroke="#451a03" stroke-width="2" />
+    <line x1="460" y1="100" x2="460" y2="460" stroke="#451a03" stroke-width="2" />
+    <line x1="500" y1="100" x2="500" y2="460" stroke="#451a03" stroke-width="2" />
+    <line x1="540" y1="100" x2="540" y2="460" stroke="#451a03" stroke-width="2" />
+    <line x1="580" y1="100" x2="580" y2="460" stroke="#451a03" stroke-width="2" />
+
+    <!-- Wall-Mounted Ultra-Thin OLED TV Panel -->
+    <rect x="280" y="140" width="280" height="160" rx="6" fill="#0f172a" stroke="#334155" stroke-width="4" />
+    <rect x="290" y="150" width="260" height="140" fill="#1e293b" />
+    
+    <!-- Floating TV Unit Console Drawer -->
+    <rect x="200" y="340" width="440" height="60" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="347" y1="340" x2="347" y2="400" stroke="#cbd5e1" stroke-width="1.5" />
+    <line x1="493" y1="340" x2="493" y2="400" stroke="#cbd5e1" stroke-width="1.5" />
+
+    <!-- Luxury L-Shaped Sectional Sofa (Foreground Centered) -->
+    <rect x="120" y="460" width="600" height="110" rx="16" fill="url(#sofaFabric)" stroke="#94a3b8" stroke-width="2" />
+    <!-- Sofa Cushions -->
+    <rect x="135" y="475" width="180" height="80" rx="10" fill="#ffffff" opacity="0.9" />
+    <rect x="330" y="475" width="180" height="80" rx="10" fill="#ffffff" opacity="0.9" />
+    <rect x="525" y="475" width="180" height="80" rx="10" fill="#ffffff" opacity="0.9" />
+
+    <!-- Modern Round Marble Coffee Table -->
+    <ellipse cx="420" cy="560" rx="90" ry="30" fill="#ffffff" stroke="#94a3b8" stroke-width="2" />
+    <ellipse cx="420" cy="560" rx="80" ry="24" fill="url(#marbleFloor)" opacity="0.8" />
+  </g>
+</svg>

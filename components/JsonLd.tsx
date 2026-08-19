@@ -65,6 +65,40 @@ export function serviceJsonLd({
   };
 }
 
+export function articleJsonLd({
+  title,
+  description,
+  url,
+  image,
+  siteUrl,
+  legalName,
+  datePublished,
+  dateModified,
+}: {
+  title: string;
+  description: string;
+  url: string;
+  image: string;
+  siteUrl: string;
+  legalName: string;
+  datePublished: string;
+  dateModified?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description,
+    url,
+    image,
+    datePublished,
+    dateModified: dateModified ?? datePublished,
+    author: { "@type": "Organization", name: legalName, url: siteUrl },
+    publisher: { "@type": "Organization", name: legalName, url: siteUrl },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+  };
+}
+
 // Not wired up anywhere yet — Zemitech Urban has no verified public review
 // count, and emitting a fake AggregateRating would violate Google's
 // structured-data guidelines. Once real reviews exist (see

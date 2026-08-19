@@ -10,9 +10,10 @@ export const company = {
   domain: "zemitechurban.com",
   logo: "/images/brand/zemitech-urban-logo.png",
 
-  phonePrimary: "+91 99990 67709",
-  phonePrimaryHref: "tel:+919999067709",
-  whatsappNumber: "919999067709",
+  phonePrimary: "+91 77700 47188",
+  phonePrimaryHref: "tel:+917770047188",
+  whatsappNumber: "917770047188",
+  whatsappLink: "https://wa.me/917770047188?text=Hello%20Zemitech%20Urban%2C%20I%20would%20like%20to%20get%20a%20free%20quote%20and%20consultation%20for%20my%20project.",
   emailPrimary: "zemitechurban@gmail.com",
   emailSecondary: "zemitech2019@gmail.com",
 
@@ -43,17 +44,42 @@ export const company = {
     { value: "98%", label: "Client Satisfaction" },
   ],
 
-  // Neighbourhoods/areas actively served — sourced from the project location
-  // data in lib/data/projects.ts, reused for local-SEO content blocks (Home,
-  // Construction overview, Interior Design overview, Contact) instead of a
-  // generic "we serve Pune" line.
+  // Primary Cities & Operational Footprint
+  majorCities: [
+    "PUNE",
+    "MUMBAI",
+    "INDORE",
+    "BHOPAL",
+    "HYDERABAD",
+    "RANCHI",
+    "PATNA",
+    "KOLKATA",
+    "JAMSHEDPUR",
+    "NAGPUR",
+  ],
+
   areasServed: [
+    "Pune",
+    "Mumbai",
+    "Indore",
+    "Bhopal",
+    "Hyderabad",
+    "Ranchi",
+    "Patna",
+    "Kolkata",
+    "Jamshedpur",
+    "Nagpur",
     "Narhe",
+    "Baner",
+    "Hinjewadi",
     "Kondhwa",
     "Wagholi",
-    "Hinjewadi",
-    "Baner",
     "Viman Nagar",
+    "Kothrud",
+    "Hadapsar",
+    "Wakad",
+    "Bavdhan",
+    "Pimple Saudagar",
     "Pirangut",
   ],
 

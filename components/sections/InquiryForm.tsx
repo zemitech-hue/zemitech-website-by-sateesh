@@ -93,7 +93,7 @@ export default function InquiryForm({ compact = false }: { compact?: boolean }) 
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="mt-2 inline-flex items-center justify-center rounded-full bg-blue-700 text-white px-6 py-3.5 text-sm font-semibold hover:bg-blue-800 disabled:opacity-60 transition-colors"
+        className="mt-2 inline-flex items-center justify-center rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 px-6 py-3.5 text-sm font-black tracking-wide shadow-md shadow-amber-400/30 border border-amber-300 disabled:opacity-60 transition-all cursor-pointer hover:scale-105"
       >
         {status === "submitting" ? "Sending..." : "Send Enquiry"}
       </button>

@@ -4,9 +4,23 @@
 // app/construction/residential/page.tsx for the (near-empty) page wrapper.
 
 export type Faq = { question: string; answer: string };
-export type Card = { title: string; image: string; description: string };
 export type ScopeGroup = { category: string; items: string[] };
-export type Material = { name: string; image: string };
+
+export type Card = {
+  title: string;
+  image: string;
+  description: string;
+  highlights?: string[];
+  ctaText?: string;
+};
+
+export type Material = {
+  name: string;
+  image: string;
+  description?: string;
+  highlights?: string[];
+  ctaText?: string;
+};
 
 export type SubService = {
   slug: string; // e.g. "construction/residential"
@@ -47,10 +61,34 @@ export const subServices: Record<string, SubService> = {
       title: "Residential Solutions We Deliver",
       sub: "Types of residential projects Zemitech Urban designs and constructs.",
       items: [
-        { title: "Independent Luxury Villas", image: "/images/construction/residential/card-1.png", description: "Bespoke standalone luxury villas built with turnkey RCC structures and custom architecture." },
-        { title: "Modern Duplex Homes", image: "/images/construction/residential/card-2.png", description: "Multi-level modern family duplexes with open floor plans and integrated private parking." },
-        { title: "Multi-Floor Residences", image: "/images/construction/residential/card-3.png", description: "Multi-storey residential buildings constructed to strict structural engineering standards." },
-        { title: "Custom Turnkey Homes", image: "/images/construction/residential/card-4.png", description: "Full end-to-end home construction from foundation excavation to interior move-in handover." },
+        {
+          title: "Independent Luxury Villas",
+          image: "/images/construction/residential/card-1.png",
+          description: "Bespoke standalone luxury villas built with turnkey RCC structures, modern architectural elevations, double-height ceiling voids, and premium Vastu-compliant layouts tailored to your family's lifestyle.",
+          highlights: ["Vastu-Compliant Architectural Plan", "IS 456 Seismic Resistant RCC Frame", "Custom Facade & Cantilever Balconies", "Turnkey Material Specification BOQ"],
+          ctaText: "Book Appointment for Luxury Villa",
+        },
+        {
+          title: "Modern Duplex Homes",
+          image: "/images/construction/residential/card-2.png",
+          description: "Multi-level modern family duplexes engineered with open-plan living rooms, floating internal staircases, private terrace gardens, and integrated dual-car covered garage space.",
+          highlights: ["Open-Plan Multi-Level Spans", "Custom Floating Steel/RCC Stairs", "Private Skylight & Terrace Access", "Integrated Automated Entry Gates"],
+          ctaText: "Book Appointment for Duplex Home",
+        },
+        {
+          title: "Multi-Floor Residences",
+          image: "/images/construction/residential/card-3.png",
+          description: "Multi-storey residential buildings constructed to strict structural engineering standards, featuring heavy load-bearing raft foundations, passenger elevator shafts, and soundproof party wall isolation.",
+          highlights: ["Heavy Load Raft / Footing Design", "Elevator Shaft & Stairwell RCC", "Soundproof AAC Block Party Walls", "Dedicated Utility Meter Room Fit-Out"],
+          ctaText: "Book Appointment for Multi-Floor Project",
+        },
+        {
+          title: "Custom Turnkey Homes",
+          image: "/images/construction/residential/card-4.png",
+          description: "Full end-to-end home construction from soil testing, excavation, structural RCC framework to factory modular kitchen fit-outs, sanitary installation, and pristine handover condition.",
+          highlights: ["Single Point Engineering Accountability", "Weekly Photo-Logged Site Progress", "100% In-House Skilled Crews", "Fixed-Scope Agreement & BOQ"],
+          ctaText: "Book Appointment for Turnkey Villa",
+        },
       ],
     },
     scope: {
@@ -67,10 +105,10 @@ export const subServices: Record<string, SubService> = {
       title: "Construction Quality",
       sub: "Specified material grades, approved brands, and rigorous on-site execution supervision.",
       items: [
-        { name: "M25 / M30 Ready-Mix Concrete", image: "/images/construction/residential/material-1.png" },
-        { name: "Fe550D TMT Reinforcement Steel", image: "/images/construction/residential/material-2.png" },
-        { name: "Autoclaved Aerated Concrete Blocks", image: "/images/construction/residential/material-3.png" },
-        { name: "Vitrified & Natural Stone Flooring", image: "/images/construction/residential/material-4.png" },
+        { name: "M25 / M30 Ready-Mix Concrete", image: "/images/construction/residential/material-1.png", description: "UltraTech/ACC RMC mixed under lab supervision, engineered for superior 30 N/mm² compressive strength and zero voids." },
+        { name: "Fe550D TMT Reinforcement Steel", image: "/images/construction/residential/material-2.png", description: "Tata Tiscon Fe550D earthquake-resistant TMT steel bars providing enhanced ductility and structural tension flexibility." },
+        { name: "Autoclaved Aerated Concrete Blocks", image: "/images/construction/residential/material-3.png", description: "Precision thermal-insulating AAC masonry blocks providing 3x thermal efficiency and reduced dead load on foundations." },
+        { name: "Vitrified & Natural Stone Flooring", image: "/images/construction/residential/material-4.png", description: "Stain-resistant 1200x600mm double-charge vitrified tiles and polished Italian marble laid with high-flex polymer adhesive." },
       ],
     },
     faqs: [
@@ -118,10 +156,10 @@ export const subServices: Record<string, SubService> = {
       eyebrow: "Planning",
       title: "Industrial Planning Considerations",
       items: [
-        { name: "Vehicle Access & Loading Docks", image: "/images/construction/industrial/material-1.png" },
-        { name: "Heavy Floor Load Flooring", image: "/images/construction/industrial/material-2.png" },
-        { name: "Clear-Span Steel Trusses", image: "/images/construction/industrial/material-3.png" },
-        { name: "High-Capacity Drainage", image: "/images/construction/industrial/material-4.png" },
+        { name: "Vehicle Access & Loading Docks", image: "/images/construction/industrial/material-1.png", description: "Heavy-axle turning radiuses and articulated truck dock levellers for rapid container turnaround." },
+        { name: "Heavy Floor Load Flooring", image: "/images/construction/industrial/material-2.png", description: "VDF laser-screed concrete floors with steel fiber reinforcement rated for 8+ ton point loads." },
+        { name: "Clear-Span Steel Trusses", image: "/images/construction/industrial/material-3.png", description: "Pre-engineered structural steel portal frames providing up to 45m column-free clear workspace." },
+        { name: "High-Capacity Drainage", image: "/images/construction/industrial/material-4.png", description: "Cast-iron industrial trench drains and high-flow rainwater gutters for extreme monsoon runoff." },
       ],
     },
     faqs: [
@@ -168,10 +206,10 @@ export const subServices: Record<string, SubService> = {
       eyebrow: "Selections",
       title: "Materials & Finishes",
       items: [
-        { name: "Vitrified Flooring Options", image: "/images/construction/renovation/material-1.png" },
-        { name: "Washable Acrylic Paints", image: "/images/construction/renovation/material-2.png" },
-        { name: "Sanitary & Bathroom Fittings", image: "/images/construction/renovation/material-3.png" },
-        { name: "Joinery & Woodwork Finishes", image: "/images/construction/renovation/material-4.png" },
+        { name: "Vitrified Flooring Options", image: "/images/construction/renovation/material-1.png", description: "Large-format 1200x600mm vitrified tiles installed over self-levelling screed with expansion joints." },
+        { name: "Washable Acrylic Paints", image: "/images/construction/renovation/material-2.png", description: "Asian Paints Royale low-VOC washable acrylic emulsion paints with anti-fungal barrier protection." },
+        { name: "Sanitary & Bathroom Fittings", image: "/images/construction/renovation/material-3.png", description: "Concealed Kohler & Grohe thermostatic diverters with multi-layer polymer waterproofing membranes." },
+        { name: "Joinery & Woodwork Finishes", image: "/images/construction/renovation/material-4.png", description: "BWP marine plywood cabinetry finished with 1mm anti-fingerprint acrylic or veneer laminates." },
       ],
     },
     faqs: [
@@ -201,10 +239,34 @@ export const subServices: Record<string, SubService> = {
       title: "Engineering Scope",
       sub: "Civil engineering and RCC structural execution services.",
       items: [
-        { title: "Structural RCC Framing", image: "/images/construction/structural-civil-engineering/card-1.png", description: "Precision RCC columns, beams, post-tensioned slabs, and heavy load framing." },
-        { title: "Deep Foundation & Excavation", image: "/images/construction/structural-civil-engineering/card-2.png", description: "Pile foundations, raft footings, and soil retaining wall engineering." },
-        { title: "Masonry & Plastering", image: "/images/construction/structural-civil-engineering/card-3.png", description: "AAC blockwork, solid brick masonry, double-coat external sand-face plastering." },
-        { title: "Site Civil Infrastructure", image: "/images/construction/structural-civil-engineering/card-4.png", description: "Compound retaining walls, stormwater drainage channels, and site land grading." },
+        {
+          title: "Structural RCC Framing",
+          image: "/images/construction/structural-civil-engineering/card-1.png",
+          description: "Precision RCC column and beam structural framework engineered to IS 456 standards. Our site engineers supervise mix ratios, vibrator compaction, and shuttering alignment for high-rise or standalone buildings.",
+          highlights: ["M25 / M30 Ready-Mix Concrete Grade", "Tata Tiscon Fe550D Rebar Steel", "Laser Level Column Verticality", "14-Day Wet Curing Protocol"],
+          ctaText: "Book Structural RCC Inspection",
+        },
+        {
+          title: "Deep Foundation & Excavation",
+          image: "/images/construction/structural-civil-engineering/card-2.png",
+          description: "Full soil-tested deep foundations including pile footings, combined raft slabs, and reinforced soil retaining walls. Designed to handle high axial loads and monsoon soil expansion across Pune regions.",
+          highlights: ["Borehole Soil & SPT Load Audit", "RCC Pile & Raft Footing Design", "Soil Retaining & Anchor Walls", "Anti-Seepage Dewatering Channel"],
+          ctaText: "Book Foundation & Soil Assessment",
+        },
+        {
+          title: "Masonry & Plastering",
+          image: "/images/construction/structural-civil-engineering/card-3.png",
+          description: "High-precision AAC block masonry and red-brick partition walls bonded with polymer mortar. Finished with double-coat external sand-faced waterproof plastering and internal smooth gypsum punning.",
+          highlights: ["Thermal Insulating AAC Blocks", "Polymer Jointing Mortar Bonding", "Sand-Face Waterproof External Plaster", "Gypsum Smooth Wall Punning"],
+          ctaText: "Book Masonry & Plastering Scope",
+        },
+        {
+          title: "Site Civil Infrastructure",
+          image: "/images/construction/structural-civil-engineering/card-4.png",
+          description: "Comprehensive site infrastructure execution including heavy-vehicle concrete access roads, stormwater drainage culverts, boundary retaining walls, and underground RWH storage tanks.",
+          highlights: ["Concrete VDF Approach Roads", "Heavy Flow Stormwater Culverts", "RCC Boundary Retaining Walls", "Rainwater Harvesting Tank Fit-Out"],
+          ctaText: "Book Civil Infrastructure Audit",
+        },
       ],
     },
     scope: {
@@ -220,10 +282,10 @@ export const subServices: Record<string, SubService> = {
       eyebrow: "Quality",
       title: "Quality & Site Checks",
       items: [
-        { name: "Level & Plumb Checks", image: "/images/construction/structural-civil-engineering/material-1.png" },
-        { name: "Reinforcement Inspection", image: "/images/construction/structural-civil-engineering/material-2.png" },
-        { name: "Concrete Cube Testing", image: "/images/construction/structural-civil-engineering/material-3.png" },
-        { name: "Curing Process Monitoring", image: "/images/construction/structural-civil-engineering/material-4.png" },
+        { name: "Level & Plumb Checks", image: "/images/construction/structural-civil-engineering/material-1.png", description: "Laser level alignment and plumb bob verifications conducted at every column lift to ensure 100% vertical precision." },
+        { name: "Reinforcement Inspection", image: "/images/construction/structural-civil-engineering/material-2.png", description: "Mandatory structural engineer sign-off on rebar spacing, lap length, and cover blocks before concrete pour." },
+        { name: "Concrete Cube Testing", image: "/images/construction/structural-civil-engineering/material-3.png", description: "Compressive strength testing of concrete cubes at 7 and 28 days to verify structural load compliance." },
+        { name: "Curing Process Monitoring", image: "/images/construction/structural-civil-engineering/material-4.png", description: "Strict 14-day wet ponding and hessian cloth curing protocol for maximum concrete strength gain." },
       ],
     },
     faqs: [
@@ -271,10 +333,10 @@ export const subServices: Record<string, SubService> = {
       eyebrow: "Finishes",
       title: "Materials & Finishes",
       items: [
-        { name: "Laminates", image: "/images/interior/kitchen/material-1.png" },
-        { name: "Veneers", image: "/images/interior/kitchen/material-2.png" },
-        { name: "Acrylic", image: "/images/interior/kitchen/material-3.png" },
-        { name: "Glass", image: "/images/interior/kitchen/material-4.png" },
+        { name: "High-Gloss & Matte Laminates", image: "/images/interior/kitchen/material-1.png", description: "1mm anti-fingerprint scuff-resistant laminates pressed over marine plywood with matching 2mm PVC edge banding." },
+        { name: "Natural Teak & Oak Veneers", image: "/images/interior/kitchen/material-2.png", description: "Hand-selected 0.5mm natural wood veneers sealed with non-yellowing polyurethane clear protective coats." },
+        { name: "Seamless Acrylic Shutter Tops", image: "/images/interior/kitchen/material-3.png", description: "2mm ultra-gloss acrylic sheets offering mirror-like reflections and high impact scratch resistance." },
+        { name: "Toughened Fluted Glass Panels", image: "/images/interior/kitchen/material-4.png", description: "8mm toughened ribbed fluted glass set in slim aluminum profile frames with soft-close hinges." },
       ],
     },
     faqs: [
@@ -321,10 +383,10 @@ export const subServices: Record<string, SubService> = {
       eyebrow: "Finishes",
       title: "Material Board",
       items: [
-        { name: "Veneer", image: "/images/interior/living-room/material-1.png" },
-        { name: "Fluted Panels", image: "/images/interior/living-room/material-2.png" },
-        { name: "Laminates", image: "/images/interior/living-room/material-3.png" },
-        { name: "Stone Tops", image: "/images/interior/living-room/material-4.png" },
+        { name: "Natural Teak Veneer Panels", image: "/images/interior/living-room/material-1.png", description: "Hand-crafted natural wood veneer sheets providing rich warm grain textures across main feature walls." },
+        { name: "Acoustic Fluted Wall Strips", image: "/images/interior/living-room/material-2.png", description: "Charcoal WPC and natural oak fluted wall slats engineered to dampen ambient room echo and add vertical depth." },
+        { name: "Textured Anti-Scratch Laminates", image: "/images/interior/living-room/material-3.png", description: "High-pressure tactile suede and metallic laminates applied over termite-treated HDMR core boards." },
+        { name: "Italian Marble & Quartz Tops", image: "/images/interior/living-room/material-4.png", description: "Polished St. Laurent and Statuario quartz stone tops with chamfered edges for floating console surfaces." },
       ],
     },
     faqs: [
@@ -371,10 +433,10 @@ export const subServices: Record<string, SubService> = {
       eyebrow: "Selections",
       title: "Materials & Finishes",
       items: [
-        { name: "Veneers", image: "/images/interior/bedroom/material-1.png" },
-        { name: "Laminates", image: "/images/interior/bedroom/material-2.png" },
-        { name: "Wood Textures", image: "/images/interior/bedroom/material-3.png" },
-        { name: "Wardrobe Hardware", image: "/images/interior/bedroom/material-4.png" },
+        { name: "Upholstered Velvet Backrests", image: "/images/interior/bedroom/material-1.png", description: "Custom high-density foam headboards covered in stain-repellent velvet fabric for supreme comfort." },
+        { name: "Tactile Wood Grain Laminates", image: "/images/interior/bedroom/material-2.png", description: "Natural oak and walnut wood-grain laminates bonded over marine-grade shutter panels." },
+        { name: "Acoustic Wall Panels", image: "/images/interior/bedroom/material-3.png", description: "Padded sound-insulating fabric wall panels providing a quiet, peaceful sleep environment." },
+        { name: "Soft-Close German Wardrobe Hinges", image: "/images/interior/bedroom/material-4.png", description: "Heavy-duty Hettich Sensys 110° soft-close hinges tested for 200,000 quiet door operations." },
       ],
     },
     faqs: [
@@ -421,10 +483,10 @@ export const subServices: Record<string, SubService> = {
       eyebrow: "Selections",
       title: "Materials & Finishes",
       items: [
-        { name: "Wood & Veneer", image: "/images/interior/office/material-1.png" },
-        { name: "Glass Partitions", image: "/images/interior/office/material-2.png" },
-        { name: "Metal Fixtures", image: "/images/interior/office/material-3.png" },
-        { name: "Commercial Flooring", image: "/images/interior/office/material-4.png" },
+        { name: "Teak & Oak Wood Veneers", image: "/images/interior/office/material-1.png", description: "Architectural natural teak and white oak veneers finished with anti-glare matte protective coats for executive office desks." },
+        { name: "Acoustic Toughened Glass", image: "/images/interior/office/material-2.png", description: "12mm acoustic laminated glass wall partitions providing 42dB sound isolation for high-privacy conference rooms." },
+        { name: "Powder-Coated Metal Frames", image: "/images/interior/office/material-3.png", description: "Precision CNC cut aluminum and steel workstation legs finished with scratch-resistant matte black powder coating." },
+        { name: "High-Traffic Commercial Carpet Tiles", image: "/images/interior/office/material-4.png", description: "Heavy-duty nylon carpet tiles backed with sound-absorbing felt backing, engineered for high caster wheel traffic." },
       ],
     },
     faqs: [
@@ -439,10 +501,11 @@ export const subServices: Record<string, SubService> = {
 
 };
 
-export type TurnkeyRoom = { name: string; image: string; scope: string[] };
-
-export const turnkeyHomeInteriors = {
+export const turnkeyHomeInteriors: SubService = {
   slug: "interior-design/turnkey-home-interiors",
+  division: "interior-design",
+  parentLabel: "Interior Design",
+  parentHref: "/interior-design",
   navLabel: "Turnkey 2BHK & 3BHK",
   title: "Complete 2BHK & 3BHK Interiors, Designed and Executed by One Team",
   metaTitle: "Turnkey 2BHK & 3BHK Home Interiors | Zemitech Urban",
@@ -450,25 +513,64 @@ export const turnkeyHomeInteriors = {
   heroCopy: "One single point of contact for design, manufacturing, civil adjustments, and final fit-out.",
   heroImage: "/images/interior/turnkey-home-interiors/hero.png",
   primaryCtaText: "Plan My Home Interiors",
-  rooms: [
-    { name: "Living Room", image: "/images/interior/turnkey-home-interiors/room-living.png", scope: ["TV unit design & execution", "False ceiling & lighting", "Wall treatments & panels", "Custom display units"] },
-    { name: "Modular Kitchen", image: "/images/interior/turnkey-home-interiors/room-kitchen.png", scope: ["Cabinetry & storage", "Countertop integration", "Hardware & accessories", "Appliance housing"] },
-    { name: "Master Bedroom", image: "/images/interior/turnkey-home-interiors/room-bedroom.png", scope: ["Custom wardrobe", "Designer bed & headboard", "Side tables", "Dresser unit"] },
-    { name: "Guest / Kids Bedroom", image: "/images/interior/turnkey-home-interiors/room-guest.png", scope: ["Storage & wardrobes", "Bed frame", "Study table", "Space planning"] },
-    { name: "Dining Area", image: "/images/interior/turnkey-home-interiors/room-dining.png", scope: ["Crockery units", "Feature wall", "Lighting selection", "Dining layout"] },
-  ] as TurnkeyRoom[],
-  materials: [
-    { name: "Wood & Veneers", image: "/images/interior/turnkey-home-interiors/material-1.png" },
-    { name: "Laminates", image: "/images/interior/turnkey-home-interiors/material-2.png" },
-    { name: "Lighting", image: "/images/interior/turnkey-home-interiors/material-3.png" },
-    { name: "Countertops", image: "/images/interior/turnkey-home-interiors/material-4.png" },
-  ] as Material[],
+  cards: {
+    eyebrow: "Components",
+    title: "Turnkey Package Components",
+    sub: "Comprehensive room-by-room design and fit-out packages tailored for 2BHK & 3BHK homes.",
+    items: [
+      {
+        title: "Living Room Joinery & TV Walls",
+        image: "/images/interior/turnkey-home-interiors/room-living.png",
+        description: "Custom TV wall panels, gypsum false ceiling with warm LED profiles, and veneer panelling.",
+      },
+      {
+        title: "Modular Kitchen & Countertops",
+        image: "/images/interior/turnkey-home-interiors/room-kitchen.png",
+        description: "BWP marine-grade plywood cabinetry, quartz waterfall countertop, soft-close Blum hardware, and appliance housing.",
+      },
+      {
+        title: "Master Bedroom & Wardrobes",
+        image: "/images/interior/turnkey-home-interiors/room-bedroom.png",
+        description: "Floor-to-ceiling modular wardrobe with tinted glass, upholstered headboard bed, and warm bedside lighting.",
+      },
+      {
+        title: "Kids Room & Dining Joinery",
+        image: "/images/interior/turnkey-home-interiors/room-guest.png",
+        description: "Integrated WFH study desk with bookshelves, space-saving bed frame, and custom glass crockery unit.",
+      },
+    ],
+  },
+  scope: {
+    eyebrow: "Included",
+    title: "Turnkey Execution Scope",
+    groups: [
+      {
+        category: "Standard Scope",
+        items: [
+          "3D Photorealistic Design & Layouts",
+          "In-House Factory Manufacturing",
+          "Dedicated On-Site Project Manager",
+          "Post-Handover Warranty & Support",
+        ],
+      },
+    ],
+  },
+  materials: {
+    eyebrow: "Selections",
+    title: "Materials & Finishes",
+    items: [
+      { name: "Teak Wood & Natural Veneers", image: "/images/interior/turnkey-home-interiors/material-1.png", description: "Hand-picked natural teak wood veneers providing warm luxury aesthetics for main living areas." },
+      { name: "High-Pressure Anti-Fingerprint Laminates", image: "/images/interior/turnkey-home-interiors/material-2.png", description: "1mm scratch-resistant matte laminates for daily bedroom and storage usage." },
+      { name: "Architectural 3000K Warm LED Lighting", image: "/images/interior/turnkey-home-interiors/material-3.png", description: "Indirect cove lighting profiles and focal COB spotlights creating layered room ambiance." },
+      { name: "Non-Porous Quartz & Marble Tops", image: "/images/interior/turnkey-home-interiors/material-4.png", description: "Stain-proof quartz countertops for kitchen platforms and vanity counters with zero maintenance." },
+    ],
+  },
   faqs: [
     { question: "How long does a full 2BHK/3BHK turnkey interior take?", answer: "45–75 working days from 3D design approval to handover, depending on scope." },
     { question: "Do you handle civil changes as part of turnkey scope?", answer: "Yes, minor civil changes (wall removal, plumbing relocation) are coordinated as part of the same project, under the same project manager." },
     { question: "Is there one project manager for the whole home?", answer: "Yes — a single project manager stays involved from 3D design through factory production to final installation." },
     { question: "Can I choose different finishes for different rooms?", answer: "Yes, each room's material and hardware selection is specified independently in your fixed material sheet." },
-  ] as Faq[],
+  ],
   finalCta: { title: "Ready to Design Your Complete Home?", copy: "Tell us about your home and let's discuss the right approach.", primaryCtaText: "Get a Free Interior Consultation" },
   projectCategory: "interior",
 };

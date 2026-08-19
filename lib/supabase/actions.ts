@@ -33,33 +33,61 @@ export async function signOut() {
   redirect("/admin");
 }
 
+function getYouTubeThumbnail(url: string | null): string | null {
+  if (!url) return null;
+  const match = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+  if (match && match[1]) {
+    return `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg`;
+  }
+  return null;
+}
+
 // ===================== PROJECTS =====================
 
 function projectFields(formData: FormData) {
-  const quote = String(formData.get("client_quote_text") ?? "").trim();
+  const title = String(formData.get("title") ?? "").trim();
+  const clientName = String(formData.get("client_name") ?? formData.get("client_quote_author") ?? "").trim();
+  const clientLocation = String(formData.get("client_location") ?? formData.get("client_quote_location") ?? "").trim();
+  const location = String(formData.get("location") ?? "").trim();
+  const year = String(formData.get("year") ?? "").trim();
+  const category = String(formData.get("category") ?? "residential");
+  const rawSlug = String(formData.get("slug") ?? "").trim();
+  const slug = rawSlug || title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || `project-${Date.now()}`;
+  const videoUrl = String(formData.get("video_url") ?? "").trim() || null;
+  const defaultCategoryImages: Record<string, string> = {
+    residential: "/images/construction/residential/hero.png",
+    commercial: "/images/construction/industrial/hero.png",
+    interior: "/images/interior/turnkey-home-interiors/hero.png",
+    infrastructure: "/images/construction/structural-civil-engineering/hero.png",
+  };
+
+  const userCoverImage = String(formData.get("cover_image_url") ?? "").trim();
+  const ytThumbnail = getYouTubeThumbnail(videoUrl);
+  const coverImage = userCoverImage || ytThumbnail || defaultCategoryImages[category] || "/images/construction/residential/hero.png";
+
   return {
-    slug: String(formData.get("slug") ?? "").trim(),
-    title: String(formData.get("title") ?? "").trim(),
-    category: String(formData.get("category") ?? "residential"),
-    location: String(formData.get("location") ?? "").trim(),
-    year: String(formData.get("year") ?? "").trim(),
-    area: String(formData.get("area") ?? "").trim(),
-    summary: String(formData.get("summary") ?? "").trim(),
-    description: linesToArray(formData.get("description")),
+    slug,
+    title,
+    category,
+    location: location || "Pune",
+    year: year || new Date().getFullYear().toString(),
+    area: String(formData.get("area") ?? "Turnkey Site"),
+    summary: String(formData.get("summary") ?? title),
+    description: linesToArray(formData.get("description")).length > 0 ? linesToArray(formData.get("description")) : [title],
     scope: linesToArray(formData.get("scope")),
-    challenge: String(formData.get("challenge") ?? "").trim(),
-    solution: String(formData.get("solution") ?? "").trim(),
-    cover_image_url: String(formData.get("cover_image_url") ?? "").trim() || null,
+    challenge: String(formData.get("challenge") ?? ""),
+    solution: String(formData.get("solution") ?? ""),
+    cover_image_url: coverImage,
     gallery_urls: linesToArray(formData.get("gallery_urls")),
-    video_url: String(formData.get("video_url") ?? "").trim() || null,
-    client_quote_text: quote || null,
-    client_quote_author: quote ? String(formData.get("client_quote_author") ?? "").trim() : null,
-    client_quote_location: quote ? String(formData.get("client_quote_location") ?? "").trim() : null,
+    video_url: videoUrl,
+    client_quote_text: clientName ? `Delivered for ${clientName}` : null,
+    client_quote_author: clientName || null,
+    client_quote_location: clientLocation || location || null,
     published: formData.get("published") === "on",
   };
 }
 
-export async function createProject(formData: FormData) {
+export async function createProject(_prevState: unknown, formData: FormData) {
   const supabase = await createClient();
   const { error } = await supabase.from("projects").insert(projectFields(formData));
   if (error) return { error: error.message };
@@ -90,11 +118,16 @@ export async function deleteProject(id: string) {
 // ===================== BLOG =====================
 
 function blogFields(formData: FormData) {
+  const title = String(formData.get("title") ?? "").trim();
+  const rawSlug = String(formData.get("slug") ?? "").trim();
+  const slug = rawSlug || title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || `post-${Date.now()}`;
+  const excerpt = String(formData.get("excerpt") ?? "").trim() || title;
+
   return {
-    slug: String(formData.get("slug") ?? "").trim(),
-    title: String(formData.get("title") ?? "").trim(),
+    slug,
+    title,
     category: String(formData.get("category") ?? "General").trim(),
-    excerpt: String(formData.get("excerpt") ?? "").trim(),
+    excerpt,
     cover_image_url: String(formData.get("cover_image_url") ?? "").trim() || null,
     content_md: String(formData.get("content_md") ?? ""),
     read_minutes: Number(formData.get("read_minutes") ?? 5) || 5,
@@ -126,3 +159,60 @@ export async function deleteBlogPost(id: string) {
   revalidatePath("/blog");
   revalidatePath("/admin/dashboard/blog");
 }
+
+// ===================== COMPANY SETTINGS =====================
+
+export async function updateCompanySettings(formData: FormData) {
+  const office_address = String(formData.get("office_address") ?? "").trim();
+  const email = String(formData.get("email") ?? "").trim();
+  const phone = String(formData.get("phone") ?? "").trim();
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("company_settings")
+    .upsert({ id: "main", office_address, email, phone, updated_at: new Date().toISOString() });
+
+  if (error) return { error: error.message };
+  revalidatePath("/");
+  revalidatePath("/contact");
+  revalidatePath("/admin/dashboard/company");
+  return { success: true };
+}
+
+// ===================== TEAM MEMBERS =====================
+
+export async function createTeamMember(formData: FormData) {
+  const name = String(formData.get("name") ?? "").trim();
+  const role = String(formData.get("role") ?? "").trim();
+  const experience = String(formData.get("experience") ?? "").trim();
+  const image_url = String(formData.get("image_url") ?? "").trim() || "/images/team/avatar-1.png";
+
+  const supabase = await createClient();
+  const { error } = await supabase.from("team_members").insert({
+    name,
+    role,
+    experience,
+    image_url,
+  });
+
+  if (error) {
+    if (error.message.includes("schema cache") || error.message.includes("does not exist")) {
+      return {
+        error: "The table 'public.team_members' has not been created in your Supabase project yet. Please run the SQL snippet in your Supabase SQL Editor.",
+      };
+    }
+    return { error: error.message };
+  }
+  revalidatePath("/team");
+  revalidatePath("/about");
+  revalidatePath("/admin/dashboard/team");
+  redirect("/admin/dashboard/team");
+}
+
+export async function deleteTeamMember(id: string) {
+  const supabase = await createClient();
+  await supabase.from("team_members").delete().eq("id", id);
+  revalidatePath("/team");
+  revalidatePath("/admin/dashboard/team");
+}
+

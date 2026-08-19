@@ -3,6 +3,8 @@ import Container from "@/components/ui/Container";
 import PageHero from "@/components/sections/PageHero";
 import CTASection from "@/components/sections/CTASection";
 import ProjectsGrid from "@/components/sections/ProjectsGrid";
+import JsonLd, { breadcrumbJsonLd } from "@/components/JsonLd";
+import { company } from "@/lib/data/company";
 import { getProjects } from "@/lib/supabase/queries";
 
 export const metadata: Metadata = {
@@ -16,14 +18,21 @@ export const revalidate = 60;
 
 export default async function ProjectsPage() {
   const projects = await getProjects();
+  const siteUrl = `https://${company.domain}`;
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: siteUrl },
+          { name: "Projects", url: `${siteUrl}/projects` },
+        ])}
+      />
       <PageHero
         eyebrow="Portfolio"
         headline="Projects across construction and interior design"
         sub="A sample of recently completed residential, commercial, infrastructure and interior work across Pune."
-        image="/images/projects/hero-projects.png"
+        image="/images/projects/hero.png"
         breadcrumbs={[{ name: "Projects", href: "/projects" }]}
       />
       <section className="py-16 sm:py-20">

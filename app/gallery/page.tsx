@@ -3,6 +3,8 @@ import Container from "@/components/ui/Container";
 import PageHero from "@/components/sections/PageHero";
 import CTASection from "@/components/sections/CTASection";
 import GalleryGrid, { GalleryPhoto } from "@/components/sections/GalleryGrid";
+import JsonLd, { breadcrumbJsonLd } from "@/components/JsonLd";
+import { company } from "@/lib/data/company";
 import { getProjects } from "@/lib/supabase/queries";
 
 export const metadata: Metadata = {
@@ -17,11 +19,18 @@ export default async function GalleryPage() {
   const projects = await getProjects();
   const galleryImages: GalleryPhoto[] = projects.flatMap((p) => [
     ...(p.coverImage ? [{ src: p.coverImage, alt: `${p.title} — cover photo`, caption: `${p.title}, ${p.location}`, category: p.category }] : []),
-    ...p.galleryUrls.map((src, i) => ({ src, alt: `${p.title} — photo ${i + 1}`, caption: `${p.title}, ${p.location}`, category: p.category })),
+    ...p.galleryUrls.map((src: string, i: number) => ({ src, alt: `${p.title} — photo ${i + 1}`, caption: `${p.title}, ${p.location}`, category: p.category })),
   ]);
+  const siteUrl = `https://${company.domain}`;
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: siteUrl },
+          { name: "Gallery", url: `${siteUrl}/gallery` },
+        ])}
+      />
       <PageHero
         eyebrow="Gallery"
         headline="A closer look at completed work"

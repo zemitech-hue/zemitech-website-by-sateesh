@@ -70,11 +70,10 @@ export default function PageHero({
             className="object-cover"
             sizes="100vw"
             quality={92}
-            priority
+            preload
           />
-          {/* Seamless Soft Fog Scrim — NO Card Boxes or Borders */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/45 to-transparent pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-slate-950/20 pointer-events-none" />
+          {/* Subtle Bottom Fog Scrim Only — Left Bluish Shade Completely Removed */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
         </div>
 
         {/* Content Container Left Aligned */}
@@ -89,30 +88,34 @@ export default function PageHero({
             </div>
 
             {/* Eyebrow Tag */}
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-950/80 text-green-400 border border-blue-600/50 font-mono-label text-xs uppercase tracking-[0.2em] font-bold mb-4 shadow-md backdrop-blur-md">
-              <span className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse" />
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 text-amber-400 border border-amber-400/40 font-mono-label text-xs uppercase tracking-[0.2em] font-bold mb-4 shadow-md backdrop-blur-md">
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
               {eyebrow}
             </span>
 
-            {/* Headline with Brand Blue Keyword Highlight */}
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-[1.15] tracking-tight drop-shadow-md">
+            {/* Headline with Brand Gold/Yellow Keyword Highlight */}
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-[1.15] tracking-tight [text-shadow:_0_4px_16px_rgb(0_0_0_/_95%)]">
               {renderHighlightedHeadline(headline)}
             </h1>
 
             {/* Sub Headline */}
-            <p className="mt-4 text-slate-100 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl font-medium drop-shadow-xs">
+            <p className="mt-4 text-slate-100 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl font-bold [text-shadow:_0_2px_12px_rgb(0_0_0_/_95%)]">
               {sub}
             </p>
 
             {/* Trust Badges */}
             <div className="mt-5 flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-white border border-white/20 text-xs font-bold backdrop-blur-md shadow-md">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-950/95 text-white border border-slate-700 text-xs font-bold shadow-xl backdrop-blur-md">
                 <span className="text-amber-400 font-black">★ 4.9/5</span>
                 <span>Customer Verified</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-white border border-white/20 text-xs font-bold backdrop-blur-md shadow-md">
-                <span className="text-green-400 font-bold">✓</span>
-                <span className="text-blue-300 font-bold">GST Registered</span> Company
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-950/95 text-white border border-slate-700 text-xs font-bold shadow-xl backdrop-blur-md">
+                <span className="text-emerald-400 font-bold">✓</span>
+                <span className="text-amber-300 font-bold">GST Registered</span> Company
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-950/95 text-white border border-amber-400/60 text-xs font-bold shadow-xl backdrop-blur-md">
+                <span className="text-amber-400 font-bold">✓</span>
+                <span className="text-amber-300 font-extrabold">10-Year Warranty</span>
               </span>
             </div>
 
@@ -121,16 +124,17 @@ export default function PageHero({
               <Button
                 type="button"
                 onClick={() => setModalOpen(true)}
-                variant="secondary"
+                variant="primary"
                 showArrow
-                className="shadow-xl shadow-green-600/35"
+                className="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black shadow-2xl shadow-amber-400/40 border border-amber-300 hover:scale-105 transition-all px-8 py-3.5 rounded-2xl text-sm sm:text-base cursor-pointer"
               >
                 Get a Free Quote
               </Button>
               <Button
-                href="/contact"
+                type="button"
+                onClick={() => setModalOpen(true)}
                 variant="outline"
-                className="!border-white/80 !text-white hover:!bg-white/20 backdrop-blur-md shadow-xl"
+                className="bg-slate-950 text-white hover:bg-slate-900 border-2 border-amber-400/80 font-black shadow-2xl hover:scale-105 transition-all px-8 py-3.5 rounded-2xl text-sm sm:text-base cursor-pointer"
               >
                 Contact Our Team
               </Button>

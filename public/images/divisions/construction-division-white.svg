@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+  <!-- Pure White Background -->
+  <rect width="1200" height="750" fill="#ffffff" />
+  
+  <defs>
+    <!-- Soft Studio Shadow -->
+    <filter id="studioShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="25" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.12" />
+    </filter>
+    
+    <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3878cf" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#14397a" stop-opacity="0.6" />
+    </linearGradient>
+    
+    <linearGradient id="facadeGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+
+    <linearGradient id="woodGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#9a3412" />
+      <stop offset="100%" stop-color="#c2410c" />
+    </linearGradient>
+    
+    <linearGradient id="accentBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1b4b91" />
+      <stop offset="100%" stop-color="#0f2e5c" />
+    </linearGradient>
+  </defs>
+
+  <!-- Floor Ground Soft Reflection Shadow -->
+  <ellipse cx="600" cy="650" rx="380" ry="25" fill="#0f172a" opacity="0.08" />
+
+  <g filter="url(#studioShadow)" transform="translate(250, 90)">
+    <!-- Base Platform -->
+    <rect x="20" y="520" width="660" height="20" rx="4" fill="#cbd5e1" />
+    
+    <!-- Main Structure — Ground Floor -->
+    <rect x="60" y="320" width="580" height="200" rx="8" fill="url(#facadeGrad)" stroke="#cbd5e1" stroke-width="2" />
+    
+    <!-- Wooden Accent Wall Panel (Left) -->
+    <rect x="80" y="340" width="140" height="180" rx="6" fill="url(#woodGrad)" />
+    <line x1="115" y1="340" x2="115" y2="520" stroke="#7c2d12" stroke-width="2" />
+    <line x1="150" y1="340" x2="150" y2="520" stroke="#7c2d12" stroke-width="2" />
+    <line x1="185" y1="340" x2="185" y2="520" stroke="#7c2d12" stroke-width="2" />
+
+    <!-- Glass Entrance Door & Frame -->
+    <rect x="250" y="360" width="160" height="160" rx="4" fill="url(#glassGrad)" stroke="#1e293b" stroke-width="3" />
+    <line x1="330" y1="360" x2="330" y2="520" stroke="#ffffff" stroke-width="2" />
+    
+    <!-- Large Panoramic Glass Window (Right) -->
+    <rect x="440" y="360" width="170" height="130" rx="4" fill="url(#glassGrad)" stroke="#1e293b" stroke-width="3" />
+    <line x1="525" y1="360" x2="525" y2="490" stroke="#ffffff" stroke-width="1.5" />
+
+    <!-- First Floor Cantilever Volume -->
+    <rect x="100" y="140" width="500" height="180" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" />
+    
+    <!-- Architectural Blue Frame Overhang -->
+    <rect x="75" y="125" width="550" height="25" rx="6" fill="url(#accentBlue)" />
+
+    <!-- First Floor Glass Balcony & Windows -->
+    <rect x="130" y="170" width="220" height="120" rx="4" fill="url(#glassGrad)" stroke="#1e293b" stroke-width="3" />
+    <rect x="370" y="170" width="200" height="120" rx="4" fill="url(#glassGrad)" stroke="#1e293b" stroke-width="3" />
+    
+    <!-- Glass Balustrade Line -->
+    <rect x="110" y="270" width="480" height="40" fill="#e2e8f0" opacity="0.4" stroke="#94a3b8" stroke-width="1.5" />
+
+    <!-- Second Floor Penthouse Void -->
+    <rect x="160" y="20" width="380" height="110" rx="6" fill="url(#facadeGrad)" stroke="#cbd5e1" stroke-width="2" />
+    <rect x="190" y="40" width="320" height="80" rx="4" fill="url(#glassGrad)" stroke="#1e293b" stroke-width="3" />
+    
+    <!-- Roof Modern Flat Slab Overhang -->
+    <rect x="135" y="5" width="430" height="18" rx="4" fill="url(#accentBlue)" />
+    
+    <!-- Architectural Warm Cove Lights Glow -->
+    <circle cx="270" cy="335" r="5" fill="#fbbf24" />
+    <circle cx="430" cy="335" r="5" fill="#fbbf24" />
+    <circle cx="230" cy="135" r="5" fill="#fbbf24" />
+    <circle cx="470" cy="135" r="5" fill="#fbbf24" />
+  </g>
+</svg>

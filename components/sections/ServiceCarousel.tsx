@@ -23,7 +23,7 @@ const constructionServices: ServiceItem[] = [
     tag: "Residential",
     description: "Turnkey G+1 & G+2 independent villas built by in-house civil engineering teams in Pune with fixed BOQ pricing.",
     href: "/construction/residential",
-    image: "/images/services/service-villa.jpg",
+    image: "/images/construction/residential/card-1.png",
     highlights: ["Fixed-Scope BOQ Guarantee", "In-House Structural Engineers", "Weekly Photo-Logged Updates"],
   },
   {
@@ -32,7 +32,7 @@ const constructionServices: ServiceItem[] = [
     tag: "Civil Engineering",
     description: "Structural engineering, municipal plan sanctions, footing casting, and RCC frame construction.",
     href: "/construction/structural-civil-engineering",
-    image: "/images/services/service-civil.jpg",
+    image: "/images/construction/structural-civil-engineering/card-1.png",
     highlights: ["Municipal Plan Sanctions", "RCC Slab & Beam Casting", "Waterproofing Guarantee"],
   },
   {
@@ -41,7 +41,7 @@ const constructionServices: ServiceItem[] = [
     tag: "Renovation",
     description: "Full structural upgrades, floor additions, wall re-alignments and modern facade revamps for existing homes.",
     href: "/construction/renovation",
-    image: "/images/services/service-villa.jpg",
+    image: "/images/construction/renovation/card-1.png",
     highlights: ["Structural Integrity Checks", "Fixed Renovation BOQ", "Complete Interior Handover"],
   },
   {
@@ -50,7 +50,7 @@ const constructionServices: ServiceItem[] = [
     tag: "Industrial",
     description: "Heavy-duty PEB steel warehouses, factory floors, and logistics facilities engineered for high equipment load.",
     href: "/construction/industrial",
-    image: "/images/services/service-industrial.jpg",
+    image: "/images/construction/industrial/card-1.png",
     highlights: ["Pre-Engineered Steel Framework", "Heavy-Duty Trimix Flooring", "High Clearance & Crane Beams"],
   },
 ];
@@ -62,7 +62,7 @@ const interiorServices: ServiceItem[] = [
     tag: "Modular Kitchen",
     description: "L-shape, Parallel, and Island modular kitchens manufactured in-house with marine-grade ply and soft-close hardware.",
     href: "/interior-design/kitchen",
-    image: "/images/services/service-kitchen.jpg",
+    image: "/images/interior/kitchen/card-1.png",
     highlights: ["BWP Marine Ply (710 Grade)", "Soft-Close Blum / Hettich Hardware", "Quartz & Granite Countertops"],
   },
   {
@@ -71,7 +71,7 @@ const interiorServices: ServiceItem[] = [
     tag: "Living Room",
     description: "Custom TV wall units, false ceilings, ambient LED profiles, veneer panelling, and integrated shoe racks.",
     href: "/interior-design/living-room",
-    image: "/images/services/service-living.jpg",
+    image: "/images/interior/living-room/card-1.png",
     highlights: ["Custom TV Wall Consoles", "Gypsum Ceiling & LED Profiles", "Veneer & Charcoal Panelling"],
   },
   {
@@ -80,7 +80,7 @@ const interiorServices: ServiceItem[] = [
     tag: "Bedroom",
     description: "Floor-to-ceiling modular wardrobes, headboard panelling, dressing tables, and hydraulic storage beds.",
     href: "/interior-design/bedroom",
-    image: "/images/services/service-bedroom.jpg",
+    image: "/images/interior/bedroom/card-1.png",
     highlights: ["Floor-to-Ceiling Wardrobes", "Hydraulic Storage Beds", "Upholstered Headboards"],
   },
   {
@@ -89,7 +89,7 @@ const interiorServices: ServiceItem[] = [
     tag: "Turnkey Home",
     description: "Complete 2BHK & 3BHK home interior design under one project manager from 3D visual render to handover.",
     href: "/interior-design",
-    image: "/images/services/service-turnkey.jpg",
+    image: "/images/interior/turnkey-home-interiors/card-1.png",
     highlights: ["3D Photorealistic Design", "Dedicated Site Manager", "Post-Handover Warranty"],
   },
 ];
@@ -220,8 +220,8 @@ function ServiceCard({ service, onBook }: { service: ServiceItem; onBook: () => 
         <Button
           type="button"
           onClick={onBook}
-          variant="secondary"
-          className="w-full justify-center !py-2.5 !text-xs shadow-xs"
+          variant="primary"
+          className="w-full justify-center !py-3 !text-xs shadow-md font-black hover:scale-[1.02] transition-transform"
         >
           Book Consultation
         </Button>

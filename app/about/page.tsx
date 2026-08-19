@@ -1,40 +1,40 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import CaptionedImage from "@/components/ui/CaptionedImage";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import PageHero from "@/components/sections/PageHero";
 import SplitSection from "@/components/sections/SplitSection";
-import ImageGrid from "@/components/sections/ImageGrid";
 import CTASection from "@/components/sections/CTASection";
+import InquiryModal from "@/components/ui/InquiryModal";
+import GracefulImage from "@/components/ui/GracefulImage";
+import JsonLd, { breadcrumbJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/data/company";
 
-export const metadata: Metadata = {
-  title: "About Us",
-  description:
-    "The story behind Zemitech Urban — founded 2019 in Narhe, Pune. 240+ construction & interior projects delivered by in-house teams, not sub-contractors.",
-  alternates: { canonical: "/about" },
-};
+const siteUrl = `https://${company.domain}`;
 
 const timeline = [
   {
     year: "2019",
     title: "Zemitech Urban founded in Narhe",
-    body: "Started as a small in-house team taking on residential construction contracts across Narhe and the surrounding Pune suburbs — the founding bet was that keeping core execution in-house, rather than sub-contracting it out, was the only way to hold both quality and timelines.",
+    body: "Started as a small in-house team taking on residential construction contracts across Narhe and the surrounding Pune suburbs — keeping core execution in-house to hold both quality and timelines.",
     image: "/images/about/timeline-2019-founding.png",
-    alt: "Zemitech Urban's founding team on an early residential construction site in Narhe, Pune, 2019",
+    alt: "Zemitech Urban founding team on a residential construction site in Narhe, Pune, 2019",
   },
   {
     year: "2022",
     title: "Interior Design division launches",
-    body: "Formalized interior design as its own division with a dedicated factory-manufacturing partnership for modular kitchens and wardrobes, instead of sub-contracting interior fit-outs project by project — the same in-house-first principle that founded the company, applied to a second discipline.",
+    body: "Formalized interior design as its own division with a dedicated factory-manufacturing partnership for modular kitchens and wardrobes, applying in-house accountability to interior design.",
     image: "/images/about/timeline-2022-division-split.png",
     alt: "Zemitech Urban Interior Design division's first dedicated design studio, 2022",
   },
   {
     year: "2024–25",
     title: "240+ projects, both divisions at scale",
-    body: "Crossed 240 completed projects across residential, commercial, infrastructure and interior categories, with construction and interior design now running as genuinely coordinated divisions — many clients move directly from a construction handover into a full interior fit-out with the same project manager staying involved.",
+    body: "Crossed 240 completed projects across residential, commercial, infrastructure and interior categories, with construction and interior design running as genuinely coordinated divisions.",
     image: "/images/about/timeline-2024-scale.png",
     alt: "Zemitech Urban team celebrating the 240-plus completed projects milestone",
   },
@@ -47,15 +47,59 @@ const values = [
   { title: "Timeliness", body: "Schedules planned backwards from your handover or opening date, and tracked weekly." },
 ];
 
+const workLocations = [
+  {
+    tag: "Head Office • Narhe, Pune",
+    title: "Narhe Head Office & Experience Center",
+    description: "Our dedicated corporate office in Narhe serves as the central hub for engineering design, client consultations, project management, and BOQ estimation.",
+    highlights: ["In-House Engineering Team", "Client Consultation Studio", "Dedicated Project Managers"],
+    image: "/images/about/office-exterior.png",
+    ctaText: "Book Appointment at Narhe Office",
+  },
+  {
+    tag: "Quality Audit • Site Supervision",
+    title: "Site Engineering & Quality Control Meetings",
+    description: "Our senior civil engineers conduct weekly on-site quality audits, laser level checks, structural reinforcement verification, and client progress reviews.",
+    highlights: ["Weekly Site Photo Updates", "IS Code Structural Audit", "Zero-Defect Protocol"],
+    image: "/images/about/team-site-review.png",
+    ctaText: "Schedule On-Site Inspection",
+  },
+  {
+    tag: "Material Library • 3D Renders",
+    title: "Bespoke Interior Design Studio",
+    description: "Explore 100+ physical material samples, veneer textures, quartz slab swatches, and photorealistic 3D renders to visualize your home interiors.",
+    highlights: ["100+ Physical Samples", "3D Photorealistic Renders", "Factory Direct Pricing"],
+    image: "/images/about/design-studio.png",
+    ctaText: "Book Interior Design Consultation",
+  },
+  {
+    tag: "Turnkey Completion • Move-In Ready",
+    title: "Client Handover & Structural Walkthrough",
+    description: "Before final keys are handed over, our project manager leads a comprehensive 50-point walkthrough with the client to verify every fixture and finish.",
+    highlights: ["50-Point Snag Inspection", "Pristine Chemical Cleaned", "Active Warranty Folder"],
+    image: "/images/about/site-walkthrough.png",
+    ctaText: "Book Turnkey Villa Project",
+  },
+];
+
 export default function AboutPage() {
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: siteUrl },
+          { name: "About Us", url: `${siteUrl}/about` },
+        ])}
+      />
+
       {/* Section 1 — Hero */}
       <PageHero
         eyebrow="About Us"
         headline="Construction and interior design, under one roof"
         sub="Zemitech Urban Private Limited has delivered 240+ projects across Pune since 2019 — built by in-house teams, not stitched together across sub-contractors."
-        image="/images/about/hero-about.png"
+        image="/images/about/hero.png"
         breadcrumbs={[{ name: "About Us", href: "/about" }]}
       />
 
@@ -89,17 +133,17 @@ export default function AboutPage() {
       </section>
 
       {/* Section 3 — Timeline */}
-      <section className="py-16 sm:py-20 bg-bg-tint">
+      <section className="py-16 sm:py-20 bg-slate-50/60">
         <Container>
           <SectionHeading eyebrow="Company Timeline" title="Milestones since 2019" />
           <div className="mt-12 space-y-10">
             {timeline.map((t, i) => (
               <ScrollReveal key={t.year} delay={i * 80}>
-                <div className="grid sm:grid-cols-[120px_1fr] lg:grid-cols-[140px_1fr_280px] gap-6 items-start rounded-2xl border border-line bg-white p-6">
+                <div className="grid sm:grid-cols-[120px_1fr] lg:grid-cols-[140px_1fr_280px] gap-6 items-start rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
                   <p className="font-mono-label text-2xl font-semibold text-blue-700">{t.year}</p>
                   <div>
-                    <p className="font-semibold text-blue-950">{t.title}</p>
-                    <p className="text-sm text-ink-soft mt-2 leading-relaxed">{t.body}</p>
+                    <p className="font-semibold text-blue-950 text-lg">{t.title}</p>
+                    <p className="text-sm text-slate-600 mt-2 leading-relaxed font-medium">{t.body}</p>
                   </div>
                   <div className="sm:col-span-2 lg:col-span-1">
                     <CaptionedImage src={t.image} alt={t.alt} aspect="aspect-[4/3]" />
@@ -111,64 +155,131 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Section 4 — Vision, mission & values, merged into one section */}
-      <section className="py-16 sm:py-20">
+      {/* Section 4 — Where We Work (Converted into 4 Full Horizontal Split Cards with Alternating Layout) */}
+      <section className="py-16 sm:py-24 bg-white">
+        <Container>
+          <SectionHeading eyebrow="Where We Work" title="Office, Studio & Site Execution" sub="Our operational facilities, engineering studios, and site supervision practices across Pune." align="center" />
+          
+          <div className="mt-14 space-y-12 sm:space-y-16">
+            {workLocations.map((item, i) => {
+              const isImageLeft = i % 2 === 0;
+              return (
+                <ScrollReveal key={item.title} delay={i * 0.1}>
+                  <div className="group bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-[0_8px_30px_-4px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_45px_-10px_rgba(30,58,138,0.15)] hover:border-blue-700/60 transition-all duration-500 p-7 sm:p-9 lg:p-11">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                      
+                      {/* Image Column (Alternates Left / Right) */}
+                      <div
+                        className={`lg:col-span-6 relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-slate-100 shadow-sm border border-slate-200/80 ${
+                          isImageLeft ? "lg:order-1" : "lg:order-2"
+                        }`}
+                      >
+                        <GracefulImage
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          sizes="(max-width: 1024px) 100vw, 50vw"
+                          className="group-hover:scale-105 transition-transform duration-700 ease-out object-cover"
+                        />
+                        <div className="absolute top-4 left-4 bg-slate-900/85 backdrop-blur-md text-white font-mono-label font-bold text-xs px-3.5 py-1.5 rounded-full border border-white/20 shadow-md">
+                          Facility 0{i + 1}
+                        </div>
+                      </div>
+
+                      {/* Content Column */}
+                      <div
+                        className={`lg:col-span-6 flex flex-col justify-center ${
+                          isImageLeft ? "lg:order-2" : "lg:order-1"
+                        }`}
+                      >
+                        <div className="inline-flex items-center gap-2 mb-3">
+                          <span className="w-2.5 h-2.5 rounded-full bg-blue-700"></span>
+                          <span className="text-xs font-mono-label font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200/80">
+                            {item.tag}
+                          </span>
+                        </div>
+
+                        <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight group-hover:text-blue-700 transition-colors">
+                          {item.title}
+                        </h3>
+
+                        <p className="text-slate-600 text-sm sm:text-base mt-4 leading-relaxed font-medium">
+                          {item.description}
+                        </p>
+
+                        {/* Badges Grid */}
+                        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-bold text-slate-700 font-mono-label">
+                          {item.highlights.map((h) => (
+                            <div key={h} className="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200/70">
+                              <svg className="w-4 h-4 text-blue-700 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                              </svg>
+                              <span className="truncate">{h}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Service CTA Button triggering InquiryModal */}
+                        <div className="mt-7 pt-6 border-t border-slate-100 flex items-center justify-between flex-wrap gap-4">
+                          <button
+                            onClick={() => setModalOpen(true)}
+                            className="inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs sm:text-sm tracking-wide shadow-md shadow-amber-400/30 hover:shadow-lg hover:scale-105 transition-all cursor-pointer border border-amber-300"
+                          >
+                            <span>{item.ctaText}</span>
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                          </button>
+                          <span className="text-xs font-mono-label font-bold text-slate-500">
+                            Free Consultation & Estimate
+                          </span>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </ScrollReveal>
+              );
+            })}
+          </div>
+        </Container>
+      </section>
+
+      {/* Section 5 — Vision, mission & values */}
+      <section className="py-16 sm:py-20 bg-slate-50/60">
         <Container>
           <SectionHeading eyebrow="What Guides Us" title="Vision, mission and values" />
           <div className="mt-10 grid sm:grid-cols-2 gap-6">
-            <div className="rounded-2xl bg-bg-tint border border-line p-8">
-              <p className="font-mono-label text-xs uppercase tracking-wide text-green-700 mb-3">Vision</p>
-              <p className="text-blue-950 text-lg leading-relaxed">
+            <div className="rounded-2xl bg-white border border-slate-200/90 p-8 shadow-sm">
+              <p className="font-mono-label text-xs uppercase tracking-wide text-blue-700 font-bold mb-3">Vision</p>
+              <p className="text-slate-900 text-lg leading-relaxed font-semibold">
                 To be Pune&apos;s most trusted name for construction and interior design — where clients never have to choose between quality, transparency, and timeline.
               </p>
             </div>
-            <div className="rounded-2xl bg-bg-tint border border-line p-8">
-              <p className="font-mono-label text-xs uppercase tracking-wide text-green-700 mb-3">Mission</p>
-              <p className="text-blue-950 text-lg leading-relaxed">
+            <div className="rounded-2xl bg-white border border-slate-200/90 p-8 shadow-sm">
+              <p className="font-mono-label text-xs uppercase tracking-wide text-blue-700 font-bold mb-3">Mission</p>
+              <p className="text-slate-900 text-lg leading-relaxed font-semibold">
                 To deliver cost-effective, technically sound construction and interior projects with in-house accountability at every stage.
               </p>
             </div>
           </div>
           <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((v) => (
-              <div key={v.title} className="rounded-2xl border border-line p-6">
-                <p className="font-semibold text-blue-950">{v.title}</p>
-                <p className="text-sm text-ink-soft mt-2 leading-relaxed">{v.body}</p>
+              <div key={v.title} className="rounded-2xl bg-white border border-slate-200/90 p-6 shadow-sm">
+                <p className="font-bold text-slate-950 text-base">{v.title}</p>
+                <p className="text-sm text-slate-600 mt-2 leading-relaxed font-medium">{v.body}</p>
               </div>
             ))}
           </div>
         </Container>
       </section>
 
-      {/* Section 5 — Where we work + registered office */}
-      <section className="py-16 sm:py-20 bg-bg-tint">
-        <Container>
-          <SectionHeading eyebrow="Where We Work" title="Office, studio & site" />
-          <div className="mt-10">
-            <ImageGrid
-              images={[
-                { src: "/images/about/office-exterior.png", alt: "Exterior of the Zemitech Urban office in Narhe, Pune", caption: "Narhe office exterior" },
-                { src: "/images/about/team-site-review.png", alt: "Zemitech Urban team conducting a site review meeting", caption: "Site review meeting" },
-                { src: "/images/about/design-studio.png", alt: "Interior design studio where mood boards and 3D renders are prepared", caption: "Interior design studio" },
-                { src: "/images/about/site-walkthrough.png", alt: "Zemitech Urban project manager walking a client through a completed site", caption: "Client site walkthrough" },
-              ]}
-              columns={4}
-            />
-          </div>
-          <div className="mt-10 rounded-2xl bg-white border border-line p-6 max-w-xl">
-            <p className="font-mono-label text-xs uppercase tracking-wide text-green-700 mb-2">Registered Office</p>
-            <div className="text-ink-soft space-y-1 text-sm">
-              <p>{company.legalName}</p>
-              <p>{company.address.line1}</p>
-              <p>{company.address.line2}, {company.address.state}, {company.address.country}</p>
-              <p className="mt-2">GSTIN: {company.gstin}</p>
-            </div>
-          </div>
-        </Container>
-      </section>
-
       {/* Section 6 — Final CTA */}
       <CTASection />
+
+      {/* Interactive Service Lead Modal */}
+      <InquiryModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 }

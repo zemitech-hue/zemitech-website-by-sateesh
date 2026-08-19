@@ -10,10 +10,14 @@ import JsonLd, { faqJsonLd, breadcrumbJsonLd, serviceJsonLd } from "@/components
 import { company } from "@/lib/data/company";
 import type { SubService } from "@/lib/data/services";
 
+import ConstructionApprovalsSection from "@/components/sections/ConstructionApprovalsSection";
+import FourStepProcessSection from "@/components/sections/FourStepProcessSection";
+
 // Renders every construction/interior-design sub-service page from one data
 // object — Hero, Offerings, Scope, Materials, FAQ, Final CTA. Exactly 6
 // sections, always in this order, so every sub-service page stays consistent.
 export default function ServiceSubPage({ service }: { service: SubService }) {
+  const isConstruction = service.parentHref === "/construction" || service.slug.includes("construction") || service.slug.includes("structural") || service.slug.includes("industrial") || service.slug.includes("renovation");
   const siteUrl = `https://${company.domain}`;
   const breadcrumbs = [
     { name: service.parentLabel, href: service.parentHref },
@@ -49,6 +53,9 @@ export default function ServiceSubPage({ service }: { service: SubService }) {
         image={service.heroImage}
       />
 
+      {/* Mandatory Government, Environmental & Design Approvals Section for Construction Pages */}
+      {isConstruction && <ConstructionApprovalsSection />}
+
       <ServiceProblemCards
         eyebrow={service.cards.eyebrow}
         title={service.cards.title}
@@ -62,6 +69,9 @@ export default function ServiceSubPage({ service }: { service: SubService }) {
         sub={service.scope.sub}
         groups={service.scope.groups}
       />
+
+      {/* Mandatory 4-Step Execution Process (Consultation, Design, Build, Handover) */}
+      <FourStepProcessSection category={isConstruction ? "construction" : "interior"} />
 
       <MaterialBoard
         eyebrow={service.materials.eyebrow}

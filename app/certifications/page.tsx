@@ -5,6 +5,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import PageHero from "@/components/sections/PageHero";
 import CTASection from "@/components/sections/CTASection";
 import CaptionedImage from "@/components/ui/CaptionedImage";
+import JsonLd, { breadcrumbJsonLd } from "@/components/JsonLd";
 import { certifications, qualityProcess, siteSafetyImage } from "@/lib/data/certifications";
 import { company } from "@/lib/data/company";
 
@@ -15,8 +16,16 @@ export const metadata: Metadata = {
 };
 
 export default function CertificationsPage() {
+  const siteUrl = `https://${company.domain}`;
+
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: siteUrl },
+          { name: "Certifications", url: `${siteUrl}/certifications` },
+        ])}
+      />
       <PageHero
         eyebrow="Certifications"
         headline="Registered, compliant, and built on documented process"

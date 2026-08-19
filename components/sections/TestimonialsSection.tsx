@@ -45,7 +45,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       <div>
         {/* Star Rating */}
         <div className="flex items-center justify-between gap-2 mb-4">
-          <div className="flex items-center gap-1 text-amber-400 text-sm" aria-label={`${testimonial.rating} out of 5 stars`}>
+          <div className="flex items-center gap-1 text-amber-700 text-sm" aria-label={`${testimonial.rating} out of 5 stars`}>
             {Array.from({ length: 5 }, (_, i) => (
               <span key={i} className={i < testimonial.rating ? "" : "text-slate-200"}>★</span>
             ))}

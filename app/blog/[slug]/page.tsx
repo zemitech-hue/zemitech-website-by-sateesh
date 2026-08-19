@@ -7,6 +7,8 @@ import CTASection from "@/components/sections/CTASection";
 import BlogCard from "@/components/sections/BlogCard";
 import BlogContent from "@/components/sections/BlogContent";
 import GracefulImage from "@/components/ui/GracefulImage";
+import JsonLd, { articleJsonLd, breadcrumbJsonLd } from "@/components/JsonLd";
+import { company } from "@/lib/data/company";
 import { getBlogPost, getBlogPosts } from "@/lib/supabase/queries";
 
 export const revalidate = 60;
@@ -36,11 +38,36 @@ export default async function BlogDetailPage({
   if (!post) return notFound();
 
   const date = new Date(post.publishedAt).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
-  const allPosts = await getBlogPosts();
-  const related = allPosts.filter((p) => p.category === post.category && p.slug !== post.slug).slice(0, 3);
+  const allPosts = await getBlogPosts(100);
+  const otherPosts = allPosts.filter((p) => p.slug !== post.slug);
+  const sameCategory = otherPosts.filter((p) => p.category === post.category);
+  const differentCategory = otherPosts.filter((p) => p.category !== post.category);
+  const related = [...sameCategory, ...differentCategory].slice(0, 3);
+  const siteUrl = `https://${company.domain}`;
+  const postUrl = `${siteUrl}/blog/${post.slug}`;
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: siteUrl },
+          { name: "Blog", url: `${siteUrl}/blog` },
+          { name: post.title, url: postUrl },
+        ])}
+      />
+      <JsonLd
+        data={articleJsonLd({
+          title: post.title,
+          description: post.excerpt,
+          url: postUrl,
+          image: post.coverImage
+            ? (post.coverImage.startsWith("http") ? post.coverImage : `${siteUrl}${post.coverImage}`)
+            : `${siteUrl}/images/og/zemitech-urban-og.png`,
+          siteUrl,
+          legalName: company.legalName,
+          datePublished: new Date(post.publishedAt).toISOString(),
+        })}
+      />
       <section className="pt-10 pb-6">
         <Container className="max-w-3xl">
           <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Blog", href: "/blog" }, { name: post.title, href: `/blog/${post.slug}` }]} />
@@ -53,7 +80,7 @@ export default async function BlogDetailPage({
 
       <Container className="max-w-3xl">
         <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-blue-100">
-          <GracefulImage src={post.coverImage} alt={post.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 768px" priority />
+          <GracefulImage src={post.coverImage} alt={post.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 768px" preload />
         </div>
       </Container>
 

@@ -1,6 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
-import { Phone, MessageCircle } from "lucide-react";
+import InquiryModal from "@/components/ui/InquiryModal";
 import { company } from "@/lib/data/company";
 
 interface ServiceFinalCTAProps {
@@ -10,48 +13,51 @@ interface ServiceFinalCTAProps {
 }
 
 export default function ServiceFinalCTA({ title, copy, primaryCtaText }: ServiceFinalCTAProps) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const message = encodeURIComponent(`Hi Zemitech Urban, I'd like to enquire about ${title}.`);
+
   return (
-    <section className="py-24 bg-gradient-to-br from-blue-950 via-slate-900 to-blue-900 text-white relative overflow-hidden border-t border-slate-800">
-      {/* Premium Background Effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[50%] -right-[20%] w-[800px] h-[800px] bg-blue-500/20 rounded-full blur-[120px] mix-blend-screen animate-pulse" />
-        <div className="absolute -bottom-[50%] -left-[20%] w-[600px] h-[600px] bg-indigo-500/20 rounded-full blur-[100px] mix-blend-screen" />
-      </div>
+    <>
+      <section className="relative overflow-hidden bg-white py-12 sm:py-16">
+        <Container className="relative z-10">
+          <div className="max-w-5xl lg:max-w-6xl mx-auto relative rounded-[32px] border border-blue-200/80 bg-gradient-to-b from-white via-slate-50 to-blue-50/70 p-8 sm:p-12 lg:p-14 shadow-2xl shadow-blue-900/15 overflow-hidden text-center flex flex-col items-center justify-center">
+            
+            {/* Ambient Soft Bottom Blue Glow (Taller height & richer blue shadow glow) */}
+            <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-blue-600/30 via-blue-500/15 to-transparent pointer-events-none rounded-b-[32px]" />
+            <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 w-5/6 h-36 bg-blue-600/25 blur-3xl rounded-full pointer-events-none" />
 
-      <Container className="relative z-10 max-w-4xl text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 font-mono-label text-xs uppercase tracking-widest mb-8 backdrop-blur-md">
-          <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-          Ready To Start
-        </div>
-        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-8 tracking-tight leading-[1.1] bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70">
-          {title}
-        </h2>
-        <p className="text-lg sm:text-xl text-slate-300 mb-12 max-w-2xl mx-auto leading-relaxed">
-          {copy}
-        </p>
-        
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
-          <Button href="/contact" variant="primary">
-            {primaryCtaText}
-          </Button>
-        </div>
+            <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-blue-950 tracking-tight leading-tight text-center">
+                {title}
+              </h2>
+              <p className="mt-3 sm:mt-4 text-slate-600 text-sm sm:text-base max-w-xl text-center leading-relaxed font-normal">
+                {copy}
+              </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm font-mono-label tracking-widest text-slate-400">
-          <a href={`https://wa.me/${company.phonePrimary.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-white transition-colors group">
-            <div className="w-10 h-10 rounded-full bg-slate-800/50 flex items-center justify-center group-hover:bg-green-500/20 transition-colors border border-slate-700">
-              <MessageCircle className="w-4 h-4 text-green-400" />
+              <div className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-4">
+                <Button
+                  type="button"
+                  onClick={() => setModalOpen(true)}
+                  variant="primary"
+                >
+                  {primaryCtaText}
+                </Button>
+                <a
+                  href={`https://wa.me/${company.whatsappNumber}?text=${message}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold border border-slate-300 bg-white/90 text-blue-950 hover:border-blue-700 hover:bg-white hover:shadow-md active:scale-[0.97] transition-all duration-200"
+                >
+                  WhatsApp Us
+                </a>
+              </div>
             </div>
-            <span>WhatsApp Us</span>
-          </a>
-          <div className="hidden sm:block w-px h-8 bg-slate-800" />
-          <a href={`tel:${company.phonePrimary.replace(/[^0-9+]/g, '')}`} className="flex items-center gap-3 hover:text-white transition-colors group">
-            <div className="w-10 h-10 rounded-full bg-slate-800/50 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors border border-slate-700">
-              <Phone className="w-4 h-4 text-blue-400" />
-            </div>
-            <span>Call Us</span>
-          </a>
-        </div>
-      </Container>
-    </section>
+          </div>
+        </Container>
+      </section>
+
+      {/* Global Interactive Service Lead Modal */}
+      <InquiryModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+    </>
   );
 }

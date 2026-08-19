@@ -13,13 +13,13 @@ type Variant = "primary" | "secondary" | "outline" | "ghost";
  */
 const styles: Record<Variant, string> = {
   primary:
-    "bg-green-500 hover:bg-green-600 text-white border border-green-400 shadow-md shadow-green-500/30 hover:shadow-lg hover:shadow-green-500/40",
+    "bg-amber-400 hover:bg-amber-500 text-slate-950 border border-amber-300 font-extrabold shadow-md shadow-amber-400/30 hover:shadow-lg hover:shadow-amber-400/40",
   secondary:
-    "bg-blue-700 hover:bg-blue-800 text-white border border-blue-600 shadow-md shadow-blue-800/30 hover:shadow-lg hover:shadow-blue-800/40",
+    "bg-slate-950 hover:bg-slate-900 text-white border border-slate-800 shadow-md shadow-slate-950/30 hover:shadow-lg hover:shadow-slate-950/40",
   outline:
-    "bg-transparent border-2 border-current text-current hover:bg-white/10",
+    "bg-transparent border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold",
   ghost:
-    "bg-transparent text-blue-700 hover:bg-blue-50/80",
+    "bg-transparent text-amber-700 hover:bg-amber-50/80",
 };
 
 export default function Button({

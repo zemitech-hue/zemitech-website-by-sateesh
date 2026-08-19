@@ -17,10 +17,10 @@ export default function GalleryGrid({ images }: { images: GalleryPhoto[] }) {
           <button
             key={cat.value}
             onClick={() => setActive(cat.value)}
-            className={`rounded-full px-4 py-2 text-sm font-medium border transition-colors ${
+            className={`rounded-full px-4.5 py-2 text-xs sm:text-sm font-extrabold border transition-all cursor-pointer ${
               active === cat.value
-                ? "bg-blue-700 border-blue-700 text-white"
-                : "border-line text-ink-soft hover:border-blue-300"
+                ? "bg-amber-400 border-amber-300 text-slate-950 font-black shadow-xs"
+                : "border-slate-300 text-slate-700 hover:border-amber-400 hover:bg-amber-50/80"
             }`}
           >
             {cat.label}

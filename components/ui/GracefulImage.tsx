@@ -20,26 +20,13 @@ export default function GracefulImage({
   ...props
 }: GracefulImageProps) {
   const [error, setError] = useState(false);
-
-  if (!src || error) {
-    return (
-      <div
-        className={cn(
-          "w-full h-full min-h-[200px] flex items-center justify-center bg-slate-100 border border-slate-200 rounded-xl overflow-hidden",
-          containerClassName
-        )}
-      >
-        <p className="text-sm font-mono-label text-slate-400 uppercase tracking-widest text-center px-4">
-          {fallbackText}
-        </p>
-      </div>
-    );
-  }
+  const defaultImage = "/images/construction/residential/hero.png";
+  const effectiveSrc = (!src || error) ? defaultImage : src;
 
   return (
     <div className={cn("relative w-full h-full overflow-hidden", containerClassName)}>
       <Image
-        src={src}
+        src={effectiveSrc}
         alt={alt || ""}
         onError={() => setError(true)}
         className={cn("object-cover w-full h-full", className)}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { company } from "@/lib/data/company";
 
@@ -26,25 +26,25 @@ const subServicesMap: Record<"construction" | "interior", SubService[]> = {
       id: "residential-construction",
       label: "Residential Villa & Home Construction",
       subText: "Turnkey G+1 & G+2 independent villas built by in-house civil teams in Pune.",
-      image: "/images/MainHeroBannersCarousel/Residential%20Construction.png",
+      image: "/images/construction/residential/card-1.png",
     },
     {
       id: "general-civil",
       label: "Structural & Civil Construction",
       subText: "RCC frame structures, foundation works, and municipal plan sanctions.",
-      image: "/images/MainHeroBannersCarousel/Construction%20Division.png",
+      image: "/images/construction/structural-civil-engineering/card-1.png",
     },
     {
       id: "renovation-construction",
       label: "Turnkey Home Renovation",
       subText: "Structural upgrades, floor additions, and full interior handover for existing homes.",
-      image: "/images/MainHeroBannersCarousel/Construction%20Division.png",
+      image: "/images/construction/renovation/card-1.png",
     },
     {
       id: "industrial-construction",
       label: "Industrial Warehouses & Sheds",
       subText: "Heavy-duty structures engineered for logistics, manufacturing, and storage.",
-      image: "/images/MainHeroBannersCarousel/Construction%20Division.png",
+      image: "/images/construction/industrial/card-1.png",
     },
   ],
   interior: [
@@ -52,25 +52,25 @@ const subServicesMap: Record<"construction" | "interior", SubService[]> = {
       id: "kitchen-interior",
       label: "Modular Kitchen Design",
       subText: "L-Shape, Parallel, and Island kitchens with marine-grade ply & soft-close hardware.",
-      image: "/images/MainHeroBannersCarousel/Kitchen%20Design.png",
+      image: "/images/interior/kitchen/card-1.png",
     },
     {
       id: "living-room-interior",
       label: "Living Room Joinery & TV Walls",
       subText: "Custom TV wall panels, false ceilings, ambient LED lights, and sofa joinery.",
-      image: "/images/MainHeroBannersCarousel/Living%20Room%20Design.png",
+      image: "/images/interior/living-room/card-1.png",
     },
     {
       id: "bedroom-interior",
       label: "Bedroom Wardrobes & Storage",
       subText: "Floor-to-ceiling sliding wardrobes, headboards, and hydraulic storage beds.",
-      image: "/images/MainHeroBannersCarousel/Interior%20Design%20Division.png",
+      image: "/images/interior/bedroom/card-1.png",
     },
     {
       id: "turnkey-interior",
       label: "Full-Home Turnkey Interior Design",
       subText: "End-to-end 2BHK & 3BHK interior execution from 3D design to final cleanup.",
-      image: "/images/MainHeroBannersCarousel/Interior%20Design%20Division.png",
+      image: "/images/interior/turnkey-home-interiors/card-1.png",
     },
   ],
 };
@@ -83,6 +83,27 @@ export default function InquiryModal({ isOpen, onClose, initialCategory = null }
   const [phone, setPhone] = useState<string>("");
   const [location, setLocation] = useState<string>("Narhe, Pune");
   const [notes, setNotes] = useState<string>("");
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
+  // Only re-run on the actual open/close transition — not on every keystroke
+  // in the form below, which would otherwise steal focus back to the close
+  // button on each render.
+  useEffect(() => {
+    if (!isOpen) return;
+    closeButtonRef.current?.focus();
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setStep(1);
+        setCategory(null);
+        setSubService("");
+        onCloseRef.current();
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -126,27 +147,37 @@ ${notes ? `• Scope Details: ${notes}` : ""}`;
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/70 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl max-w-3xl w-full overflow-hidden relative max-h-[92vh] flex flex-col">
-        
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/70 backdrop-blur-md animate-in fade-in duration-200"
+      onClick={resetAndClose}
+    >
+      <div
+        className="bg-white rounded-3xl border border-slate-200 shadow-2xl max-w-3xl w-full overflow-hidden relative max-h-[92vh] flex flex-col"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="inquiry-modal-title"
+        onClick={(e) => e.stopPropagation()}
+      >
+
         {/* Top Header — Clean White & Solid Deep Blue Top Accent */}
         <div className="bg-white p-6 sm:p-7 relative border-b border-slate-200">
           <div className="h-1 absolute top-0 left-0 right-0 bg-blue-700" />
           <button
+            ref={closeButtonRef}
             onClick={resetAndClose}
             className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors font-bold text-sm"
             aria-label="Close modal"
           >
             ✕
           </button>
-          
+
           <div className="flex items-center gap-2 text-xs font-mono-label uppercase tracking-widest text-blue-700 font-bold mb-1">
             <span>Step {step} of 3</span>
             <span>•</span>
             <span>Instant Quote Request</span>
           </div>
 
-          <h2 className="text-xl sm:text-2xl font-bold text-blue-950">
+          <h2 id="inquiry-modal-title" className="text-xl sm:text-2xl font-bold text-blue-950">
             {step === 1 && "What type of service do you require?"}
             {step === 2 && `Select your ${category === "construction" ? "Construction" : "Interior"} service:`}
             {step === 3 && "Where should we send your project estimate?"}
@@ -166,7 +197,7 @@ ${notes ? `• Scope Details: ${notes}` : ""}`;
               >
                 <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden mb-4 border border-slate-200">
                   <Image
-                    src="/images/MainHeroBannersCarousel/Construction%20Division.png"
+                    src="/images/divisions/construction-division-card.png"
                     alt="Construction Services"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -183,7 +214,7 @@ ${notes ? `• Scope Details: ${notes}` : ""}`;
               >
                 <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden mb-4 border border-slate-200">
                   <Image
-                    src="/images/MainHeroBannersCarousel/Interior%20Design%20Division.png"
+                    src="/images/divisions/interior-division-card.png"
                     alt="Interior Design Services"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -272,20 +303,24 @@ ${notes ? `• Scope Details: ${notes}` : ""}`;
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Project Location in Pune</label>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Project Location (Pune &amp; Surrounding Regions)</label>
                 <select
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-700 focus:ring-2 focus:ring-blue-700/20 text-sm font-medium outline-none bg-white"
                 >
                   <option value="Narhe, Pune">Narhe, Pune</option>
+                  <option value="Baner, Pune">Baner, Pune</option>
+                  <option value="Hinjewadi, Pune">Hinjewadi, Pune</option>
                   <option value="Kondhwa, Pune">Kondhwa, Pune</option>
                   <option value="Wagholi, Pune">Wagholi, Pune</option>
-                  <option value="Hinjewadi, Pune">Hinjewadi, Pune</option>
-                  <option value="Baner, Pune">Baner, Pune</option>
                   <option value="Viman Nagar, Pune">Viman Nagar, Pune</option>
+                  <option value="Kothrud, Pune">Kothrud, Pune</option>
+                  <option value="Hadapsar, Pune">Hadapsar, Pune</option>
+                  <option value="Wakad, Pune">Wakad, Pune</option>
+                  <option value="Bavdhan, Pune">Bavdhan, Pune</option>
                   <option value="Pirangut, Pune">Pirangut, Pune</option>
-                  <option value="Other Pune Location">Other Pune Location</option>
+                  <option value="Other Location in Pune / Maharashtra">Other Location in Pune / Maharashtra</option>
                 </select>
               </div>
 
@@ -311,7 +346,7 @@ ${notes ? `• Scope Details: ${notes}` : ""}`;
 
                 <button
                   type="submit"
-                  className="px-6 py-3.5 rounded-full bg-green-500 hover:bg-green-600 text-blue-950 font-bold text-sm shadow-lg shadow-green-600/20 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
+                  className="px-7 py-3.5 rounded-2xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-sm shadow-md shadow-amber-400/30 hover:scale-105 transition-all flex items-center gap-2 cursor-pointer border border-amber-300"
                 >
                   <span>Submit & Redirect to WhatsApp</span>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">

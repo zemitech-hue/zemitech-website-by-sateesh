@@ -59,6 +59,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     logo: `${siteUrl}${company.logo}`,
     telephone: company.phonePrimary,
     email: company.emailPrimary,
+    vatID: company.gstin,
+    priceRange: "₹₹₹",
     address: {
       "@type": "PostalAddress",
       streetAddress: company.address.line1,
@@ -67,15 +69,40 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       postalCode: "411041",
       addressCountry: "IN",
     },
+    // Approximate coordinates for Narhe, Pune — verify against Google Business
+    // Profile before relying on this for precision map-pin placement.
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 18.4485,
+      longitude: 73.8262,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        opens: "09:00",
+        closes: "18:30",
+      },
+    ],
+    areaServed: [
+      ...company.majorCities.map((name) => ({ "@type": "City", name })),
+      ...company.areasServed.map((name) => ({ "@type": "Place", name })),
+    ],
     sameAs: Object.values(company.social),
   };
 
   return (
     <html lang="en" className="antialiased">
+      <head>
+        <meta name="geo.region" content="IN-MH" />
+        <meta name="geo.placename" content="Pune, Maharashtra, India" />
+        <meta name="geo.position" content="18.4485;73.8262" />
+        <meta name="ICBM" content="18.4485, 73.8262" />
+      </head>
       <body className="flex flex-col bg-background text-foreground">
         <script
           type="application/ld+json"
-           
+
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <SiteChrome>{children}</SiteChrome>

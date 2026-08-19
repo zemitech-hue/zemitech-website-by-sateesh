@@ -15,7 +15,7 @@ export type Project = {
   solution: string;
   coverImage: string | null;
   galleryUrls: string[];
-  videoUrl: string | null;
+  videoUrl?: string | null;
   clientQuote?: ClientQuote;
   published: boolean;
 };

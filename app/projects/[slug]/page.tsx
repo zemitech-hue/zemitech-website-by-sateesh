@@ -8,6 +8,8 @@ import ImageGrid from "@/components/sections/ImageGrid";
 import VideoEmbed from "@/components/sections/VideoEmbed";
 import SectionHeading from "@/components/ui/SectionHeading";
 import GracefulImage from "@/components/ui/GracefulImage";
+import JsonLd, { breadcrumbJsonLd } from "@/components/JsonLd";
+import { company } from "@/lib/data/company";
 import { getProject, getProjects } from "@/lib/supabase/queries";
 
 export const revalidate = 60;
@@ -38,13 +40,21 @@ export default async function ProjectDetailPage({
 
   const allProjects = await getProjects();
   const related = allProjects.filter((p) => p.category === project.category && p.slug !== project.slug).slice(0, 3);
-  const galleryImages = project.galleryUrls.map((src, i) => ({ src, alt: `${project.title} — photo ${i + 1}` }));
+  const galleryImages = project.galleryUrls.map((src: string, i: number) => ({ src, alt: `${project.title} — photo ${i + 1}` }));
+  const siteUrl = `https://${company.domain}`;
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: siteUrl },
+          { name: "Projects", url: `${siteUrl}/projects` },
+          { name: project.title, url: `${siteUrl}/projects/${project.slug}` },
+        ])}
+      />
       <section className="relative bg-blue-950 w-full" style={{ height: "100dvh", minHeight: "100svh" }}>
         <div className="absolute inset-0">
-          <GracefulImage src={project.coverImage} alt={project.title} fill className="object-cover opacity-70" priority sizes="100vw" />
+          <GracefulImage src={project.coverImage} alt={project.title} fill className="object-cover opacity-70" preload sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-t from-blue-950 via-blue-950/40 to-blue-950/10" />
         </div>
         <Container className="absolute inset-x-0 bottom-0 pb-20 sm:pb-24 lg:pb-28">
@@ -62,7 +72,7 @@ export default async function ProjectDetailPage({
       <section className="py-16 sm:py-20">
         <Container className="grid lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2 space-y-5">
-            {project.description.map((p) => (
+            {project.description.map((p: string) => (
               <p key={p} className="text-ink-soft leading-relaxed">{p}</p>
             ))}
           </div>
@@ -83,7 +93,7 @@ export default async function ProjectDetailPage({
               <div>
                 <p className="font-mono-label text-xs uppercase tracking-wide text-green-700 mb-2">Scope of Work</p>
                 <ul className="space-y-1.5">
-                  {project.scope.map((s) => (
+                  {project.scope.map((s: string) => (
                     <li key={s} className="text-sm text-ink-soft flex gap-2">
                       <span className="text-green-600">—</span>{s}
                     </li>

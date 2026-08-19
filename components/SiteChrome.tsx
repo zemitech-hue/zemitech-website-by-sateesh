@@ -1,10 +1,15 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
-import EntryPopup from "@/components/ui/EntryPopup";
+
+// Deferred: EntryPopup already waits 2.5s before showing anything, so
+// there's no UX cost to keeping its bundle (and the InquiryModal it renders)
+// off the critical initial-load path.
+const EntryPopup = dynamic(() => import("@/components/ui/EntryPopup"), { ssr: false });
 
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

@@ -1,13 +1,5 @@
 import type { Metadata } from "next";
-import ServiceHero from "@/components/sections/ServiceHero";
-import RoomByRoomInteractive from "@/components/sections/RoomByRoomInteractive";
-import MaterialBoard from "@/components/sections/MaterialBoard";
-import FaqAccordion from "@/components/sections/FaqAccordion";
-import ServiceFinalCTA from "@/components/sections/ServiceFinalCTA";
-import Container from "@/components/ui/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
-import JsonLd, { faqJsonLd, breadcrumbJsonLd, serviceJsonLd } from "@/components/JsonLd";
-import { company } from "@/lib/data/company";
+import ServiceSubPage from "@/components/sections/ServiceSubPage";
 import { turnkeyHomeInteriors as service } from "@/lib/data/services";
 
 export const metadata: Metadata = {
@@ -17,58 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function TurnkeyInteriorsPage() {
-  const siteUrl = `https://${company.domain}`;
-  const breadcrumbs = [
-    { name: "Interior Design", href: "/interior-design" },
-    { name: service.navLabel, href: `/${service.slug}` },
-  ];
-
-  return (
-    <>
-      <JsonLd data={faqJsonLd(service.faqs)} />
-      <JsonLd
-        data={breadcrumbJsonLd(
-          [{ name: "Home", href: siteUrl }, ...breadcrumbs].map((b) => ({
-            name: b.name,
-            url: b.href.startsWith("http") ? b.href : `${siteUrl}${b.href}`,
-          }))
-        )}
-      />
-      <JsonLd
-        data={serviceJsonLd({ name: service.title, description: service.metaDescription, url: `${siteUrl}/${service.slug}`, siteUrl, legalName: company.legalName })}
-      />
-
-      <ServiceHero
-        headline={service.title}
-        copy={service.heroCopy}
-        primaryCtaText={service.primaryCtaText}
-        primaryCtaLink="/contact"
-        image={service.heroImage}
-      />
-
-      <RoomByRoomInteractive
-        eyebrow="Scope"
-        title="What's Included?"
-        sub="A detailed breakdown of our room-by-room design and fit-out capabilities."
-        rooms={service.rooms}
-      />
-
-      <MaterialBoard eyebrow="Library" title="Materials & Finishes" materials={service.materials} />
-
-      <section className="py-16 sm:py-20 bg-slate-50 border-b border-slate-200">
-        <Container className="max-w-3xl">
-          <SectionHeading eyebrow="FAQ" title="Common Questions" align="center" />
-          <div className="mt-10">
-            <FaqAccordion faqs={service.faqs} />
-          </div>
-        </Container>
-      </section>
-
-      <ServiceFinalCTA
-        title={service.finalCta.title}
-        copy={service.finalCta.copy}
-        primaryCtaText={service.finalCta.primaryCtaText}
-      />
-    </>
-  );
+  return <ServiceSubPage service={service} />;
 }

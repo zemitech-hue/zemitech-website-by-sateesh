@@ -4,6 +4,7 @@ import ServiceHero from "@/components/sections/ServiceHero";
 import FaqAccordion from "@/components/sections/FaqAccordion";
 import ServiceFinalCTA from "@/components/sections/ServiceFinalCTA";
 import ProjectCard from "@/components/sections/ProjectCard";
+import FourStepProcessSection from "@/components/sections/FourStepProcessSection";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
@@ -59,7 +60,7 @@ export default async function InteriorDesignOverviewPage() {
       />
 
       {/* Section 2 — Sub-service navigation cards (pulled from lib/data/services.ts) */}
-      <section className="py-20 bg-white border-b border-slate-200">
+      <section className="py-20 bg-white">
         <Container>
           <SectionHeading
             eyebrow="Specializations"
@@ -76,7 +77,7 @@ export default async function InteriorDesignOverviewPage() {
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
                   <Image
-                    src={s.heroImage}
+                    src={(s as any).cards?.items?.[0]?.image || (s as any).rooms?.[0]?.image || s.heroImage}
                     alt={s.navLabel}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -97,7 +98,7 @@ export default async function InteriorDesignOverviewPage() {
                   </p>
 
                   <div className="mt-6 pt-4 border-t border-slate-100">
-                    <Button href={`/${s.slug}`} variant="primary" className="w-full justify-center bg-orange-600 hover:bg-orange-700 border-orange-500">
+                    <Button href={`/${s.slug}`} variant="primary" className="w-full justify-center">
                       Explore {s.navLabel.split(" ")[0]} →
                     </Button>
                   </div>
@@ -109,7 +110,7 @@ export default async function InteriorDesignOverviewPage() {
       </section>
 
       {/* Section 3 — Design styles we work in */}
-      <section className="py-20 bg-slate-50 border-b border-slate-200">
+      <section className="py-20 bg-slate-50/60">
         <Container>
           <SectionHeading
             eyebrow="Design Aesthetics"
@@ -147,9 +148,12 @@ export default async function InteriorDesignOverviewPage() {
         </Container>
       </section>
 
-      {/* Section 4 — Featured interior projects */}
+      {/* Section 4 — 4-Step Interior Design Process (Consultation, Design, Build, Handover) */}
+      <FourStepProcessSection category="interior" />
+
+      {/* Section 5 — Featured interior projects */}
       {interiorProjects.length > 0 && (
-        <section className="py-20 bg-slate-50 border-b border-slate-200">
+        <section className="py-20 bg-slate-50/60">
           <Container>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-12">
               <SectionHeading eyebrow="Portfolio" title="Featured Interior Projects" align="left" />
@@ -167,7 +171,7 @@ export default async function InteriorDesignOverviewPage() {
       )}
 
       {/* Section 5 — FAQ */}
-      <section className="py-20 bg-white border-b border-slate-200">
+      <section className="py-20 bg-white">
         <Container className="max-w-3xl">
           <SectionHeading eyebrow="FAQ" title="Interior Design Questions & Answers" align="center" />
           <div className="mt-12">

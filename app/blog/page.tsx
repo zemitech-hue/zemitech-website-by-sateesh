@@ -3,6 +3,8 @@ import Container from "@/components/ui/Container";
 import PageHero from "@/components/sections/PageHero";
 import CTASection from "@/components/sections/CTASection";
 import BlogCard from "@/components/sections/BlogCard";
+import JsonLd, { breadcrumbJsonLd } from "@/components/JsonLd";
+import { company } from "@/lib/data/company";
 import { getBlogPosts } from "@/lib/supabase/queries";
 
 export const metadata: Metadata = {
@@ -15,14 +17,21 @@ export const revalidate = 60;
 
 export default async function BlogPage() {
   const blogPosts = await getBlogPosts();
+  const siteUrl = `https://${company.domain}`;
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: siteUrl },
+          { name: "Blog", url: `${siteUrl}/blog` },
+        ])}
+      />
       <PageHero
         eyebrow="Blog / News"
         headline="Guides on construction and interior design"
         sub="Practical, specific answers to the questions we hear most from clients — not generic advice."
-        image="/images/blog/hero-blog.png"
+        image="/images/blog/hero.png"
         breadcrumbs={[{ name: "Blog", href: "/blog" }]}
       />
       <section className="py-16 sm:py-20">

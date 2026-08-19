@@ -13,6 +13,9 @@ import JsonLd, { faqJsonLd, breadcrumbJsonLd, serviceJsonLd } from "@/components
 import { company } from "@/lib/data/company";
 import { constructionSubServices } from "@/lib/data/services";
 
+import ConstructionApprovalsSection from "@/components/sections/ConstructionApprovalsSection";
+import FourStepProcessSection from "@/components/sections/FourStepProcessSection";
+
 export const metadata: Metadata = {
   title: "Construction Services in Pune — Residential, Commercial & Infrastructure",
   description:
@@ -64,8 +67,11 @@ export default async function ConstructionOverviewPage() {
         image="/images/construction/overview/hero.png"
       />
 
+      {/* Mandatory Government & Environmental Approvals Section */}
+      <ConstructionApprovalsSection />
+
       {/* Section 2 — Sub-service navigation cards (pulled from lib/data/services.ts) */}
-      <section className="py-20 bg-white border-b border-slate-200">
+      <section className="py-20 bg-white">
         <Container>
           <SectionHeading
             eyebrow="Specializations"
@@ -82,7 +88,7 @@ export default async function ConstructionOverviewPage() {
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
                   <Image
-                    src={s.heroImage}
+                    src={(s as any).cards?.items?.[0]?.image || s.heroImage}
                     alt={s.navLabel}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -114,7 +120,10 @@ export default async function ConstructionOverviewPage() {
         </Container>
       </section>
 
-      {/* Section 3 — Quality & material standards */}
+      {/* Section 3 — 4-Step Construction Execution Process (Consultation, Design/Approvals, Build, Handover) */}
+      <FourStepProcessSection category="construction" />
+
+      {/* Section 4 — Quality & material standards */}
       <MaterialBoard
         eyebrow="Quality Standards"
         title="Engineering & Material Specifications"
@@ -129,7 +138,7 @@ export default async function ConstructionOverviewPage() {
 
       {/* Section 4 — Featured construction projects */}
       {constructionProjects.length > 0 && (
-        <section className="py-20 bg-slate-50 border-b border-slate-200">
+        <section className="py-20 bg-slate-50/60">
           <Container>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-12">
               <SectionHeading eyebrow="Portfolio" title="Featured Construction Projects" align="left" />
@@ -147,7 +156,7 @@ export default async function ConstructionOverviewPage() {
       )}
 
       {/* Section 5 — FAQ */}
-      <section className="py-20 bg-white border-b border-slate-200">
+      <section className="py-20 bg-white">
         <Container className="max-w-3xl">
           <SectionHeading eyebrow="FAQ" title="Construction Questions & Answers" align="center" />
           <div className="mt-12">
