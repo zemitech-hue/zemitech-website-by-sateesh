@@ -6,11 +6,13 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import GracefulImage from "@/components/ui/GracefulImage";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import InquiryModal from "@/components/ui/InquiryModal";
+import CalculatorModal from "@/components/ui/CalculatorModal";
 
 interface ServiceProblemCardsProps {
   eyebrow?: string;
   title: string;
   sub?: string;
+  category?: "construction" | "interior";
   cards: {
     title: string;
     image?: string;
@@ -20,9 +22,14 @@ interface ServiceProblemCardsProps {
   }[];
 }
 
-export default function ServiceProblemCards({ eyebrow, title, sub, cards }: ServiceProblemCardsProps) {
+export default function ServiceProblemCards({ eyebrow, title, sub, category, cards }: ServiceProblemCardsProps) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [calcOpen, setCalcOpen] = useState(false);
   const [activeCardTitle, setActiveCardTitle] = useState<string | null>(null);
+
+  // Auto-determine category from prop or title if unspecified
+  const isInterior = category === "interior" || title.toLowerCase().includes("interior") || title.toLowerCase().includes("kitchen") || title.toLowerCase().includes("bedroom") || title.toLowerCase().includes("living") || title.toLowerCase().includes("joinery");
+  const defaultCategory = isInterior ? "interior" : "construction";
 
   const handleOpenModal = (cardTitle: string) => {
     setActiveCardTitle(cardTitle);
@@ -43,7 +50,7 @@ export default function ServiceProblemCards({ eyebrow, title, sub, cards }: Serv
                 <div className="group bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-[0_8px_30px_-4px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_45px_-10px_rgba(30,58,138,0.15)] hover:border-blue-700/60 transition-all duration-500 p-7 sm:p-9 lg:p-11">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                     
-                    {/* Image Column (Alternates Order Left/Right) */}
+                    {/* Image Column */}
                     <div
                       className={`lg:col-span-6 relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-slate-100 shadow-sm border border-slate-200/80 ${
                         isImageLeft ? "lg:order-1" : "lg:order-2"
@@ -86,7 +93,7 @@ export default function ServiceProblemCards({ eyebrow, title, sub, cards }: Serv
                         </p>
                       )}
 
-                      {/* Technical Highlights / Specification Deliverables */}
+                      {/* Technical Highlights */}
                       <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-bold text-slate-700 font-mono-label">
                         {(card.highlights && card.highlights.length > 0
                           ? card.highlights
@@ -117,15 +124,15 @@ export default function ServiceProblemCards({ eyebrow, title, sub, cards }: Serv
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                           </svg>
                         </button>
-                        <a
-                          href="/#calculator"
+                        <button
+                          onClick={() => setCalcOpen(true)}
                           className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-blue-900 text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg hover:scale-105 transition-all cursor-pointer border border-slate-800 shrink-0"
                         >
                           <svg className="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                           </svg>
                           <span>Free Consultation &amp; Cost Estimate</span>
-                        </a>
+                        </button>
                       </div>
 
                     </div>
@@ -138,10 +145,19 @@ export default function ServiceProblemCards({ eyebrow, title, sub, cards }: Serv
         </div>
       </Container>
 
-      {/* Service-Specific Inquiry Modal */}
+      {/* Direct Service Booking Inquiry Modal */}
       <InquiryModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
+        initialCategory={defaultCategory}
+        initialSubService={activeCardTitle ?? undefined}
+      />
+
+      {/* Direct On-Page Cost Estimator Popup Modal */}
+      <CalculatorModal
+        isOpen={calcOpen}
+        onClose={() => setCalcOpen(false)}
+        initialTab={defaultCategory}
       />
     </section>
   );

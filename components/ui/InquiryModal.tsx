@@ -11,6 +11,7 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   initialCategory?: MainCategory;
+  initialSubService?: string;
 };
 
 type SubService = {
@@ -75,10 +76,10 @@ const subServicesMap: Record<"construction" | "interior", SubService[]> = {
   ],
 };
 
-export default function InquiryModal({ isOpen, onClose, initialCategory = null }: Props) {
+export default function InquiryModal({ isOpen, onClose, initialCategory = null, initialSubService }: Props) {
   const [step, setStep] = useState<Step>(1);
   const [category, setCategory] = useState<MainCategory>(initialCategory);
-  const [subService, setSubService] = useState<string>("");
+  const [subService, setSubService] = useState<string>(initialSubService || "");
   const [name, setName] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [location, setLocation] = useState<string>("");
@@ -92,18 +93,30 @@ export default function InquiryModal({ isOpen, onClose, initialCategory = null }
   // button on each render.
   useEffect(() => {
     if (!isOpen) return;
+
+    if (initialSubService) {
+      setCategory(initialCategory || null);
+      setSubService(initialSubService);
+      setStep(3);
+    } else if (initialCategory) {
+      setCategory(initialCategory);
+      setSubService("");
+      setStep(2);
+    } else {
+      setStep(1);
+      setCategory(null);
+      setSubService("");
+    }
+
     closeButtonRef.current?.focus();
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") {
-        setStep(1);
-        setCategory(null);
-        setSubService("");
         onCloseRef.current();
       }
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [isOpen]);
+  }, [isOpen, initialCategory, initialSubService]);
 
   if (!isOpen) return null;
 

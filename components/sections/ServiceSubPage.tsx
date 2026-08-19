@@ -60,6 +60,7 @@ export default function ServiceSubPage({ service }: { service: SubService }) {
         eyebrow={service.cards.eyebrow}
         title={service.cards.title}
         sub={service.cards.sub}
+        category={isConstruction ? "construction" : "interior"}
         cards={service.cards.items}
       />
 
