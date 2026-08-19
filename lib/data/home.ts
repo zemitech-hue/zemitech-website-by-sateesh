@@ -14,7 +14,7 @@ export const heroSlides: HeroSlide[] = [
   {
     eyebrow: "Construction Division",
     headline: "Build Better. Live Better.",
-    sub: "240+ residential & commercial projects delivered across Pune with complete construction, interior & architecture solutions.",
+    sub: "240+ residential & commercial projects delivered across major cities with complete construction, interior & architecture solutions.",
     image: "/images/MainHeroBannersCarousel/Construction%20Division.png",
     ctaLabel: "Explore Our Work",
     ctaHref: "/construction",
@@ -23,7 +23,7 @@ export const heroSlides: HeroSlide[] = [
   {
     eyebrow: "Interior Design Division",
     headline: "Turnkey interiors executed under one roof.",
-    sub: "From 3D renders to factory precision manufacturing across Pune — zero subcontractor delays, guaranteed 5-year warranty.",
+    sub: "From 3D renders to factory precision manufacturing across major cities — zero subcontractor delays, guaranteed 5-year warranty.",
     image: "/images/MainHeroBannersCarousel/Interior%20Design%20Division.png",
     ctaLabel: "Explore Interior Design",
     ctaHref: "/interior-design",
@@ -31,7 +31,7 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     eyebrow: "Residential Construction",
-    headline: "Luxury independent villas built for Pune families.",
+    headline: "Luxury independent villas built for modern families.",
     sub: "Vastu-compliant architectural planning, fixed-milestone BOQ pricing, and dedicated site engineering from foundation to handover.",
     image: "/images/MainHeroBannersCarousel/Residential%20Construction.png",
     ctaLabel: "See Villa Projects",
@@ -50,7 +50,7 @@ export const heroSlides: HeroSlide[] = [
   {
     eyebrow: "Living Room Design",
     headline: "Bespoke living room interiors that inspire.",
-    sub: "Floating marble TV consoles, acoustic fluted wall joinery, and layered LED lighting custom-built for modern Pune homes.",
+    sub: "Floating marble TV consoles, acoustic fluted wall joinery, and layered LED lighting custom-built for modern homes.",
     image: "/images/MainHeroBannersCarousel/Living%20Room%20Design.png",
     ctaLabel: "Explore Living Room Interiors",
     ctaHref: "/interior-design/living-room",
@@ -73,7 +73,7 @@ export const homeUsps = [
   },
   {
     title: "6+ years, 240+ projects",
-    description: "Across residential, commercial, infrastructure and interior work throughout Pune.",
+    description: "Across residential, commercial, infrastructure and interior work nationwide.",
   },
   {
     title: "In-house site supervision",
@@ -117,7 +117,7 @@ export const howWeWork: VisualStep[] = [
 ];
 
 export const homeFaqs = [
-  { question: "Which areas do you operate in?", answer: "We're based in Pune, and take on construction and interior projects across Narhe, Kondhwa, Wagholi, Hinjewadi, Baner, Viman Nagar, Pirangut and the wider Pune region." },
+  { question: "Which areas do you operate in?", answer: "We execute turnkey construction and interior design projects across major cities and operational regions nationwide, including Pune, Mumbai, Indore, Bhopal, Hyderabad, Ranchi, Patna, Kolkata, Jamshedpur, Nagpur, and surrounding areas." },
   { question: "Can you handle both construction and interiors for the same project?", answer: "Yes — many of our clients start with construction and move directly into our interior design division for a fully coordinated handover." },
   { question: "How do I get a quote?", answer: "Share your requirement through the enquiry form or WhatsApp, and we'll schedule a site visit or call to scope your project before quoting." },
   { question: "Do you offer free consultations?", answer: "Yes, an initial consultation and site assessment is free and comes with no obligation." },

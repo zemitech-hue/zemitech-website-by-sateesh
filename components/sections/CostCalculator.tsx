@@ -137,7 +137,7 @@ I would like to speak directly with an interior designer about this calculation!
               Dynamic Cost Estimator
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight">
-              Estimate Your Project Cost in Pune
+              Estimate Your Project Cost
             </h2>
             <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
               Select your options below and click &quot;Calculate Estimate Range&quot; to reveal your custom price estimate.
@@ -612,7 +612,7 @@ I would like to speak directly with an interior designer about this calculation!
                       </button>
 
                       <p className="text-[11px] text-center font-mono-label text-blue-200">
-                        Includes free 3D design &amp; site evaluation in Pune
+                        Includes free 3D design &amp; site evaluation
                       </p>
                     </div>
                   </>

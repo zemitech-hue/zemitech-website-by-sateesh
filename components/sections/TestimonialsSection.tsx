@@ -12,7 +12,7 @@ export default function TestimonialsSection() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10 mb-14 text-center">
         <SectionHeading
           eyebrow="Client Reviews"
-          title="What clients across Pune say after handover"
+          title="What clients say after handover"
           sub="Real experiences from homeowners, villa builders, and office managers who hired Zemitech Urban."
           align="center"
         />

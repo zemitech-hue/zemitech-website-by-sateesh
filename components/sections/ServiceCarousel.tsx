@@ -21,7 +21,7 @@ const constructionServices: ServiceItem[] = [
     title: "Residential Villa Construction",
     category: "construction",
     tag: "Residential",
-    description: "Turnkey G+1 & G+2 independent villas built by in-house civil engineering teams in Pune with fixed BOQ pricing.",
+    description: "Turnkey G+1 & G+2 independent villas built by in-house civil engineering teams with fixed BOQ pricing.",
     href: "/construction/residential",
     image: "/images/construction/residential/card-1.png",
     highlights: ["Fixed-Scope BOQ Guarantee", "In-House Structural Engineers", "Weekly Photo-Logged Updates"],
@@ -112,7 +112,7 @@ export default function ServiceCarousel() {
           <SectionHeading
             eyebrow="Our Specializations"
             title="Comprehensive Construction & Interior Services"
-            sub="Explore our complete range of specialized services delivered across Pune by in-house engineering and interior teams."
+            sub="Explore our complete range of specialized services delivered nationwide by in-house engineering and interior teams."
             align="center"
             className="mb-12"
           />
