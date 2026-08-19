@@ -65,9 +65,9 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       <div className="mt-6 pt-4 border-t border-slate-200 flex items-center gap-3.5">
         <InitialsAvatar name={testimonial.name} className="w-11 h-11 text-sm border-2 border-blue-700/60" />
         <div>
-          <h4 className="text-sm font-bold text-blue-950 group-hover:text-blue-700 transition-colors">
+          <p className="text-sm font-bold text-blue-950 group-hover:text-blue-700 transition-colors">
             {testimonial.name}
-          </h4>
+          </p>
           <p className="text-xs text-slate-500 font-mono-label">
             {testimonial.location}
           </p>

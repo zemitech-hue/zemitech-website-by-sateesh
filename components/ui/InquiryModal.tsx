@@ -279,8 +279,9 @@ ${notes ? `• Scope Details: ${notes}` : ""}`;
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Your Full Name *</label>
+                <label htmlFor="inquiry-name" className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Your Full Name *</label>
                 <input
+                  id="inquiry-name"
                   type="text"
                   required
                   placeholder="e.g. Rahul Sharma"
@@ -291,8 +292,9 @@ ${notes ? `• Scope Details: ${notes}` : ""}`;
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Phone / WhatsApp Number *</label>
+                <label htmlFor="inquiry-phone" className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Phone / WhatsApp Number *</label>
                 <input
+                  id="inquiry-phone"
                   type="tel"
                   required
                   placeholder="e.g. +91 98765 43210"
@@ -303,8 +305,9 @@ ${notes ? `• Scope Details: ${notes}` : ""}`;
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Project Location (Pune &amp; Surrounding Regions)</label>
+                <label htmlFor="inquiry-location" className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Project Location (Pune &amp; Surrounding Regions)</label>
                 <select
+                  id="inquiry-location"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-700 focus:ring-2 focus:ring-blue-700/20 text-sm font-medium outline-none bg-white"
@@ -325,8 +328,9 @@ ${notes ? `• Scope Details: ${notes}` : ""}`;
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Brief Scope / Budget (Optional)</label>
+                <label htmlFor="inquiry-notes" className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Brief Scope / Budget (Optional)</label>
                 <textarea
+                  id="inquiry-notes"
                   rows={2}
                   placeholder="e.g. 3BHK full home interior design, budget ~15 Lakhs"
                   value={notes}

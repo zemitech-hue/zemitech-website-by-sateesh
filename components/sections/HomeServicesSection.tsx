@@ -101,7 +101,7 @@ export default function HomeServicesSection() {
                     href={s.href}
                     className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs tracking-wide shadow-md shadow-amber-400/30 hover:scale-[1.02] transition-all"
                   >
-                    <span>Read More</span>
+                    <span>Explore {s.title.replace(" Services", "")}</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>

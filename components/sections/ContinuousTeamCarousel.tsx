@@ -36,7 +36,7 @@ export default function ContinuousTeamCarousel({ members }: { members: TeamMembe
         <h3 className="text-lg font-extrabold text-slate-950 group-hover:text-amber-600 transition-colors">
           {member.name}
         </h3>
-        <p className="text-xs font-mono-label font-bold text-amber-600 uppercase tracking-wide mt-1">
+        <p className="text-xs font-mono-label font-bold text-amber-800 uppercase tracking-wide mt-1">
           {member.role}
         </p>
       </div>
@@ -46,7 +46,7 @@ export default function ContinuousTeamCarousel({ members }: { members: TeamMembe
           <Award className="w-3.5 h-3.5 text-amber-500" />
           <span>{member.experience} Experience</span>
         </div>
-        <div className="flex items-center gap-1 text-xs font-bold text-emerald-600">
+        <div className="flex items-center gap-1 text-xs font-bold text-emerald-700">
           <UserCheck className="w-3.5 h-3.5" />
           <span>In-House</span>
         </div>

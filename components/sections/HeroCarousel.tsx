@@ -126,9 +126,9 @@ export default function HeroCarousel() {
               
               {/* Reference 2-Line Headline: BUILDING SPACES. / CREATING EXPERIENCES. */}
               <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-black text-slate-950 leading-[1.06] tracking-tight">
-                BUILDING <span className="text-amber-500">SPACES.</span>
+                BUILDING <span className="text-amber-700">SPACES.</span>
                 <br />
-                <span className="whitespace-nowrap">CREATING <span className="text-amber-500">EXPERIENCES.</span></span>
+                <span className="whitespace-nowrap">CREATING <span className="text-amber-700">EXPERIENCES.</span></span>
               </h1>
 
               {/* Reference Amber Underline Bar */}
@@ -201,8 +201,11 @@ export default function HeroCarousel() {
 
             </div>
           ) : (
-            /* SLIDES 2, 3, 4, 5: LEFT-CENTER POSITIONED AS REQUESTED */
-            <div className="max-w-2xl text-left flex flex-col items-start space-y-3.5 sm:space-y-4 my-auto py-8 lg:py-12">
+            /* SLIDES 2, 3, 4, 5: LEFT-CENTER POSITIONED AS REQUESTED.
+               min-h reserves space for the longest slide's headline/sub text
+               so swapping between slides of different text length doesn't
+               reflow the section and register as layout shift. */
+            <div className="max-w-2xl text-left flex flex-col items-start space-y-3.5 sm:space-y-4 my-auto py-8 lg:py-12 min-h-[500px] sm:min-h-[460px] lg:min-h-[500px]">
               
               {/* Eyebrow Badge */}
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950 text-amber-400 border border-amber-400/50 font-mono-label text-[11px] sm:text-xs uppercase tracking-[0.18em] font-extrabold shadow-xl">
@@ -266,20 +269,27 @@ export default function HeroCarousel() {
 
         </div>
 
-        {/* Slide Indicator Marks */}
-        <div className="absolute bottom-6 left-0 right-0 z-30 flex items-center justify-center gap-2.5">
+        {/* Slide Indicator Marks — each button has a fixed-width hit area
+            (>=24px, for mobile touch-target a11y) so the active dot growing
+            to w-12 never reflows its neighbors and contributes to CLS. */}
+        <div className="absolute bottom-6 left-0 right-0 z-30 flex items-center justify-center gap-1">
           {heroSlides.map((s, i) => (
             <button
               key={s.headline}
               onClick={() => setActive(i)}
               aria-label={`Show slide ${i + 1}: ${s.headline}`}
               aria-current={i === active}
-              className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                i === active
-                  ? "w-12 bg-amber-400 shadow-md"
-                  : "w-3 bg-white/50 hover:bg-white border border-white/20"
-              }`}
-            />
+              className="group h-6 w-12 shrink-0 flex items-center justify-center cursor-pointer"
+            >
+              <span
+                aria-hidden="true"
+                className={`h-2.5 rounded-full transition-all duration-300 block ${
+                  i === active
+                    ? "w-12 bg-amber-400 shadow-md"
+                    : "w-3 bg-white/50 group-hover:bg-white border border-white/20"
+                }`}
+              />
+            </button>
           ))}
         </div>
       </section>

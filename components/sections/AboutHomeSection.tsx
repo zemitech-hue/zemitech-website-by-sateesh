@@ -25,7 +25,7 @@ export default function AboutHomeSection() {
             </span>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight leading-tight">
-              Building Spaces. <span className="text-amber-500">Creating Experiences.</span>
+              Building Spaces. <span className="text-amber-700">Creating Experiences.</span>
             </h2>
 
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium">

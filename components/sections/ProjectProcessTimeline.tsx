@@ -69,7 +69,7 @@ export default function ProjectProcessTimeline() {
                     <Icon className="w-6 h-6 stroke-[2.2]" />
                   </div>
 
-                  <span className="text-xs font-mono-label font-black text-amber-600 block mb-1">
+                  <span className="text-xs font-mono-label font-black text-amber-800 block mb-1">
                     {step.number}
                   </span>
 

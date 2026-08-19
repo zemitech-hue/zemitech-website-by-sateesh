@@ -238,8 +238,9 @@ function ContactFormCard() {
         {/* Left Inputs Column */}
         <div className="space-y-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Your Name *</label>
+            <label htmlFor="contact-name" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Your Name *</label>
             <input
+              id="contact-name"
               type="text"
               name="name"
               required
@@ -248,8 +249,9 @@ function ContactFormCard() {
             />
           </div>
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Your Mail *</label>
+            <label htmlFor="contact-email" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Your Mail *</label>
             <input
+              id="contact-email"
               type="email"
               name="email"
               required
@@ -258,8 +260,9 @@ function ContactFormCard() {
             />
           </div>
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Subject / Phone *</label>
+            <label htmlFor="contact-phone" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Subject / Phone *</label>
             <input
+              id="contact-phone"
               type="text"
               name="phone"
               required
@@ -271,8 +274,9 @@ function ContactFormCard() {
 
         {/* Right Message Textarea Column */}
         <div className="flex flex-col">
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Message *</label>
+          <label htmlFor="contact-message" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Message *</label>
           <textarea
+            id="contact-message"
             name="message"
             required
             rows={7}

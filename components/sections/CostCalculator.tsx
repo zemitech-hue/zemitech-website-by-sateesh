@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Container from "@/components/ui/Container";
 import InquiryModal from "@/components/ui/InquiryModal";
+import { company } from "@/lib/data/company";
 import { Calculator, ArrowRight, ShieldCheck, Clock, Check, MessageCircle, Sparkles, SlidersHorizontal } from "lucide-react";
 
 export default function CostCalculator() {
@@ -120,7 +121,7 @@ I would like to speak directly with an interior designer about this calculation!
     }
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/919156644265?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/${company.whatsappNumber}?text=${encodedMessage}`;
     window.open(whatsappUrl, "_blank");
   };
 
@@ -219,10 +220,11 @@ I would like to speak directly with an interior designer about this calculation!
                       {/* Built-up Area */}
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <label className="text-xs font-mono-label font-bold uppercase tracking-wider text-slate-700">
+                          <label htmlFor="const-area-input" className="text-xs font-mono-label font-bold uppercase tracking-wider text-slate-700">
                             Built-Up Area (Sq. Ft.)
                           </label>
                           <input
+                            id="const-area-input"
                             type="number"
                             min={500}
                             max={10000}
@@ -237,6 +239,7 @@ I would like to speak directly with an interior designer about this calculation!
                         </div>
                         <input
                           type="range"
+                          aria-label="Built-up area in square feet"
                           min={500}
                           max={10000}
                           step={50}
@@ -247,7 +250,7 @@ I would like to speak directly with an interior designer about this calculation!
                           }}
                           className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-700"
                         />
-                        <div className="flex justify-between text-[11px] font-mono-label text-slate-400 font-bold mt-1.5">
+                        <div className="flex justify-between text-[11px] font-mono-label text-slate-600 font-bold mt-1.5">
                           <span>500 sq ft</span>
                           <span>5,000 sq ft</span>
                           <span>10,000 sq ft</span>
@@ -313,10 +316,11 @@ I would like to speak directly with an interior designer about this calculation!
 
                       {/* Location */}
                       <div>
-                        <label className="block text-xs font-mono-label font-bold uppercase tracking-wider text-slate-700 mb-2">
+                        <label htmlFor="const-location-select" className="block text-xs font-mono-label font-bold uppercase tracking-wider text-slate-700 mb-2">
                           Project Location
                         </label>
                         <select
+                          id="const-location-select"
                           value={constLocation}
                           onChange={(e) => {
                             setConstLocation(e.target.value);
@@ -370,10 +374,11 @@ I would like to speak directly with an interior designer about this calculation!
                       {/* Carpet Area */}
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <label className="text-xs font-mono-label font-bold uppercase tracking-wider text-slate-700">
+                          <label htmlFor="int-area-input" className="text-xs font-mono-label font-bold uppercase tracking-wider text-slate-700">
                             Carpet Area (Sq. Ft.)
                           </label>
                           <input
+                            id="int-area-input"
                             type="number"
                             min={400}
                             max={5000}
@@ -388,6 +393,7 @@ I would like to speak directly with an interior designer about this calculation!
                         </div>
                         <input
                           type="range"
+                          aria-label="Carpet area in square feet"
                           min={400}
                           max={5000}
                           step={50}
@@ -398,7 +404,7 @@ I would like to speak directly with an interior designer about this calculation!
                           }}
                           className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-700"
                         />
-                        <div className="flex justify-between text-[11px] font-mono-label text-slate-400 font-bold mt-1.5">
+                        <div className="flex justify-between text-[11px] font-mono-label text-slate-600 font-bold mt-1.5">
                           <span>400 sq ft</span>
                           <span>2,500 sq ft</span>
                           <span>5,000 sq ft</span>
