@@ -47,6 +47,9 @@ export const metadata: Metadata = {
     images: ["/images/og/zemitech-urban-og.png"],
   },
   alternates: { canonical: siteUrl },
+  verification: {
+    google: "6Hp59i8bLtaR2sOz2s5lGF2SXQ_mTj02-4ckuUqWbyY",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
