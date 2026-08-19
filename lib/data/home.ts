@@ -117,7 +117,7 @@ export const howWeWork: VisualStep[] = [
 ];
 
 export const homeFaqs = [
-  { question: "Which areas do you operate in?", answer: "We're based in Narhe, Pune, and take on construction and interior projects across Narhe, Kondhwa, Wagholi, Hinjewadi, Baner, Viman Nagar, Pirangut and the wider Pune region." },
+  { question: "Which areas do you operate in?", answer: "We're based in Pune, and take on construction and interior projects across Narhe, Kondhwa, Wagholi, Hinjewadi, Baner, Viman Nagar, Pirangut and the wider Pune region." },
   { question: "Can you handle both construction and interiors for the same project?", answer: "Yes — many of our clients start with construction and move directly into our interior design division for a fully coordinated handover." },
   { question: "How do I get a quote?", answer: "Share your requirement through the enquiry form or WhatsApp, and we'll schedule a site visit or call to scope your project before quoting." },
   { question: "Do you offer free consultations?", answer: "Yes, an initial consultation and site assessment is free and comes with no obligation." },

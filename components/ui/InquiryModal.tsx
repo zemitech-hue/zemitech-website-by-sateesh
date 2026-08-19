@@ -81,7 +81,7 @@ export default function InquiryModal({ isOpen, onClose, initialCategory = null }
   const [subService, setSubService] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
-  const [location, setLocation] = useState<string>("Narhe, Pune");
+  const [location, setLocation] = useState<string>("");
   const [notes, setNotes] = useState<string>("");
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const onCloseRef = useRef(onClose);
@@ -305,26 +305,16 @@ ${notes ? `• Scope Details: ${notes}` : ""}`;
               </div>
 
               <div>
-                <label htmlFor="inquiry-location" className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Project Location (Pune &amp; Surrounding Regions)</label>
-                <select
+                <label htmlFor="inquiry-location" className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Project Location / City / Pincode *</label>
+                <input
                   id="inquiry-location"
+                  type="text"
+                  required
+                  placeholder="e.g. Pune, Mumbai, Narhe, Pincode 411041, or City Name"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-700 focus:ring-2 focus:ring-blue-700/20 text-sm font-medium outline-none bg-white"
-                >
-                  <option value="Narhe, Pune">Narhe, Pune</option>
-                  <option value="Baner, Pune">Baner, Pune</option>
-                  <option value="Hinjewadi, Pune">Hinjewadi, Pune</option>
-                  <option value="Kondhwa, Pune">Kondhwa, Pune</option>
-                  <option value="Wagholi, Pune">Wagholi, Pune</option>
-                  <option value="Viman Nagar, Pune">Viman Nagar, Pune</option>
-                  <option value="Kothrud, Pune">Kothrud, Pune</option>
-                  <option value="Hadapsar, Pune">Hadapsar, Pune</option>
-                  <option value="Wakad, Pune">Wakad, Pune</option>
-                  <option value="Bavdhan, Pune">Bavdhan, Pune</option>
-                  <option value="Pirangut, Pune">Pirangut, Pune</option>
-                  <option value="Other Location in Pune / Maharashtra">Other Location in Pune / Maharashtra</option>
-                </select>
+                />
               </div>
 
               <div>

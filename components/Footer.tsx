@@ -22,7 +22,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-sm text-slate-600 leading-relaxed max-w-sm">
-              Turnkey construction and interior design company based in Narhe, Pune — delivering residential villas, commercial spaces, and modular interiors under one accountable team.
+              Turnkey construction and interior design company based in Pune — delivering residential villas, commercial spaces, and modular interiors under one accountable team.
             </p>
             <div className="text-xs text-slate-600 font-mono-label space-y-1">
               <p>📍 {company.address.line1}, {company.address.line2}, {company.address.state}</p>
