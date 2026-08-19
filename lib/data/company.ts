@@ -7,7 +7,7 @@ export const company = {
   tagline: "Building & Renovation",
   founded: 2019,
   gstin: "27AACCZ5366K1Z5",
-  domain: "zemitechurban.com",
+  domain: "zemitech.in",
   logo: "/images/brand/zemitech-urban-logo.png",
 
   phonePrimary: "+91 77700 47188",
