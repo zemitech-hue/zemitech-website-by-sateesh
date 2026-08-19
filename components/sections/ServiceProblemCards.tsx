@@ -106,20 +106,26 @@ export default function ServiceProblemCards({ eyebrow, title, sub, cards }: Serv
                         ))}
                       </div>
 
-                      {/* Service-Specific Call to Action Button */}
-                      <div className="mt-7 pt-6 border-t border-slate-100 flex items-center justify-between flex-wrap gap-4">
+                      {/* Service-Specific Call to Action Buttons */}
+                      <div className="mt-7 pt-6 border-t border-slate-100 flex items-center flex-wrap gap-3 sm:gap-4">
                         <button
                           onClick={() => handleOpenModal(card.title)}
-                          className="inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs sm:text-sm tracking-wide shadow-md shadow-amber-400/30 hover:shadow-lg hover:scale-105 transition-all cursor-pointer border border-amber-300"
+                          className="inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs sm:text-sm tracking-wide shadow-md shadow-amber-400/30 hover:shadow-lg hover:scale-105 transition-all cursor-pointer border border-amber-300 shrink-0"
                         >
                           <span>{card.ctaText || `Book Appointment for ${card.title}`}</span>
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                           </svg>
                         </button>
-                        <span className="text-xs font-mono-label font-bold text-slate-500">
-                          Free Consultation & Estimate
-                        </span>
+                        <a
+                          href="/#calculator"
+                          className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-blue-900 text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg hover:scale-105 transition-all cursor-pointer border border-slate-800 shrink-0"
+                        >
+                          <svg className="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                          </svg>
+                          <span>Calculate Cost Estimate</span>
+                        </a>
                       </div>
 
                     </div>

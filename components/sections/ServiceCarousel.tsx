@@ -215,16 +215,25 @@ function ServiceCard({ service, onBook }: { service: ServiceItem; onBook: () => 
         </div>
       </div>
 
-      {/* Proportioned Compact Footer Action Button */}
-      <div className="p-5 sm:p-6 pt-0 mt-1">
+      {/* Proportioned Compact Footer Action Buttons */}
+      <div className="p-5 sm:p-6 pt-0 mt-1 flex flex-col sm:flex-row gap-2.5">
         <Button
           type="button"
           onClick={onBook}
           variant="primary"
-          className="w-full justify-center !py-3 !text-xs shadow-md font-black hover:scale-[1.02] transition-transform"
+          className="flex-1 justify-center !py-2.5 !text-xs shadow-md font-black hover:scale-[1.02] transition-transform"
         >
           Book Consultation
         </Button>
+        <a
+          href="/#calculator"
+          className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-blue-900 text-white font-bold text-xs tracking-wide shadow-xs hover:scale-[1.02] transition-all border border-slate-800"
+        >
+          <svg className="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+          <span>Calculate Cost</span>
+        </a>
       </div>
     </div>
   );

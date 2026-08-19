@@ -127,7 +127,7 @@ I would like to speak directly with an interior designer about this calculation!
 
   return (
     <>
-      <section id="calculator" className="py-16 sm:py-24 bg-white border-t border-slate-200 relative overflow-hidden">
+      <section id="calculator" className="scroll-mt-20 py-16 sm:py-24 bg-white border-t border-slate-200 relative overflow-hidden">
         <Container className="relative z-10">
           
           {/* Header */}

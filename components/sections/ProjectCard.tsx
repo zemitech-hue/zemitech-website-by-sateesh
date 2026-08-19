@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Project } from "@/lib/types/project";
 import GracefulImage from "@/components/ui/GracefulImage";
 import InquiryModal from "@/components/ui/InquiryModal";
-import { MapPin, Calendar, Play, X, ArrowRight, User, Maximize2 } from "lucide-react";
+import { MapPin, Calendar, Play, X, ArrowRight, User, Maximize2, Calculator } from "lucide-react";
 
 function getYouTubeEmbedUrl(url: string): string | null {
   if (!url) return null;
@@ -140,7 +140,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             </p>
           </div>
 
-          {/* Clean Gold Action Footer CTA */}
+          {/* Clean Action Footer CTAs */}
           <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between flex-wrap gap-2">
             <button
               onClick={() => setModalOpen(true)}
@@ -149,9 +149,13 @@ export default function ProjectCard({ project }: { project: Project }) {
               <span>Book Consultation</span>
               <ArrowRight className="w-4 h-4" />
             </button>
-            <span className="text-[11px] font-mono-label font-bold text-slate-500">
-              Free Estimate
-            </span>
+            <a
+              href="/#calculator"
+              className="inline-flex items-center gap-1.5 font-extrabold text-xs sm:text-sm bg-slate-900 hover:bg-blue-900 text-white px-3.5 py-2 rounded-xl shadow-xs hover:scale-105 transition-all cursor-pointer border border-slate-800"
+            >
+              <Calculator className="w-3.5 h-3.5 text-amber-400" />
+              <span>Estimate Cost</span>
+            </a>
           </div>
         </div>
 
