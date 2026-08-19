@@ -105,9 +105,9 @@ export default function PhotoProjectForm({
                 <input
                   type="text"
                   name="location"
-                  defaultValue={project?.location ?? "Baner, Pune"}
+                  defaultValue={project?.location ?? ""}
                   required
-                  placeholder="e.g. Baner, Pune"
+                  placeholder="e.g. City Name, State, or Area"
                   className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-sm font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
                 />
                 <MapPin className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />

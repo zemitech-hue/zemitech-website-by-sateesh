@@ -92,7 +92,7 @@ export default function ProjectForm({
           label="Location"
           name="location"
           defaultValue={project?.location}
-          placeholder="e.g. Narhe, Pune"
+          placeholder="e.g. City Name, State, or Area"
           required
           icon={<MapPin className="w-4 h-4 text-slate-400" />}
         />

@@ -19,7 +19,7 @@ export default function CostCalculator() {
   const [constArea, setConstArea] = useState<number>(1500);
   const [constFloors, setConstFloors] = useState<string>("G+1");
   const [constQuality, setConstQuality] = useState<"standard" | "premium" | "luxury">("premium");
-  const [constLocation, setConstLocation] = useState<string>("Narhe, Pune");
+  const [constLocation, setConstLocation] = useState<string>("");
 
   // ================= INTERIOR STATE =================
   const [intPropType, setIntPropType] = useState<string>("3BHK");
@@ -316,30 +316,20 @@ I would like to speak directly with an interior designer about this calculation!
 
                       {/* Location */}
                       <div>
-                        <label htmlFor="const-location-select" className="block text-xs font-mono-label font-bold uppercase tracking-wider text-slate-700 mb-2">
-                          Project Location
+                        <label htmlFor="const-location-input" className="block text-xs font-mono-label font-bold uppercase tracking-wider text-slate-700 mb-2">
+                          Project Location / City / Pincode
                         </label>
-                        <select
-                          id="const-location-select"
+                        <input
+                          id="const-location-input"
+                          type="text"
+                          placeholder="e.g. City Name, Pincode, or Area"
                           value={constLocation}
                           onChange={(e) => {
                             setConstLocation(e.target.value);
                             resetCalc();
                           }}
                           className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600"
-                        >
-                          <option value="Narhe, Pune">Narhe, Pune</option>
-                          <option value="Baner, Pune">Baner, Pune</option>
-                          <option value="Hinjewadi, Pune">Hinjewadi, Pune</option>
-                          <option value="Kondhwa, Pune">Kondhwa, Pune</option>
-                          <option value="Wagholi, Pune">Wagholi, Pune</option>
-                          <option value="Viman Nagar, Pune">Viman Nagar, Pune</option>
-                          <option value="Kothrud, Pune">Kothrud, Pune</option>
-                          <option value="Hadapsar, Pune">Hadapsar, Pune</option>
-                          <option value="Mumbai Region">Mumbai Region</option>
-                          <option value="Ranchi Region">Ranchi Region</option>
-                          <option value="Other Location">Other Location</option>
-                        </select>
+                        />
                       </div>
                     </>
                   ) : (
