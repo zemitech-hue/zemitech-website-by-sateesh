@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
     qualities: [75, 92],
     minimumCacheTTL: 31536000,
     remotePatterns: [{ protocol: "https", hostname: "*.supabase.co" }],
+    localPatterns: [{ pathname: "/images/**", search: "?*" }],
     unoptimized: process.env.NODE_ENV === "development",
   },
   async headers() {
@@ -30,7 +31,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/images/:path*",
-        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+        headers: [
+          {
+            key: "Cache-Control",
+            value: process.env.NODE_ENV === "development" ? "no-cache, no-store, must-revalidate" : "public, max-age=31536000, immutable",
+          },
+        ],
       },
     ];
   },

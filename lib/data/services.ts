@@ -241,28 +241,28 @@ export const subServices: Record<string, SubService> = {
       items: [
         {
           title: "Structural RCC Framing",
-          image: "/images/construction/structural-civil-engineering/card-1.png",
+          image: "/images/construction/structural-civil-engineering/card-1.png?v=v2",
           description: "Precision RCC column and beam structural framework engineered to IS 456 standards. Our site engineers supervise mix ratios, vibrator compaction, and shuttering alignment for high-rise or standalone buildings.",
           highlights: ["M25 / M30 Ready-Mix Concrete Grade", "Tata Tiscon Fe550D Rebar Steel", "Laser Level Column Verticality", "14-Day Wet Curing Protocol"],
           ctaText: "Book Structural RCC Inspection",
         },
         {
           title: "Deep Foundation & Excavation",
-          image: "/images/construction/structural-civil-engineering/card-2.png",
+          image: "/images/construction/structural-civil-engineering/card-2.png?v=v2",
           description: "Full soil-tested deep foundations including pile footings, combined raft slabs, and reinforced soil retaining walls. Designed to handle high axial loads and monsoon soil expansion across Pune regions.",
           highlights: ["Borehole Soil & SPT Load Audit", "RCC Pile & Raft Footing Design", "Soil Retaining & Anchor Walls", "Anti-Seepage Dewatering Channel"],
           ctaText: "Book Foundation & Soil Assessment",
         },
         {
           title: "Masonry & Plastering",
-          image: "/images/construction/structural-civil-engineering/card-3.png",
+          image: "/images/construction/structural-civil-engineering/card-3.png?v=v2",
           description: "High-precision AAC block masonry and red-brick partition walls bonded with polymer mortar. Finished with double-coat external sand-faced waterproof plastering and internal smooth gypsum punning.",
           highlights: ["Thermal Insulating AAC Blocks", "Polymer Jointing Mortar Bonding", "Sand-Face Waterproof External Plaster", "Gypsum Smooth Wall Punning"],
           ctaText: "Book Masonry & Plastering Scope",
         },
         {
           title: "Site Civil Infrastructure",
-          image: "/images/construction/structural-civil-engineering/card-4.png",
+          image: "/images/construction/structural-civil-engineering/card-4.png?v=v2",
           description: "Comprehensive site infrastructure execution including heavy-vehicle concrete access roads, stormwater drainage culverts, boundary retaining walls, and underground RWH storage tanks.",
           highlights: ["Concrete VDF Approach Roads", "Heavy Flow Stormwater Culverts", "RCC Boundary Retaining Walls", "Rainwater Harvesting Tank Fit-Out"],
           ctaText: "Book Civil Infrastructure Audit",
