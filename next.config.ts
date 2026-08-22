@@ -13,8 +13,7 @@ const nextConfig: NextConfig = {
     qualities: [75, 92],
     minimumCacheTTL: 31536000,
     remotePatterns: [{ protocol: "https", hostname: "*.supabase.co" }],
-    localPatterns: [{ pathname: "/images/**", search: "?*" }],
-    unoptimized: process.env.NODE_ENV === "development",
+    localPatterns: [{ pathname: "/**" }],
   },
   async headers() {
     return [

@@ -36,7 +36,7 @@ export default function CertificationsPage() {
         eyebrow="Certifications"
         headline="Registered, compliant, and built on documented process"
         sub="The registrations and internal standards behind every project we deliver, plus what our quality inspection actually checks at each milestone."
-        image="/images/certifications/hero-certifications.png"
+        image="/images/certifications/cert-1.png"
         breadcrumbs={[{ name: "Certifications", href: "/certifications" }]}
       />
 

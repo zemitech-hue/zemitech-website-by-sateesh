@@ -36,7 +36,7 @@ export default async function TeamPage() {
         eyebrow="Our Team"
         headline="The people behind every handover"
         sub="Zemitech Urban is led by a dedicated team of site engineers, architects, and project managers who stay close to every active site across Pune."
-        image="/images/team/hero-team.png"
+        image="/images/about/hero.png"
         breadcrumbs={[{ name: "Team", href: "/team" }]}
       />
 

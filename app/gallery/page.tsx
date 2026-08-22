@@ -35,7 +35,7 @@ export default async function GalleryPage() {
         eyebrow="Gallery"
         headline="A closer look at completed work"
         sub="Photos from our construction sites and interior installations across Pune, filterable by category. Click any photo to view it full size."
-        image="/images/gallery/hero-gallery.png"
+        image="/images/construction/residential/hero.png"
         breadcrumbs={[{ name: "Gallery", href: "/gallery" }]}
       />
       <section className="py-16 sm:py-20">

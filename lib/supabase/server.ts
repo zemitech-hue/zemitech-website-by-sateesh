@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
 // True once NEXT_PUBLIC_SUPABASE_URL/ANON_KEY are set in .env.local — until
@@ -7,6 +8,15 @@ import { cookies } from "next/headers";
 // wired up by default.
 export function isSupabaseConfigured() {
   return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+}
+
+// Client for public data reads (projects, blogs, team, settings).
+// Does not call cookies(), allowing Next.js to statically prerender public pages (ISR).
+export function createPublicClient() {
+  return createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 }
 
 // Server Component / Server Action / Route Handler client — reads and
@@ -37,3 +47,4 @@ export async function createClient() {
     }
   );
 }
+

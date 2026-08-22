@@ -55,7 +55,7 @@ export const qualityProcess: QualityCheckStage[] = [
       "Concrete mix consistency and curing time compliance",
       "Column and slab alignment against approved layout",
     ],
-    image: "/images/certifications/quality-check-structural.png",
+    image: "/images/certifications/cert-1.png",
     alt: "Structural quality check inspecting reinforcement placement before a concrete pour",
   },
   {
@@ -65,7 +65,7 @@ export const qualityProcess: QualityCheckStage[] = [
       "Earthing and circuit load testing before walls are closed",
       "Plumbing pressure testing at all wet-area points",
     ],
-    image: "/images/certifications/quality-check-electrical.png",
+    image: "/images/certifications/cert-2.png",
     alt: "Electrical quality check testing wiring and circuit load before walls are closed",
   },
   {
@@ -75,7 +75,7 @@ export const qualityProcess: QualityCheckStage[] = [
       "Tile/flooring level and grout consistency",
       "Paint coat count and surface preparation",
     ],
-    image: "/images/certifications/quality-check-interior-finish.png",
+    image: "/images/certifications/cert-3.png",
     alt: "Finishing quality check reviewing tile level, grout consistency and paint surface preparation",
   },
   {
@@ -85,12 +85,12 @@ export const qualityProcess: QualityCheckStage[] = [
       "Material and finish match against the approved specification sheet",
       "Punch-list closure before final handover",
     ],
-    image: "/images/certifications/quality-check-interior-installation.png",
+    image: "/images/certifications/cert-4.png",
     alt: "Interior installation quality check verifying modular unit alignment and hardware function",
   },
 ];
 
 export const siteSafetyImage = {
-  src: "/images/certifications/site-safety-ppe.png",
+  src: "/images/certifications/cert-5.png",
   alt: "Site workers wearing PPE — helmets, safety vests and boots — as required by Zemitech Urban's site safety standard",
 };

@@ -27,7 +27,7 @@ export default function InquiryPage() {
         eyebrow="Free Consultation"
         headline="Get a free quote for your project"
         sub="Tell us a bit about what you're planning — a site visit or call is free, with no obligation to proceed. We take on projects across Pune, including Narhe, Kondhwa, Wagholi and Hinjewadi."
-        image="/images/inquiry/hero-inquiry.png"
+        image="/images/about/hero.png"
         breadcrumbs={[{ name: "Get a Free Quote", href: "/inquiry" }]}
       />
 
@@ -61,7 +61,7 @@ export default function InquiryPage() {
           <div className="lg:col-span-2 space-y-6">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-line reg-corners">
               <Image
-                src="/images/inquiry/consultation-call.png"
+                src="/images/about/hero.png"
                 alt="Zemitech Urban team member on a free client consultation call"
                 fill
                 className="object-cover"

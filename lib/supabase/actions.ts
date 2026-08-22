@@ -185,7 +185,7 @@ export async function createTeamMember(formData: FormData) {
   const name = String(formData.get("name") ?? "").trim();
   const role = String(formData.get("role") ?? "").trim();
   const experience = String(formData.get("experience") ?? "").trim();
-  const image_url = String(formData.get("image_url") ?? "").trim() || "/images/team/avatar-1.png";
+  const image_url = String(formData.get("image_url") ?? "").trim() || "/images/about/office-team.png";
 
   const supabase = await createClient();
   const { error } = await supabase.from("team_members").insert({

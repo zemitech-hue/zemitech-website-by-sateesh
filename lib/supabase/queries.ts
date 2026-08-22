@@ -1,4 +1,4 @@
-import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
+import { createClient, createPublicClient, isSupabaseConfigured } from "@/lib/supabase/server";
 import { fallbackProjects, type Project } from "@/lib/data/projects";
 import { fallbackBlogPosts, type BlogPost } from "@/lib/data/blog";
 
@@ -115,7 +115,7 @@ function isIgnorableQueryError(error?: { message?: string } | null): boolean {
 export async function getProjects(limit: number = 100): Promise<Project[]> {
   if (!isSupabaseConfigured()) return fallbackProjects.slice(0, limit);
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("projects")
       .select("*")
@@ -139,7 +139,7 @@ export async function getProjects(limit: number = 100): Promise<Project[]> {
 export async function getProject(slug: string): Promise<Project | null> {
   if (!isSupabaseConfigured()) return fallbackProjects.find((p) => p.slug === slug) || null;
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("projects")
       .select("*")
@@ -157,7 +157,7 @@ export async function getProject(slug: string): Promise<Project | null> {
 export async function getBlogPosts(limit: number = 100): Promise<BlogPost[]> {
   if (!isSupabaseConfigured()) return fallbackBlogPosts.slice(0, limit);
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("blog_posts")
       .select("*")
@@ -180,7 +180,7 @@ export async function getBlogPosts(limit: number = 100): Promise<BlogPost[]> {
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   if (!isSupabaseConfigured()) return fallbackBlogPosts.find((p) => p.slug === slug) || null;
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("blog_posts")
       .select("*")
@@ -292,7 +292,7 @@ export const fallbackTeamMembers: TeamMember[] = [];
 export async function getCompanySettings(): Promise<CompanySettings> {
   if (!isSupabaseConfigured()) return fallbackCompanySettings;
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase.from("company_settings").select("*").eq("id", "main").maybeSingle();
     if (error || !data) return fallbackCompanySettings;
     return data as CompanySettings;
@@ -304,7 +304,7 @@ export async function getCompanySettings(): Promise<CompanySettings> {
 export async function getTeamMembers(): Promise<TeamMember[]> {
   if (!isSupabaseConfigured()) return [];
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase.from("team_members").select("*").order("created_at", { ascending: false });
     if (error || !data) return [];
     return data as TeamMember[];
