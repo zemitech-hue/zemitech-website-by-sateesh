@@ -14,7 +14,7 @@ export default function CTASection({
   sub?: string;
 }) {
   const [modalOpen, setModalOpen] = useState(false);
-  const message = encodeURIComponent("Hi Zemitech Urban, I'd like to enquire about a project.");
+  const message = encodeURIComponent("Hi Zemara Spaces, I'd like to enquire about a project.");
 
   return (
     <>

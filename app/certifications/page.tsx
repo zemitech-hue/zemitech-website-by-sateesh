@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import PageHero from "@/components/sections/PageHero";
@@ -7,12 +6,13 @@ import JsonLd, { breadcrumbJsonLd } from "@/components/JsonLd";
 import { certifications, qualityProcess } from "@/lib/data/certifications";
 import { company } from "@/lib/data/company";
 import { HardHat, Zap, ShieldCheck, CheckCircle2, FileCheck, Check } from "lucide-react";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Certifications",
-  description: "Zemitech Urban's registrations, compliance and stage-wise quality inspection process — what gets checked at every construction & interior milestone.",
-  alternates: { canonical: "/certifications" },
-};
+  description: "Zemara Spaces' registrations, compliance and stage-wise quality inspection process — what gets checked at every construction & interior milestone.",
+  path: "/certifications",
+});
 
 const stageIcons = [
   <HardHat key="1" className="w-8 h-8 text-amber-500" />,

@@ -22,8 +22,8 @@ import { homeFaqs } from "@/lib/data/home";
 import FaqAccordion from "@/components/sections/FaqAccordion";
 
 export const metadata: Metadata = {
-  title: "Zemitech Urban — Construction, Interior & Architecture Solutions in Pune",
-  description: "Zemitech Urban delivers residential villa construction, structural engineering, turnkey home interiors & architectural design across Pune with 100% in-house engineering.",
+  title: "Zemara Spaces — Construction, Interior & Architecture Solutions in Pune",
+  description: "Zemara Spaces delivers residential villa construction, structural engineering, turnkey home interiors & architectural design across Pune with 100% in-house engineering.",
   alternates: { canonical: "/" },
 };
 
@@ -42,7 +42,7 @@ export default async function HomePage() {
       {/* 2. 4 FEATURE STRIP (Quality Construction, Modern Architecture, Elegant Interiors, On-Time Delivery) */}
       <HeroFeatureBar />
 
-      {/* 3. ABOUT ZEMITECH URBAN SECTION */}
+      {/* 3. ABOUT ZEMARA SPACES SECTION */}
       <AboutHomeSection />
 
       {/* 3B. CONTINUOUS SCROLLING TEAM MEMBERS SECTION */}

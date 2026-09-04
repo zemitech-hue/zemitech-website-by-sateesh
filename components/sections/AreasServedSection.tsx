@@ -61,7 +61,7 @@ export default function AreasServedSection() {
               <div className="relative w-full h-full animate-map-float">
                 <Image
                   src="/images/home/areas-served-map.png"
-                  alt="3D Map graphic marking Zemitech Urban's Pune service areas"
+                  alt="3D Map graphic marking Zemara Spaces' Pune service areas"
                   fill
                   className="object-contain drop-shadow-xl"
                   sizes="(max-width: 768px) 100vw, 50vw"

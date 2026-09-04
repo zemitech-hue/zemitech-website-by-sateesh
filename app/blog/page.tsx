@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/sections/PageHero";
 import CTASection from "@/components/sections/CTASection";
@@ -6,12 +5,14 @@ import BlogCard from "@/components/sections/BlogCard";
 import JsonLd, { breadcrumbJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/data/company";
 import { getBlogPosts } from "@/lib/supabase/queries";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Blog",
-  description: "In-depth guides on construction timelines, BOQs, vastu, kitchen layouts and interior budgeting from Zemitech Urban — practical, Pune-specific advice.",
-  alternates: { canonical: "/blog" },
-};
+  description: "In-depth guides on construction timelines, BOQs, vastu, kitchen layouts and interior budgeting from Zemara Spaces — practical, Pune-specific advice.",
+  path: "/blog",
+  image: "/images/blog/hero.png",
+});
 
 export const revalidate = 60;
 

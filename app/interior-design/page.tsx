@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import ServiceHero from "@/components/sections/ServiceHero";
 import FaqAccordion from "@/components/sections/FaqAccordion";
@@ -12,13 +11,18 @@ import { getProjects } from "@/lib/supabase/queries";
 import JsonLd, { faqJsonLd, breadcrumbJsonLd, serviceJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/data/company";
 import { interiorSubServices } from "@/lib/data/services";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Interior Design Company in Pune — Turnkey, Kitchens, Living & Bedroom Interiors",
-  description:
-    "Turnkey interior design & factory modular execution in Pune. Modular kitchens, living room TV consoles, master bedroom wardrobes, 2BHK/3BHK turnkey homes, office fit-outs & custom joinery.",
-  alternates: { canonical: "/interior-design" },
-};
+const pageTitle = "Interior Design Company in Pune — Turnkey, Kitchens, Living & Bedroom Interiors";
+const pageDescription =
+  "Turnkey interior design & factory modular execution in Pune. Modular kitchens, living room TV consoles, master bedroom wardrobes, 2BHK/3BHK turnkey homes, office fit-outs & custom joinery.";
+
+export const metadata = pageMetadata({
+  title: pageTitle,
+  description: pageDescription,
+  path: "/interior-design",
+  image: "/images/interior/overview/hero.png",
+});
 
 const interiorStyles = [
   { name: "Contemporary", description: "Clean lines, neutral tones, and sleek handleless cabinetry. Our most popular style for Pune apartments.", image: "/images/interior/overview/style-1.png" },
@@ -46,7 +50,7 @@ export default async function InteriorDesignOverviewPage() {
     <>
       <JsonLd data={faqJsonLd(interiorFaqs)} />
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", href: siteUrl }, ...breadcrumbs].map(b => ({ name: b.name, url: b.href.startsWith("http") ? b.href : `${siteUrl}${b.href}` })))} />
-      <JsonLd data={serviceJsonLd({ name: "Interior Design Services", description: metadata.description as string, url: `${siteUrl}/interior-design`, siteUrl, legalName: company.legalName })} />
+      <JsonLd data={serviceJsonLd({ name: "Interior Design Services", description: pageDescription, url: `${siteUrl}/interior-design` })} />
 
       {/* Section 1 — Hero */}
       <ServiceHero

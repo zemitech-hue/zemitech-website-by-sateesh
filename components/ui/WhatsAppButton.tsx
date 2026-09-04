@@ -2,7 +2,7 @@ import { company } from "@/lib/data/company";
 
 export default function WhatsAppButton() {
   const message = encodeURIComponent(
-    "Hi Zemitech Urban, I would like to enquire about your construction & interior design services."
+    "Hi Zemara Spaces, I would like to enquire about your construction & interior design services."
   );
 
   return (

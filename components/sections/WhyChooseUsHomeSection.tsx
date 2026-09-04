@@ -56,7 +56,7 @@ export default function WhyChooseUsHomeSection() {
             <div className="relative aspect-[16/11] w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-200/90 group">
               <Image
                 src="/images/divisions/interior-division-card.png"
-                alt="Why Choose Zemitech Urban Construction and Design"
+                alt="Why Choose Zemara Spaces Construction and Design"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
                 sizes="(max-width: 1024px) 100vw, 50vw"

@@ -2,20 +2,20 @@
 // Editing this file updates the footer, contact page, and structured data everywhere.
 
 export const company = {
-  legalName: "Zemitech Urban Private Limited",
-  brandName: "Zemitech Urban",
+  legalName: "Zemara Spaces",
+  brandName: "Zemara Spaces",
   tagline: "Building & Renovation",
   founded: 2019,
   gstin: "27AACCZ5366K1Z5",
   domain: "zemitech.in",
-  logo: "/images/brand/zemitech-urban-logo.png",
+  logo: "/images/brand/image.png",
 
   phonePrimary: "+91 77700 47188",
   phonePrimaryHref: "tel:+917770047188",
   whatsappNumber: "917770047188",
-  whatsappLink: "https://wa.me/917770047188?text=Hello%20Zemitech%20Urban%2C%20I%20would%20like%20to%20get%20a%20free%20quote%20and%20consultation%20for%20my%20project.",
-  emailPrimary: "zemitechurban@gmail.com",
-  emailSecondary: "zemitech2019@gmail.com",
+  whatsappLink: "https://wa.me/917770047188?text=Hello%20Zemara%20Spaces%2C%20I%20would%20like%20to%20get%20a%20free%20quote%20and%20consultation%20for%20my%20project.",
+  emailPrimary: "contact@zemaraspaces.com",
+  emailSecondary: "info@zemaraspaces.com",
 
   address: {
     line1: "Office No. 15/1, Samarth Sankul",
@@ -30,11 +30,17 @@ export const company = {
     { day: "Sunday", time: "By appointment only" },
   ],
 
+  // Left empty on purpose: the "zemitechurban" handles previously here were
+  // confirmed NOT to belong to this business (there's an unrelated company
+  // also trading as "Zemitech Urban" — see app/layout.tsx). Fill in real
+  // Zemara Spaces profile URLs here once those accounts exist; the
+  // Organization JSON-LD's `sameAs` picks up any non-empty value
+  // automatically.
   social: {
-    instagram: "https://instagram.com/zemitechurban",
-    facebook: "https://facebook.com/zemitechurban",
-    youtube: "https://youtube.com/@zemitechurban",
-    linkedin: "https://linkedin.com/company/zemitech-urban",
+    instagram: "",
+    facebook: "",
+    youtube: "",
+    linkedin: "",
   },
 
   stats: [

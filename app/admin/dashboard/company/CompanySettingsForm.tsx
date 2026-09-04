@@ -72,7 +72,7 @@ export default function CompanySettingsForm({ initialSettings }: { initialSettin
           name="email"
           required
           defaultValue={initialSettings.email}
-          placeholder="e.g. zemitechurban@gmail.com"
+          placeholder="e.g. info@zemaraspaces.com"
           className="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-900 font-medium text-sm focus:ring-2 focus:ring-blue-700 focus:border-blue-700 outline-none"
         />
         <p className="text-xs text-slate-500 mt-1">Official inquiry email address.</p>

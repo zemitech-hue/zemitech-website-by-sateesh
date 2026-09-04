@@ -12,13 +12,14 @@ export default function Footer() {
           
           {/* Company Brand Column */}
           <div className="col-span-2 space-y-4">
-            <div className="inline-block bg-white rounded-xl p-2.5 shadow-xs border border-slate-200">
+            <div className="inline-block bg-white rounded-xl p-2 sm:p-2.5 shadow-xs border border-slate-200">
               <Image
-                src="/images/brand/zemitech-urban-logo.png"
-                alt="Zemitech Urban"
-                width={160}
-                height={40}
-                className="h-9 w-auto"
+                src="/images/brand/image.png"
+                alt="Zemara Spaces"
+                width={150}
+                height={38}
+                className="h-8 sm:h-9 w-auto object-contain"
+                style={{ width: "auto", height: "auto" }}
               />
             </div>
             <p className="text-sm text-slate-600 leading-relaxed max-w-sm">
@@ -39,7 +40,7 @@ export default function Footer() {
 
         {/* Minimal Copyright Bar */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-mono-label">
-          <p>© {new Date().getFullYear()} {company.legalName}. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Zemara Spaces. All rights reserved.</p>
           <p>Designed &amp; built by <a href="https://dorabeen.com" className="hover:text-blue-700 font-bold transition-colors">Dorabeen</a></p>
         </div>
       </Container>

@@ -136,7 +136,7 @@ export default function InquiryModal({ isOpen, onClose, initialCategory = null, 
     if (!name || !phone) return;
 
     const catLabel = category === "construction" ? "Construction Services" : "Interior Design Services";
-    const message = `Hi Zemitech Urban! I would like to get a quote for my project:
+    const message = `Hi Zemara Spaces! I would like to get a quote for my project:
 
 • Category: ${catLabel}
 • Specific Service: ${subService || "General Enquiry"}

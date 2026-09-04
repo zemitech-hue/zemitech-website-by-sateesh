@@ -61,7 +61,7 @@ export default function ConstructionApprovalsSection() {
             Government, Environmental &amp; Design Approvals
           </h2>
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-            Zemitech Urban manages all mandatory municipal sanctions, environmental clearances, and structural stamps so your project proceeds without legal delays.
+            Zemara Spaces manages all mandatory municipal sanctions, environmental clearances, and structural stamps so your project proceeds without legal delays.
           </p>
         </div>
 
@@ -111,7 +111,7 @@ export default function ConstructionApprovalsSection() {
 
               <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs font-bold text-slate-700">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>100% Handled by Zemitech Urban</span>
+                <span>100% Handled by Zemara Spaces</span>
               </div>
             </div>
           ))}

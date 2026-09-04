@@ -13,7 +13,7 @@ export const fallbackProjects: Project[] = [
     summary: "Turnkey G+2 luxury residential villa built with M30 RMC structure, post-tensioned slab framing, and Italian marble flooring in Baner, Pune.",
     description: [
       "Turnkey G+2 luxury residential villa built with M30 RMC structure, post-tensioned slab framing, and Italian marble flooring in Baner, Pune.",
-      "Designed and executed by Zemitech Urban with complete site engineering, elevation 3D renders, and turnkey handover."
+      "Designed and executed by Zemara Spaces with complete site engineering, elevation 3D renders, and turnkey handover."
     ],
     scope: ["Civil RCC Framing", "Elevation Design", "Flooring & Plumbing", "Exterior Waterproofing"],
     challenge: "High water table during monsoon foundation excavation.",
@@ -22,7 +22,7 @@ export const fallbackProjects: Project[] = [
     galleryUrls: ["/images/construction/residential/card-1.png", "/images/construction/residential/card-2.png"],
     videoUrl: "https://www.youtube.com/shorts/dQw4w9WgXcQ",
     clientQuote: {
-      quote: "Zemitech Urban delivered our villa within 9 months with incredible quality and fixed BOQ rates.",
+      quote: "Zemara Spaces delivered our villa within 9 months with incredible quality and fixed BOQ rates.",
       author: "Rajesh Deshmukh",
       location: "Baner, Pune"
     },

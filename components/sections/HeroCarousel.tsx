@@ -89,7 +89,7 @@ export default function HeroCarousel() {
   return (
     <>
       <section
-        className="relative overflow-hidden bg-white w-full flex items-center pt-28 pb-16 lg:pt-32 lg:pb-20"
+        className="relative overflow-hidden bg-white w-full flex items-center pt-32 sm:pt-36 lg:pt-40 pb-16 lg:pb-20"
         style={{ height: '100dvh', minHeight: '100svh' }}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
@@ -107,12 +107,12 @@ export default function HeroCarousel() {
           >
             <Image
               src={s.image}
-              alt=""
+              alt={`${s.headline} — ${s.tag} by Zemara Spaces in Pune`}
               fill
               preload={i === 0}
               className="object-cover"
               sizes="100vw"
-              quality={95}
+              quality={92}
             />
           </div>
         ))}
@@ -152,9 +152,9 @@ export default function HeroCarousel() {
                         <Icon className="w-4 h-4 stroke-[2.2]" />
                       </div>
                       <div className="text-center">
-                        <h4 className="text-[10px] sm:text-[11px] font-mono-label font-black text-slate-950 uppercase tracking-tight text-center">
+                        <p className="text-[10px] sm:text-[11px] font-mono-label font-black text-slate-950 uppercase tracking-tight text-center">
                           {feat.title}
-                        </h4>
+                        </p>
                         <p className="text-[9px] sm:text-[10px] text-slate-700 font-bold leading-tight mt-0.5 text-center">
                           {feat.sub}
                         </p>

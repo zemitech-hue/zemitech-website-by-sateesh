@@ -68,17 +68,18 @@ export default function Header() {
         {/* 2. 100% WIDTH FULL-BLEED WHITE NAVIGATION BAR */}
         <div className="w-full bg-white/95 backdrop-blur-xl border-b border-slate-200/90 shadow-md pointer-events-auto transition-all duration-300">
           <Container>
-            <div className="flex items-center justify-between gap-4 py-2.5 sm:py-3">
+            <div className="flex items-center justify-between gap-4 py-1.5 sm:py-2">
               
-              {/* BIGGER BRAND LOGO */}
+              {/* BRAND LOGO */}
               <Link href="/" className="flex items-center gap-2 shrink-0 group">
                 <div className="py-0.5 transition-transform duration-300 group-hover:scale-[1.02]">
                   <Image
-                    src="/images/brand/zemitech-urban-logo.png"
-                    alt="Zemitech Urban — Building and Renovation"
-                    width={220}
-                    height={56}
-                    className="h-10 sm:h-12 md:h-14 w-auto object-contain"
+                    src="/images/brand/image.png"
+                    alt="Zemara Spaces — Interiors | Design | Living"
+                    width={160}
+                    height={40}
+                    className="h-8 sm:h-9 md:h-10 w-auto object-contain"
+                    style={{ width: "auto", height: "auto" }}
                     preload
                   />
                 </div>

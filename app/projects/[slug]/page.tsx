@@ -11,6 +11,7 @@ import GracefulImage from "@/components/ui/GracefulImage";
 import JsonLd, { breadcrumbJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/data/company";
 import { getProject, getProjects } from "@/lib/supabase/queries";
+import { pageMetadata } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -22,11 +23,13 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = await getProject(slug);
   if (!project) return {};
-  return {
+  return pageMetadata({
     title: `${project.title} — ${project.location}`,
     description: project.summary,
-    alternates: { canonical: `/projects/${project.slug}` },
-  };
+    path: `/projects/${project.slug}`,
+    image: project.coverImage ?? undefined,
+    imageAlt: project.title,
+  });
 }
 
 export default async function ProjectDetailPage({

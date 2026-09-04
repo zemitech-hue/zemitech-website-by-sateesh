@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -11,12 +10,14 @@ import { company } from "@/lib/data/company";
 import { getTeamMembers } from "@/lib/supabase/queries";
 import { departments, widerTeam } from "@/lib/data/team";
 import { Award } from "lucide-react";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Our Team — Zemitech Urban Engineers & Designers",
-  description: "Meet Zemitech Urban's leadership team and the site engineers, designers and coordinators who deliver every construction & interior project.",
-  alternates: { canonical: "/team" },
-};
+export const metadata = pageMetadata({
+  title: "Our Team — Zemara Spaces Engineers & Designers",
+  description: "Meet Zemara Spaces' leadership team and the site engineers, designers and coordinators who deliver every construction & interior project.",
+  path: "/team",
+  image: "/images/about/hero.png",
+});
 
 export const revalidate = 60;
 
@@ -35,7 +36,7 @@ export default async function TeamPage() {
       <PageHero
         eyebrow="Our Team"
         headline="The people behind every handover"
-        sub="Zemitech Urban is led by a dedicated team of site engineers, architects, and project managers who stay close to every active site across Pune."
+        sub="Zemara Spaces is led by a dedicated team of site engineers, architects, and project managers who stay close to every active site across Pune."
         image="/images/about/hero.png"
         breadcrumbs={[{ name: "Team", href: "/team" }]}
       />

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import ServiceHero from "@/components/sections/ServiceHero";
 import MaterialBoard from "@/components/sections/MaterialBoard";
@@ -12,20 +11,25 @@ import { getProjects } from "@/lib/supabase/queries";
 import JsonLd, { faqJsonLd, breadcrumbJsonLd, serviceJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/data/company";
 import { constructionSubServices } from "@/lib/data/services";
+import { pageMetadata } from "@/lib/seo";
 
 import ConstructionApprovalsSection from "@/components/sections/ConstructionApprovalsSection";
 import FourStepProcessSection from "@/components/sections/FourStepProcessSection";
 
-export const metadata: Metadata = {
-  title: "Construction Services in Pune — Residential, Commercial & Infrastructure",
-  description:
-    "End-to-end construction contractor in Pune. Independent villas, commercial fit-outs, township infrastructure, civil engineering, renovation & industrial sheds. Fixed BOQ & in-house engineers.",
-  alternates: { canonical: "/construction" },
-};
+const pageTitle = "Construction Services in Pune — Residential, Commercial & Infrastructure";
+const pageDescription =
+  "End-to-end construction contractor in Pune. Independent villas, commercial fit-outs, township infrastructure, civil engineering, renovation & industrial sheds. Fixed BOQ & in-house engineers.";
+
+export const metadata = pageMetadata({
+  title: pageTitle,
+  description: pageDescription,
+  path: "/construction",
+  image: "/images/construction/overview/hero.png",
+});
 
 const constructionFaqs = [
   {
-    question: "What types of construction projects does Zemitech Urban handle?",
+    question: "What types of construction projects does Zemara Spaces handle?",
     answer: "We handle residential villa construction, commercial office and retail fit-outs, township infrastructure and road works, structural engineering, turnkey home renovations, and industrial warehouses across Pune.",
   },
   {
@@ -54,7 +58,7 @@ export default async function ConstructionOverviewPage() {
     <>
       <JsonLd data={faqJsonLd(constructionFaqs)} />
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", href: siteUrl }, ...breadcrumbs].map(b => ({ name: b.name, url: b.href.startsWith("http") ? b.href : `${siteUrl}${b.href}` })))} />
-      <JsonLd data={serviceJsonLd({ name: "Construction Services", description: metadata.description as string, url: `${siteUrl}/construction`, siteUrl, legalName: company.legalName })} />
+      <JsonLd data={serviceJsonLd({ name: "Construction Services", description: pageDescription, url: `${siteUrl}/construction` })} />
 
       {/* Section 1 — Hero */}
       <ServiceHero

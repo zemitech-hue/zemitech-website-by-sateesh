@@ -94,7 +94,7 @@ export const howWeWork: VisualStep[] = [
     title: "Consult",
     description: "A free site visit or call to understand your brief, budget and timeline — no obligation to proceed.",
     image: "/images/home/how-we-work-1-consult.png",
-    alt: "Zemitech Urban team conducting a free client consultation and site visit",
+    alt: "Zemara Spaces team conducting a free client consultation and site visit",
   },
   {
     title: "Design",
@@ -122,7 +122,7 @@ export const homeFaqs = [
   { question: "How do I get a quote?", answer: "Share your requirement through the enquiry form or WhatsApp, and we'll schedule a site visit or call to scope your project before quoting." },
   { question: "Do you offer free consultations?", answer: "Yes, an initial consultation and site assessment is free and comes with no obligation." },
   { question: "Do you work with landowners, developers, and individual homeowners?", answer: "Yes, all three — from a single independent home to township-scale infrastructure work for developers." },
-  { question: "How is Zemitech Urban different from hiring a separate architect and contractor?", answer: "We run construction and interior design as one accountable company with one project manager per project, rather than you coordinating separate firms and absorbing the gaps between them." },
+  { question: "How is Zemara Spaces different from hiring a separate architect and contractor?", answer: "We run construction and interior design as one accountable company with one project manager per project, rather than you coordinating separate firms and absorbing the gaps between them." },
   { question: "What's your typical response time to an enquiry?", answer: "We aim to respond within one business day and schedule a site visit or call shortly after, depending on your availability." },
   { question: "Is a quote free, and does requesting one commit me to anything?", answer: "Yes, quotes and initial site assessments are free with no obligation to proceed — we're happy to just talk through your project first." },
 ];

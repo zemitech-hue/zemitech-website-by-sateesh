@@ -13,7 +13,7 @@ export default function TestimonialsSection() {
         <SectionHeading
           eyebrow="Client Reviews"
           title="What clients say after handover"
-          sub="Real experiences from homeowners, villa builders, and office managers who hired Zemitech Urban."
+          sub="Real experiences from homeowners, villa builders, and office managers who hired Zemara Spaces."
           align="center"
         />
       </div>

@@ -8,7 +8,7 @@ export const leadership: TeamMember[] = [
   {
     name: "Er. Manish K. Sah",
     role: "Director",
-    bio: "Leads project delivery and client relationships across Zemitech Urban's construction division, with oversight of site execution standards.",
+    bio: "Leads project delivery and client relationships across Zemara Spaces' construction division, with oversight of site execution standards.",
   },
   {
     name: "Er. Ashutosh Kumar",

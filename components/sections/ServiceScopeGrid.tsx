@@ -72,7 +72,7 @@ export default function ServiceScopeGrid({ eyebrow, title, sub, groups }: Servic
     {
       tag: "Civil & Materials Execution",
       title: "In-House Skilled Site Execution",
-      description: "Dedicated Zemitech Urban project managers supervise RCC column casting, AAC block masonry, electrical conduit routing, and waterproofing.",
+      description: "Dedicated Zemara Spaces project managers supervise RCC column casting, AAC block masonry, electrical conduit routing, and waterproofing.",
       items: (groups[0]?.items.slice(4) || []).concat(groups[1]?.items.slice(4) || []).slice(0, 4).length > 0
         ? (groups[0]?.items.slice(4) || []).concat(groups[1]?.items.slice(4) || []).slice(0, 4)
         : ["Column & slab RCC casting", "AAC block masonry work", "Concealed electrical conduits", "Polymer waterproofing membrane"],

@@ -136,7 +136,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 
             {/* Description */}
             <p className="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed font-medium line-clamp-2">
-              {project.summary || project.description[0] || "Turnkey project built by Zemitech Urban in Pune."}
+              {project.summary || project.description[0] || "Turnkey project built by Zemara Spaces in Pune."}
             </p>
           </div>
 

@@ -91,7 +91,7 @@ export default function CostCalculator() {
     let message = "";
 
     if (isConst) {
-      message = `Hi Zemitech Urban! I just calculated my project estimate on your website:
+      message = `Hi Zemara Spaces! I just calculated my project estimate on your website:
 
 📌 *Service:* Construction Cost Estimator
 🏢 *Project Type:* ${constProjectType}
@@ -105,7 +105,7 @@ export default function CostCalculator() {
 
 I would like to speak directly with an engineer about this calculation!`;
     } else {
-      message = `Hi Zemitech Urban! I just calculated my interior estimate on your website:
+      message = `Hi Zemara Spaces! I just calculated my interior estimate on your website:
 
 📌 *Service:* Interior Cost Estimator
 🏠 *Property Type:* ${intPropType}

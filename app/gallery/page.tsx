@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/sections/PageHero";
 import CTASection from "@/components/sections/CTASection";
@@ -6,12 +5,14 @@ import GalleryGrid, { GalleryPhoto } from "@/components/sections/GalleryGrid";
 import JsonLd, { breadcrumbJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/data/company";
 import { getProjects } from "@/lib/supabase/queries";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Gallery",
-  description: "Photo gallery of Zemitech Urban's residential, commercial, infrastructure and interior design projects across Pune, filterable by category.",
-  alternates: { canonical: "/gallery" },
-};
+  description: "Photo gallery of Zemara Spaces' residential, commercial, infrastructure and interior design projects across Pune, filterable by category.",
+  path: "/gallery",
+  image: "/images/construction/residential/hero.png",
+});
 
 export const revalidate = 60;
 

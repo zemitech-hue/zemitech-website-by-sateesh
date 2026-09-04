@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/sections/PageHero";
 import CTASection from "@/components/sections/CTASection";
@@ -6,13 +5,15 @@ import ProjectsGrid from "@/components/sections/ProjectsGrid";
 import JsonLd, { breadcrumbJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/data/company";
 import { getProjects } from "@/lib/supabase/queries";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Project Portfolio",
   description:
     "Completed residential, commercial, infrastructure & interior design projects across Narhe, Kondhwa, Wagholi, Hinjewadi and wider Pune — filter by category.",
-  alternates: { canonical: "/projects" },
-};
+  path: "/projects",
+  image: "/images/projects/hero.png",
+});
 
 export const revalidate = 60;
 

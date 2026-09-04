@@ -10,6 +10,7 @@ import GracefulImage from "@/components/ui/GracefulImage";
 import JsonLd, { articleJsonLd, breadcrumbJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/data/company";
 import { getBlogPost, getBlogPosts } from "@/lib/supabase/queries";
+import { pageMetadata } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -21,11 +22,13 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getBlogPost(slug);
   if (!post) return {};
-  return {
+  return pageMetadata({
     title: post.title,
     description: post.excerpt,
-    alternates: { canonical: `/blog/${post.slug}` },
-  };
+    path: `/blog/${post.slug}`,
+    image: post.coverImage ?? undefined,
+    imageAlt: post.title,
+  });
 }
 
 export default async function BlogDetailPage({
@@ -62,9 +65,7 @@ export default async function BlogDetailPage({
           url: postUrl,
           image: post.coverImage
             ? (post.coverImage.startsWith("http") ? post.coverImage : `${siteUrl}${post.coverImage}`)
-            : `${siteUrl}/images/og/zemitech-urban-og.png`,
-          siteUrl,
-          legalName: company.legalName,
+            : `${siteUrl}/images/brand/image.png`,
           datePublished: new Date(post.publishedAt).toISOString(),
         })}
       />

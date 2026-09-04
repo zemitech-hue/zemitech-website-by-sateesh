@@ -47,7 +47,7 @@ export const testimonials: Testimonial[] = [
     location: "Wagholi, Pune",
     project: "Residential Construction",
     quote:
-      "We used our own architect's plans and Zemitech simply took over structural engineering and execution — no friction, no re-drawing. Site supervisor was present every single day.",
+      "We used our own architect's plans and Zemara Spaces simply took over structural engineering and execution — no friction, no re-drawing. Site supervisor was present every single day.",
     rating: 5,
   },
   {

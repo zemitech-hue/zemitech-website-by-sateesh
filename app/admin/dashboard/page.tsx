@@ -16,7 +16,7 @@ export default async function AdminDashboardOverview() {
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-blue-950 tracking-tight">Admin Overview</h1>
           <p className="text-xs font-mono-label text-slate-500 mt-1">
-            Manage Zemitech Urban built properties, YouTube video reels, and Pune blog articles.
+            Manage Zemara Spaces built properties, YouTube video reels, and Pune blog articles.
           </p>
         </div>
 

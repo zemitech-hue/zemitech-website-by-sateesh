@@ -1,3 +1,7 @@
+import { company } from "@/lib/data/company";
+
+const siteUrl = `https://${company.domain}`;
+
 export default function JsonLd({ data }: { data: Record<string, unknown> }) {
   return (
     <script
@@ -37,14 +41,10 @@ export function serviceJsonLd({
   name,
   description,
   url,
-  siteUrl,
-  legalName,
 }: {
   name: string;
   description: string;
   url: string;
-  siteUrl: string;
-  legalName: string;
 }) {
   return {
     "@context": "https://schema.org",
@@ -53,9 +53,17 @@ export function serviceJsonLd({
     name,
     description,
     url,
+    // Referencing the Organization by @id (rather than repeating its name)
+    // keeps every service page pointing at one canonical entity. The
+    // provider's public-facing name is the brand, not the registered
+    // legalName — a different, unrelated company also trades as
+    // "Zemitech Urban", so leading with the legal name here risks Google
+    // conflating the two entities in search/knowledge-graph matching.
     provider: {
+      "@id": `${siteUrl}/#organization`,
       "@type": "GeneralContractor",
-      name: legalName,
+      name: company.brandName,
+      legalName: company.legalName,
       url: siteUrl,
     },
     areaServed: {
@@ -70,8 +78,6 @@ export function articleJsonLd({
   description,
   url,
   image,
-  siteUrl,
-  legalName,
   datePublished,
   dateModified,
 }: {
@@ -79,11 +85,10 @@ export function articleJsonLd({
   description: string;
   url: string;
   image: string;
-  siteUrl: string;
-  legalName: string;
   datePublished: string;
   dateModified?: string;
 }) {
+  const publisher = { "@id": `${siteUrl}/#organization`, "@type": "Organization", name: company.brandName, url: siteUrl };
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -93,13 +98,13 @@ export function articleJsonLd({
     image,
     datePublished,
     dateModified: dateModified ?? datePublished,
-    author: { "@type": "Organization", name: legalName, url: siteUrl },
-    publisher: { "@type": "Organization", name: legalName, url: siteUrl },
+    author: publisher,
+    publisher,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
   };
 }
 
-// Not wired up anywhere yet — Zemitech Urban has no verified public review
+// Not wired up anywhere yet — Zemara Spaces has no verified public review
 // count, and emitting a fake AggregateRating would violate Google's
 // structured-data guidelines. Once real reviews exist (see
 // lib/data/testimonials.ts), call this from TestimonialsSection with real

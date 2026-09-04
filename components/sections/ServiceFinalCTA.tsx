@@ -14,7 +14,7 @@ interface ServiceFinalCTAProps {
 
 export default function ServiceFinalCTA({ title, copy, primaryCtaText }: ServiceFinalCTAProps) {
   const [modalOpen, setModalOpen] = useState(false);
-  const message = encodeURIComponent(`Hi Zemitech Urban, I'd like to enquire about ${title}.`);
+  const message = encodeURIComponent(`Hi Zemara Spaces, I'd like to enquire about ${title}.`);
 
   return (
     <>

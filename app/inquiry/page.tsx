@@ -1,16 +1,17 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/sections/PageHero";
 import InquiryForm from "@/components/sections/InquiryForm";
 import TrustBar from "@/components/sections/TrustBar";
 import { company } from "@/lib/data/company";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Get a Free Quote",
-  description: "Request a free construction or interior design quote from Zemitech Urban — site visit, BOQ or material sheet, no obligation. Serving Pune & suburbs.",
-  alternates: { canonical: "/inquiry" },
-};
+  description: "Request a free construction or interior design quote from Zemara Spaces — site visit, BOQ or material sheet, no obligation. Serving Pune & suburbs.",
+  path: "/inquiry",
+  image: "/images/about/hero.png",
+});
 
 const afterSubmitSteps = [
   { title: "Enquiry reviewed same day", body: "A project coordinator reads your requirement and routes it to the right division — construction, interior, or both." },
@@ -19,7 +20,7 @@ const afterSubmitSteps = [
 ];
 
 export default function InquiryPage() {
-  const message = encodeURIComponent("Hi Zemitech Urban, I'd like to get a quote for my project.");
+  const message = encodeURIComponent("Hi Zemara Spaces, I'd like to get a quote for my project.");
 
   return (
     <>
@@ -62,7 +63,7 @@ export default function InquiryPage() {
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-line reg-corners">
               <Image
                 src="/images/about/hero.png"
-                alt="Zemitech Urban team member on a free client consultation call"
+                alt="Zemara Spaces team member on a free client consultation call"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 40vw"

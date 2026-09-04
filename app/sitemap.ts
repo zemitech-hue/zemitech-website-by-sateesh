@@ -28,9 +28,14 @@ const staticRoutes = [
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // lastModified is intentionally omitted for static routes and project
+  // pages below — neither has a real "last updated" timestamp to report,
+  // and stamping every entry with the request-time `new Date()` on every
+  // sitemap fetch falsely claims constant freshness, which search engines
+  // are known to discount rather than trust. Only blog posts have a real
+  // per-item date (publishedAt), so only they set lastModified.
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date(),
     changeFrequency: route === "" ? "weekly" : "monthly",
     priority: route === "" ? 1 : route.split("/").length <= 2 ? 0.8 : 0.6,
   }));
@@ -39,7 +44,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const projectEntries: MetadataRoute.Sitemap = projects.map((p) => ({
     url: `${baseUrl}/projects/${p.slug}`,
-    lastModified: new Date(),
     changeFrequency: "monthly",
     priority: 0.5,
   }));

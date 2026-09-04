@@ -21,7 +21,7 @@ export default function AboutHomeSection() {
           {/* Left Text Content */}
           <div className="lg:col-span-6 space-y-5 text-left">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 text-amber-950 border border-amber-300 font-mono-label text-xs uppercase tracking-widest font-extrabold shadow-xs">
-              About Zemitech Urban
+              About Zemara Spaces
             </span>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight leading-tight">
@@ -53,7 +53,7 @@ export default function AboutHomeSection() {
             <div className="relative aspect-[16/11] w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-200/90 group">
               <Image
                 src="/images/home/how-we-work-2-design.png"
-                alt="About Zemitech Urban — Interior and Architecture"
+                alt="About Zemara Spaces — Interior and Architecture"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
                 sizes="(max-width: 1024px) 100vw, 50vw"

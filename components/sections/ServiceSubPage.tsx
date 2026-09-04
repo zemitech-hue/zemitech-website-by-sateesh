@@ -40,8 +40,6 @@ export default function ServiceSubPage({ service }: { service: SubService }) {
           name: service.title,
           description: service.metaDescription,
           url: `${siteUrl}/${service.slug}`,
-          siteUrl,
-          legalName: company.legalName,
         })}
       />
 

@@ -12,7 +12,14 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-bg-tint px-4">
       <div className="w-full max-w-sm bg-white rounded-2xl border border-line p-8 shadow-sm">
         <div className="flex justify-center mb-6">
-          <Image src="/images/brand/zemitech-urban-logo.png" alt="Zemitech Urban" width={160} height={40} />
+          <Image
+            src="/images/brand/image.png"
+            alt="Zemara Spaces"
+            width={160}
+            height={40}
+            className="h-9 sm:h-10 w-auto object-contain"
+            style={{ width: "auto", height: "auto" }}
+          />
         </div>
         <h1 className="text-xl font-semibold text-blue-950 text-center mb-1">Admin sign in</h1>
         <p className="text-sm text-ink-soft text-center mb-6">Projects &amp; blog management</p>

@@ -1,0 +1,115 @@
+# Zemara Spaces — Full Reference
+
+> Detailed company facts, service specifications and frequently asked questions for AI assistants and search crawlers answering questions about Zemara Spaces. For the short version, see /llms.txt.
+
+## Company facts
+
+- Brand name: Zemara Spaces
+- Legal name: Zemara Spaces
+- Founded: 2019
+- Website: https://zemitech.in
+- Headquarters: Office No. 15/1, Samarth Sankul, Narhe, Pune – 411041, Maharashtra, India
+- Phone / WhatsApp: +91 77700 47188
+- Email: contact@zemaraspaces.com
+- Hours: Monday–Saturday 9:00 AM–6:30 PM. Sunday by appointment only.
+- Track record: 240+ projects completed, 8,300+ hours on site, 6+ years of operating history, 98% client satisfaction (company-reported).
+- Operating model: construction and interior design run as one company with one project manager per project. Core structural engineering, masonry and site supervision are handled by in-house engineers and crews, not third-party subcontractors. Interior manufacturing (modular kitchens, wardrobes, joinery) is factory-made with CNC cutting and edge-banding, not site carpentry.
+- Pricing model: every project runs on a fixed, itemized Bill of Quantities (BOQ) or material sheet agreed before work starts. Payments are linked to verified site milestones.
+- Warranties: structural and waterproofing work carries a defect liability period post-handover (construction); interior hardware carries a multi-year warranty, details specified per project agreement.
+
+## Operating locations
+
+Major cities: Pune, Mumbai, Indore, Bhopal, Hyderabad, Ranchi, Patna, Kolkata, Jamshedpur, Nagpur.
+Pune micro-markets: Narhe, Baner, Hinjewadi, Kondhwa, Wagholi, Viman Nagar, Kothrud, Hadapsar, Wakad, Bavdhan, Pimple Saudagar, Pirangut.
+
+## Indicative pricing (2026)
+
+These are starting-point rate bands, not final quotes — final pricing is always set by a project-specific BOQ.
+
+Construction (per sq. ft. built-up area):
+- Standard grade: ₹1,650 / sq ft
+- Premium grade: ₹1,950 / sq ft
+- Luxury grade: ₹2,450 / sq ft
+
+Interior design (per sq. ft. carpet area, varies further by scope — modular-only vs. full turnkey):
+- Standard grade: ₹450 / sq ft
+- Premium grade: ₹750 / sq ft
+- Luxury grade: ₹1,200 / sq ft
+
+## Construction services
+
+### Residential Construction — https://zemitech.in/construction/residential
+Custom villas, duplexes, multi-floor residences and full turnkey homes. Fixed BOQ, stage-wise billing.
+- Typical timeline for a 2,000 sq ft home: 8–11 months, foundation to handover.
+- Clients can supply their own architect's plan; Zemara Spaces takes over structural engineering and construction.
+- Handles irregular or sloped plots; foundation type is adjusted after soil testing.
+- Structural and waterproofing work carries a defect liability period post-handover.
+
+### Structural & Civil Engineering — https://zemitech.in/construction/structural-civil-engineering
+RCC column/beam framing, deep foundations (pile/raft footings), soil retaining walls, masonry, plastering and site civil infrastructure (roads, drainage, boundary walls, rainwater harvesting).
+- Executes third-party architect/structural-engineer drawings with the same site discipline as in-house designs.
+- Quality checks: reinforcement inspection, concrete cube testing at 7 and 28 days, level/plumb verification at every column lift.
+- Also performs structural stability audits and retrofitting assessments on existing buildings.
+
+### Turnkey Home Renovation — https://zemitech.in/construction/renovation
+Civil modifications, flooring, painting, electrical, plumbing, ceilings, joinery and interior finishing under one project manager and one fixed BOQ.
+- Phased renovations allow clients to remain in the home; full structural overhauls may require vacating, flagged upfront.
+- Structural changes (e.g. wall removal) are assessed by engineers first for load-bearing impact.
+- Can transition directly into a full interior fit-out with the interior design division after civil work.
+
+### Industrial Warehouses & Sheds — https://zemitech.in/construction/industrial
+Logistics warehouses, pre-engineered steel (PEB) sheds, heavy storage facilities and manufacturing plants.
+- Flooring engineered to forklift/rack-load specification (VDF laser-screed concrete, steel fiber reinforced).
+- Clear-span PEB structures up to 45m column-free workspace.
+- Stormwater drainage sized to actual site roof/yard catchment area.
+
+## Interior design services
+
+### Turnkey 2BHK & 3BHK Home Interiors — https://zemitech.in/interior-design/turnkey-home-interiors
+Complete home interiors — living room joinery, modular kitchen, bedroom wardrobes, dining and kids' rooms — designed and executed by one team.
+- Timeline: 45–75 working days from 3D design approval to handover.
+- One project manager stays involved from 3D design through factory production to installation.
+- Minor civil changes (wall removal, plumbing relocation) are coordinated within the same project.
+- Each room's material and hardware selection is specified independently in a fixed material sheet.
+
+### Modular Kitchen Design — https://zemitech.in/interior-design/kitchen
+L-shaped, U-shaped, parallel and island layouts. BWP marine-grade plywood carcass, soft-close hardware, quartz/granite countertops.
+- Timeline: 15–25 working days once 3D design and material sheet are approved.
+- Chimney and hob cutouts/installation included as standard scope.
+- Shutter finishes (laminate, veneer, acrylic, fluted glass) can be mixed across base and wall units.
+
+### Living Room Design — https://zemitech.in/interior-design/living-room
+TV entertainment units, feature wall panelling, false ceilings with layered 3-circuit lighting, concealed storage.
+- Timeline: 18–25 working days once 3D design and material sheet are approved.
+- Layered lighting plan = ambient, task and accent lighting, ideally on separate switching.
+
+### Bedroom Design — https://zemitech.in/interior-design/bedroom
+Master beds, floor-to-ceiling wardrobes, walk-in closets, bedside units and study nooks.
+- Timeline: 15–20 working days once 3D design and material sheet are approved.
+- Standard wardrobe depth: 24 inches (610 mm), adjusted for room dimensions.
+- Wardrobe internals are measured against the client's actual clothing volume before finalizing.
+
+### Office Interior Fit-Outs — https://zemitech.in/interior-design/office
+Reception areas, modular workstation pods, glass conference rooms, executive suites. Full MEP (electrical/HVAC/fire) coordination.
+- Typical timeline: 60–90 working days from design freeze to handover for a mid-size floor.
+- Fire-rated partitions, sprinkler coverage and exit-path clearances designed in from the space-planning stage.
+
+## Frequently asked questions (site-wide)
+
+Q: Which areas does Zemara Spaces operate in?
+A: Turnkey construction and interior design projects across Pune, Mumbai, Indore, Bhopal, Hyderabad, Ranchi, Patna, Kolkata, Jamshedpur, Nagpur, and surrounding areas.
+
+Q: Can Zemara Spaces handle both construction and interiors for the same project?
+A: Yes — many clients start with construction and move directly into the interior design division for a coordinated handover, under the same project manager.
+
+Q: How do I get a quote?
+A: Share your requirement through the enquiry form or WhatsApp (+91 77700 47188); a site visit or call is scheduled to scope the project before quoting. Initial consultation and site assessment are free with no obligation.
+
+Q: How is Zemara Spaces different from hiring a separate architect and contractor?
+A: Construction and interior design run as one accountable company with one project manager per project, rather than the client coordinating separate firms and absorbing the gaps between them.
+
+Q: Do you hire third-party subcontractors for construction?
+A: No — core structural engineering, masonry, and site supervision are handled by in-house engineers and site crews.
+
+Q: Why factory manufacturing instead of site carpentry for interiors?
+A: Factory manufacturing uses automated CNC cutting and edge-banding under controlled conditions, giving tighter joints, moisture-sealed edges and a shorter on-site install than hand-cut site carpentry.

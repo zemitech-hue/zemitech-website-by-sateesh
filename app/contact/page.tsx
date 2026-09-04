@@ -66,7 +66,7 @@ export default function ContactPage() {
 
           {/* Centered Floating Contact Form Card */}
           <div className="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-xl shadow-slate-950/5">
-            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-6">Contact Form</h3>
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-6">Contact Form</h2>
             <ContactFormCard />
           </div>
 
@@ -77,7 +77,7 @@ export default function ContactPage() {
               <div className="w-12 h-12 rounded-full bg-blue-100/80 text-blue-700 flex items-center justify-center mb-4 shrink-0">
                 <MapPin className="w-5 h-5" />
               </div>
-              <h4 className="font-bold text-slate-900 text-base mb-1">Registered Office</h4>
+              <h3 className="font-bold text-slate-900 text-base mb-1">Registered Office</h3>
               <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
                 {company.legalName}<br />
                 {company.address.line1}, {company.address.line2}<br />
@@ -91,7 +91,7 @@ export default function ContactPage() {
               <div className="w-12 h-12 rounded-full bg-blue-100/80 text-blue-700 flex items-center justify-center mb-4 shrink-0">
                 <Mail className="w-5 h-5" />
               </div>
-              <h4 className="font-bold text-slate-900 text-base mb-1">Email Us</h4>
+              <h3 className="font-bold text-slate-900 text-base mb-1">Email Us</h3>
               <a href={`mailto:${company.emailPrimary}`} className="text-blue-700 font-semibold text-sm hover:underline">
                 {company.emailPrimary}
               </a>
@@ -103,7 +103,7 @@ export default function ContactPage() {
               <div className="w-12 h-12 rounded-full bg-blue-100/80 text-blue-700 flex items-center justify-center mb-4 shrink-0">
                 <Phone className="w-5 h-5" />
               </div>
-              <h4 className="font-bold text-slate-900 text-base mb-1">Call / WhatsApp</h4>
+              <h3 className="font-bold text-slate-900 text-base mb-1">Call / WhatsApp</h3>
               <a href={company.phonePrimaryHref} className="text-blue-700 font-semibold text-sm hover:underline">
                 {company.phonePrimary}
               </a>
@@ -152,7 +152,7 @@ export default function ContactPage() {
         <Container className="max-w-4xl">
           <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-xl shadow-slate-950/5 bg-slate-200 aspect-[16/9] sm:aspect-[21/9]">
             <iframe
-              title="Zemitech Urban Office Google Maps Location"
+              title="Zemara Spaces Office Google Maps Location"
               src="https://maps.google.com/maps?q=Office+No.+15/1,+Samarth+Sankul,+Narhe,+Pune+411041&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"
@@ -168,7 +168,7 @@ export default function ContactPage() {
                 <MapPin className="w-4 h-4" />
               </div>
               <div>
-                <p className="text-xs font-bold text-slate-900 leading-tight">Zemitech Urban Registered Office</p>
+                <p className="text-xs font-bold text-slate-900 leading-tight">Zemara Spaces Registered Office</p>
                 <p className="text-[11px] text-slate-500 font-medium">Samarth Sankul, Narhe, Pune – 411041</p>
               </div>
               <a
@@ -222,7 +222,7 @@ function ContactFormCard() {
   if (status === "success") {
     return (
       <div className="rounded-2xl border border-blue-200 bg-blue-50/60 p-8 text-center my-4">
-        <h4 className="text-xl font-bold text-blue-950">Thank you! Your message has been sent.</h4>
+        <h3 className="text-xl font-bold text-blue-950">Thank you! Your message has been sent.</h3>
         <p className="text-sm text-slate-600 mt-2">Our Pune team will review your requirement and reach out within 1 business day.</p>
         <button onClick={() => setStatus("idle")} className="mt-4 text-sm font-bold text-blue-700 hover:underline">
           Send another message

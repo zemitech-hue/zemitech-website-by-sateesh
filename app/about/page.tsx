@@ -19,24 +19,24 @@ const siteUrl = `https://${company.domain}`;
 const timeline = [
   {
     year: "2019",
-    title: "Zemitech Urban founded in Narhe",
+    title: "Zemara Spaces founded in Narhe",
     body: "Started as a small in-house team taking on residential construction contracts across Narhe and the surrounding Pune suburbs — keeping core execution in-house to hold both quality and timelines.",
     image: "/images/about/timeline-2019-founding.png",
-    alt: "Zemitech Urban founding team on a residential construction site in Narhe, Pune, 2019",
+    alt: "Zemara Spaces founding team on a residential construction site in Narhe, Pune, 2019",
   },
   {
     year: "2022",
     title: "Interior Design division launches",
     body: "Formalized interior design as its own division with a dedicated factory-manufacturing partnership for modular kitchens and wardrobes, applying in-house accountability to interior design.",
     image: "/images/about/timeline-2022-division-split.png",
-    alt: "Zemitech Urban Interior Design division's first dedicated design studio, 2022",
+    alt: "Zemara Spaces Interior Design division's first dedicated design studio, 2022",
   },
   {
     year: "2024–25",
     title: "240+ projects, both divisions at scale",
     body: "Crossed 240 completed projects across residential, commercial, infrastructure and interior categories, with construction and interior design running as genuinely coordinated divisions.",
     image: "/images/about/timeline-2024-scale.png",
-    alt: "Zemitech Urban team celebrating the 240-plus completed projects milestone",
+    alt: "Zemara Spaces team celebrating the 240-plus completed projects milestone",
   },
 ];
 
@@ -98,7 +98,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About Us"
         headline="Construction and interior design, under one roof"
-        sub="Zemitech Urban Private Limited has delivered 240+ projects across Pune since 2019 — built by in-house teams, not stitched together across sub-contractors."
+        sub="Zemara Spaces has delivered 240+ projects across Pune since 2019 — built by in-house teams, not stitched together across sub-contractors."
         image="/images/about/hero.png"
         breadcrumbs={[{ name: "About Us", href: "/about" }]}
       />
@@ -108,13 +108,13 @@ export default function AboutPage() {
         eyebrow="Our Story"
         title="Why we started, and what's changed since"
         paragraphs={[
-          "Zemitech Urban Private Limited was founded in 2019 in Narhe, Pune, on a fairly simple observation: construction and interior design are usually handled by separate companies, and the handoff between them is where most homeowners lose time, money and quality control. We started as a construction contractor with the explicit intention of building an interior design capability under the same roof once the construction side was solid.",
+          "Zemara Spaces was founded in 2019 in Narhe, Pune, on a fairly simple observation: construction and interior design are usually handled by separate companies, and the handoff between them is where most homeowners lose time, money and quality control. We started as a construction contractor with the explicit intention of building an interior design capability under the same roof once the construction side was solid.",
           "The first two years were almost entirely residential construction, built by a small in-house team rather than sub-contracted crews. That in-house-first decision, made before the company had the scale to make it easy, is the one piece of the original founding bet that hasn't changed since: we still run our own site supervision and design teams today, at 240+ projects, for the same reason we did at project one.",
           "Today, whether you need a single modular kitchen or a complete building from foundation to final coat of paint, the same company — and typically the same project manager, if you engage both divisions — stays accountable from first site visit to final handover.",
         ]}
         image="/images/about/office-team.png"
-        imageAlt="Zemitech Urban leadership and site team outside the Narhe office"
-        imageCaption="Zemitech Urban team, Narhe office"
+        imageAlt="Zemara Spaces leadership and site team outside the Narhe office"
+        imageCaption="Zemara Spaces team, Narhe office"
       />
 
       <section className="pb-16 sm:pb-20">

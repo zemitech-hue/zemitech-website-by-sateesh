@@ -15,7 +15,7 @@ export const certifications: Certification[] = [
   {
     name: "Company Registration",
     issuer: "Ministry of Corporate Affairs",
-    description: "Zemitech Urban Private Limited is a registered private limited company operating since 2019.",
+    description: "Zemara Spaces is a registered company operating since 2019.",
     icon: "registration",
   },
   {
@@ -92,5 +92,5 @@ export const qualityProcess: QualityCheckStage[] = [
 
 export const siteSafetyImage = {
   src: "/images/certifications/cert-5.png",
-  alt: "Site workers wearing PPE — helmets, safety vests and boots — as required by Zemitech Urban's site safety standard",
+  alt: "Site workers wearing PPE — helmets, safety vests and boots — as required by Zemara Spaces' site safety standard",
 };
