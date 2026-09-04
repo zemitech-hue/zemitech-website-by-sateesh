@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Project Portfolio",
   description:
-    "Completed residential, commercial, infrastructure & interior design projects across Narhe, Kondhwa, Wagholi, Hinjewadi and wider Pune — filter by category.",
+    "Completed residential, commercial, infrastructure & interior design projects across Baner, Wakad, Kondhwa, Wagholi, Hinjewadi and wider Pune — filter by category.",
   path: "/projects",
   image: "/images/projects/hero.png",
 });

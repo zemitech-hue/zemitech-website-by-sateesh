@@ -72,7 +72,7 @@ When generating images with tools like **Midjourney v6**, **Flux 1.1 Pro**, **DA
   > **Prompt**: Happy Indian family receiving keys and project documentation from a smiling site manager in a beautifully completed modern home interior. Bright daylight, heartwarming moment, high resolution photo --ar 16:10
 
 * `areas-served-map.png` — **[MAP GRAPHIC]** `--ar 1:1`
-  > **Prompt**: Minimalist modern vector map graphic of Pune city, Maharashtra highlighting key urban zones (Narhe, Baner, Wakad, Kothrud, Hadapsar, Kharadi). Deep navy blue background, green map accent pins, sleek UI design aesthetic, clean vector illustration --ar 1:1
+  > **Prompt**: Minimalist modern vector map graphic of Pune city, Maharashtra highlighting key urban zones (Baner, Wakad, Kothrud, Hadapsar, Kharadi). Deep navy blue background, green map accent pins, sleek UI design aesthetic, clean vector illustration --ar 1:1
 
 ---
 
@@ -426,7 +426,7 @@ When generating images with tools like **Midjourney v6**, **Flux 1.1 Pro**, **DA
   > **Prompt**: Active modern multi-site construction management hub, bustling team environment --ar 4:3
 
 * `office-exterior.png` — **[DOC PHOTO]** `--ar 4:3`
-  > **Prompt**: Modern commercial office building exterior in Narhe, Pune during clear daytime --ar 4:3
+  > **Prompt**: Modern commercial office building exterior in Pune during clear daytime --ar 4:3
 
 * `team-site-review.png` — **[DOC PHOTO]** `--ar 4:3`
   > **Prompt**: Zemitech Urban team members with safety helmets conducting a quality inspection on site --ar 4:3
@@ -459,7 +459,7 @@ When generating images with tools like **Midjourney v6**, **Flux 1.1 Pro**, **DA
 
 ### Target Folder: `public/images/contact/`
 * `hero-contact.png` — **[HERO]** `--ar 16:9`
-  > **Prompt**: Modern corporate reception desk in Narhe, Pune on right 60%, calm soft lighting on left 40% --ar 16:9
+  > **Prompt**: Modern corporate reception desk in Pune on right 60%, calm soft lighting on left 40% --ar 16:9
 
 * `office-exterior.png` — **[DOC PHOTO]** `--ar 4:3`
   > **Prompt**: Entrance and exterior of Zemitech Urban corporate office building in Pune --ar 4:3

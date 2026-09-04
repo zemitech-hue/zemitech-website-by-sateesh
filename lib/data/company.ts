@@ -19,10 +19,10 @@ export const company = {
 
   address: {
     line1: "Office No. 15/1, Samarth Sankul",
-    line2: "Narhe, Pune – 411041",
+    line2: "Pune – 411041",
     state: "Maharashtra",
     country: "India",
-    mapEmbedQuery: "Samarth Sankul, Narhe, Pune 411041",
+    mapEmbedQuery: "Samarth Sankul, Pune 411041",
   },
 
   hours: [
@@ -75,7 +75,6 @@ export const company = {
     "Kolkata",
     "Jamshedpur",
     "Nagpur",
-    "Narhe",
     "Baner",
     "Hinjewadi",
     "Kondhwa",

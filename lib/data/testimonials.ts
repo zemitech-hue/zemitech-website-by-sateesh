@@ -12,7 +12,7 @@ export type Testimonial = {
 export const testimonials: Testimonial[] = [
   {
     name: "Prashant Deshmukh",
-    location: "Narhe, Pune",
+    location: "Pune",
     project: "Residential Construction",
     quote:
       "What stood out was the weekly reporting — I always knew exactly where the site stood without having to call anyone. Handover happened within two weeks of the promised date.",

@@ -55,7 +55,7 @@ export default function CompanySettingsForm({ initialSettings }: { initialSettin
           rows={3}
           required
           defaultValue={initialSettings.office_address}
-          placeholder="e.g. Office No. 15/1, Samarth Sankul, Narhe, Pune – 411041"
+          placeholder="e.g. Office No. 15/1, Samarth Sankul, Pune – 411041"
           className="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-900 font-medium text-sm focus:ring-2 focus:ring-blue-700 focus:border-blue-700 outline-none"
         />
         <p className="text-xs text-slate-500 mt-1">Full physical office address displayed on contact page and footer.</p>

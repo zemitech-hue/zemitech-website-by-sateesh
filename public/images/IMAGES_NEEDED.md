@@ -18,7 +18,7 @@ now consistent.)
 
 Company context for the generator: **Zemitech Urban** ("Building &
 Renovation"), a construction + interior design company based in
-**Narhe, Pune, Maharashtra, India**, founded 2019. Brand colors run deep
+**Pune, Maharashtra, India**, founded 2019. Brand colors run deep
 navy blue with a green accent. Use real photos of actual completed
 projects wherever you have them; where you don't, generate an on-brand
 photo matching the prompt below.

@@ -97,7 +97,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       postalCode: "411041",
       addressCountry: "IN",
     },
-    // Approximate coordinates for Narhe, Pune — verify against Google Business
+    // Approximate coordinates for Pune office — verify against Google Business
     // Profile before relying on this for precision map-pin placement.
     geo: {
       "@type": "GeoCoordinates",

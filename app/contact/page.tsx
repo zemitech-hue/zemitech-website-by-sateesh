@@ -27,7 +27,7 @@ const contactFaqs = [
   },
   {
     question: "What areas in Pune do you operate in?",
-    answer: "Our office is in Narhe, Pune, and we deliver projects across Narhe, Baner, Wakad, Kothrud, Kharadi, Hinjewadi, Kondhwa, Wagholi, Viman Nagar, and wider Pune.",
+    answer: "Our office is in Pune, and we deliver projects across Baner, Wakad, Kothrud, Kharadi, Hinjewadi, Kondhwa, Wagholi, Viman Nagar, and wider Pune.",
   },
 ];
 
@@ -153,7 +153,7 @@ export default function ContactPage() {
           <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-xl shadow-slate-950/5 bg-slate-200 aspect-[16/9] sm:aspect-[21/9]">
             <iframe
               title="Zemara Spaces Office Google Maps Location"
-              src="https://maps.google.com/maps?q=Office+No.+15/1,+Samarth+Sankul,+Narhe,+Pune+411041&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              src="https://maps.google.com/maps?q=Office+No.+15/1,+Samarth+Sankul,+Pune+411041&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -169,7 +169,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="text-xs font-bold text-slate-900 leading-tight">Zemara Spaces Registered Office</p>
-                <p className="text-[11px] text-slate-500 font-medium">Samarth Sankul, Narhe, Pune – 411041</p>
+                <p className="text-[11px] text-slate-500 font-medium">Samarth Sankul, Pune – 411041</p>
               </div>
               <a
                 href={directionsHref}

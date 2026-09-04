@@ -67,7 +67,7 @@ create table if not exists company_settings (
 insert into company_settings (id, office_address, email, phone)
 values (
   'main',
-  'Office No. 15/1, Samarth Sankul, Narhe, Pune – 411041',
+  'Office No. 15/1, Samarth Sankul, Pune – 411041',
   'zemitechurban@gmail.com',
   '+91 99990 67709'
 )

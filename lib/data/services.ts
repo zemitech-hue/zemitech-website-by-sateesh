@@ -116,7 +116,7 @@ export const subServices: Record<string, SubService> = {
       { question: "What's a typical timeline for a 2,000 sq. ft. home?", answer: "Most independent homes of this size take 8–11 months from foundation to handover, depending on design complexity and approvals." },
       { question: "Do you provide a warranty after handover?", answer: "Yes, structural and waterproofing work carries a defect liability period post-handover — details are specified in the agreement." },
       { question: "Can you build on a plot with a sloped or irregular shape?", answer: "Yes — our soil testing and structural design stage accounts for irregular plots and sloped sites; foundation type is adjusted accordingly." },
-      { question: "Do you build villas outside central Pune, e.g. in Baner, Bavdhan or Pirangut?", answer: "Yes — our residential construction team covers greater Pune including Narhe, Baner, Bavdhan, Pirangut, Kothrud, Hinjewadi and Wakad, along with our other operational cities." },
+      { question: "Do you build villas outside central Pune, e.g. in Baner, Bavdhan or Pirangut?", answer: "Yes — our residential construction team covers greater Pune including Baner, Bavdhan, Pirangut, Kothrud, Hinjewadi and Wakad, along with our other operational cities." },
     ],
     finalCta: { title: "Ready to Build Your Dream Home?", copy: "Tell us about your plot location, size, and timeline to get a transparent estimate.", primaryCtaText: "Discuss Your Villa Project" },
     projectCategory: "residential",

@@ -27,7 +27,7 @@ export default function InquiryPage() {
       <PageHero
         eyebrow="Free Consultation"
         headline="Get a free quote for your project"
-        sub="Tell us a bit about what you're planning — a site visit or call is free, with no obligation to proceed. We take on projects across Pune, including Narhe, Kondhwa, Wagholi and Hinjewadi."
+        sub="Tell us a bit about what you're planning — a site visit or call is free, with no obligation to proceed. We take on projects across Pune, including Baner, Wakad, Kondhwa, Wagholi and Hinjewadi."
         image="/images/about/hero.png"
         breadcrumbs={[{ name: "Get a Free Quote", href: "/inquiry" }]}
       />

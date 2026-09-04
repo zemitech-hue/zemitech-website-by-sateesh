@@ -19,10 +19,10 @@ const siteUrl = `https://${company.domain}`;
 const timeline = [
   {
     year: "2019",
-    title: "Zemara Spaces founded in Narhe",
-    body: "Started as a small in-house team taking on residential construction contracts across Narhe and the surrounding Pune suburbs — keeping core execution in-house to hold both quality and timelines.",
+    title: "Zemara Spaces founded in Pune",
+    body: "Started as a small in-house team taking on residential construction contracts across Pune and surrounding suburbs — keeping core execution in-house to hold both quality and timelines.",
     image: "/images/about/timeline-2019-founding.png",
-    alt: "Zemara Spaces founding team on a residential construction site in Narhe, Pune, 2019",
+    alt: "Zemara Spaces founding team on a residential construction site in Pune, 2019",
   },
   {
     year: "2022",
@@ -49,12 +49,12 @@ const values = [
 
 const workLocations = [
   {
-    tag: "Head Office • Narhe, Pune",
-    title: "Narhe Head Office & Experience Center",
-    description: "Our dedicated corporate office in Narhe serves as the central hub for engineering design, client consultations, project management, and BOQ estimation.",
+    tag: "Head Office • Pune",
+    title: "Pune Head Office & Experience Center",
+    description: "Our dedicated corporate office in Pune serves as the central hub for engineering design, client consultations, project management, and BOQ estimation.",
     highlights: ["In-House Engineering Team", "Client Consultation Studio", "Dedicated Project Managers"],
     image: "/images/about/office-exterior.png",
-    ctaText: "Book Appointment at Narhe Office",
+    ctaText: "Book Appointment at Pune Office",
   },
   {
     tag: "Quality Audit • Site Supervision",
@@ -108,13 +108,13 @@ export default function AboutPage() {
         eyebrow="Our Story"
         title="Why we started, and what's changed since"
         paragraphs={[
-          "Zemara Spaces was founded in 2019 in Narhe, Pune, on a fairly simple observation: construction and interior design are usually handled by separate companies, and the handoff between them is where most homeowners lose time, money and quality control. We started as a construction contractor with the explicit intention of building an interior design capability under the same roof once the construction side was solid.",
+          "Zemara Spaces was founded in 2019 in Pune, on a fairly simple observation: construction and interior design are usually handled by separate companies, and the handoff between them is where most homeowners lose time, money and quality control. We started as a construction contractor with the explicit intention of building an interior design capability under the same roof once the construction side was solid.",
           "The first two years were almost entirely residential construction, built by a small in-house team rather than sub-contracted crews. That in-house-first decision, made before the company had the scale to make it easy, is the one piece of the original founding bet that hasn't changed since: we still run our own site supervision and design teams today, at 240+ projects, for the same reason we did at project one.",
           "Today, whether you need a single modular kitchen or a complete building from foundation to final coat of paint, the same company — and typically the same project manager, if you engage both divisions — stays accountable from first site visit to final handover.",
         ]}
         image="/images/about/office-team.png"
-        imageAlt="Zemara Spaces leadership and site team outside the Narhe office"
-        imageCaption="Zemara Spaces team, Narhe office"
+        imageAlt="Zemara Spaces leadership and site team outside the Pune office"
+        imageCaption="Zemara Spaces team, Pune office"
       />
 
       <section className="pb-16 sm:pb-20">

@@ -323,7 +323,7 @@ ${notes ? `• Scope Details: ${notes}` : ""}`;
                   id="inquiry-location"
                   type="text"
                   required
-                  placeholder="e.g. Pune, Mumbai, Narhe, Pincode 411041, or City Name"
+                  placeholder="e.g. Pune, Mumbai, Baner, Pincode 411041, or City Name"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-700 focus:ring-2 focus:ring-blue-700/20 text-sm font-medium outline-none bg-white"
