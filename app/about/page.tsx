@@ -21,21 +21,21 @@ const timeline = [
     year: "2019",
     title: "Zemara Spaces founded in Pune",
     body: "Started as a small in-house team taking on residential construction contracts across Pune and surrounding suburbs — keeping core execution in-house to hold both quality and timelines.",
-    image: "/images/about/timeline-2019-founding.png",
+    image: "/images/about/zemara-timeline-2019.png",
     alt: "Zemara Spaces founding team on a residential construction site in Pune, 2019",
   },
   {
     year: "2022",
     title: "Interior Design division launches",
     body: "Formalized interior design as its own division with a dedicated factory-manufacturing partnership for modular kitchens and wardrobes, applying in-house accountability to interior design.",
-    image: "/images/about/timeline-2022-division-split.png",
+    image: "/images/about/zemara-timeline-2022.png",
     alt: "Zemara Spaces Interior Design division's first dedicated design studio, 2022",
   },
   {
     year: "2024–25",
     title: "240+ projects, both divisions at scale",
     body: "Crossed 240 completed projects across residential, commercial, infrastructure and interior categories, with construction and interior design running as genuinely coordinated divisions.",
-    image: "/images/about/timeline-2024-scale.png",
+    image: "/images/about/zemara-timeline-2024.png",
     alt: "Zemara Spaces team celebrating the 240-plus completed projects milestone",
   },
 ];
@@ -53,7 +53,7 @@ const workLocations = [
     title: "Pune Head Office & Experience Center",
     description: "Our dedicated corporate office in Pune serves as the central hub for engineering design, client consultations, project management, and BOQ estimation.",
     highlights: ["In-House Engineering Team", "Client Consultation Studio", "Dedicated Project Managers"],
-    image: "/images/about/office-exterior.png",
+    image: "/images/about/zemara-experience-center.png",
     ctaText: "Book Appointment at Pune Office",
   },
   {
@@ -61,7 +61,7 @@ const workLocations = [
     title: "Site Engineering & Quality Control Meetings",
     description: "Our senior civil engineers conduct weekly on-site quality audits, laser level checks, structural reinforcement verification, and client progress reviews.",
     highlights: ["Weekly Site Photo Updates", "IS Code Structural Audit", "Zero-Defect Protocol"],
-    image: "/images/about/team-site-review.png",
+    image: "/images/about/zemara-site-inspection.png",
     ctaText: "Schedule On-Site Inspection",
   },
   {
@@ -69,7 +69,7 @@ const workLocations = [
     title: "Bespoke Interior Design Studio",
     description: "Explore 100+ physical material samples, veneer textures, quartz slab swatches, and photorealistic 3D renders to visualize your home interiors.",
     highlights: ["100+ Physical Samples", "3D Photorealistic Renders", "Factory Direct Pricing"],
-    image: "/images/about/design-studio.png",
+    image: "/images/about/zemara-material-studio.png",
     ctaText: "Book Interior Design Consultation",
   },
   {
@@ -77,7 +77,7 @@ const workLocations = [
     title: "Client Handover & Structural Walkthrough",
     description: "Before final keys are handed over, our project manager leads a comprehensive 50-point walkthrough with the client to verify every fixture and finish.",
     highlights: ["50-Point Snag Inspection", "Pristine Chemical Cleaned", "Active Warranty Folder"],
-    image: "/images/about/site-walkthrough.png",
+    image: "/images/about/zemara-handover-walkthrough.png",
     ctaText: "Book Turnkey Villa Project",
   },
 ];
@@ -112,7 +112,7 @@ export default function AboutPage() {
           "The first two years were almost entirely residential construction, built by a small in-house team rather than sub-contracted crews. That in-house-first decision, made before the company had the scale to make it easy, is the one piece of the original founding bet that hasn't changed since: we still run our own site supervision and design teams today, at 240+ projects, for the same reason we did at project one.",
           "Today, whether you need a single modular kitchen or a complete building from foundation to final coat of paint, the same company — and typically the same project manager, if you engage both divisions — stays accountable from first site visit to final handover.",
         ]}
-        image="/images/about/office-team.png"
+        image="/images/about/zemara-team.png"
         imageAlt="Zemara Spaces leadership and site team outside the Pune office"
         imageCaption="Zemara Spaces team, Pune office"
       />
