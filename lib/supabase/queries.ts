@@ -283,7 +283,7 @@ export type TeamMember = {
 export const fallbackCompanySettings: CompanySettings = {
   id: "main",
   office_address: "Office No. 15/1, Samarth Sankul, Pune – 411041",
-  email: "contact@zemaraspaces.com",
+  email: "zemmitechurban2019@gmail.com",
   phone: "+91 99990 67709",
 };
 

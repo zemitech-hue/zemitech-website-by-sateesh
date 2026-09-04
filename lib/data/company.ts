@@ -14,8 +14,8 @@ export const company = {
   phonePrimaryHref: "tel:+917770047188",
   whatsappNumber: "917770047188",
   whatsappLink: "https://wa.me/917770047188?text=Hello%20Zemara%20Spaces%2C%20I%20would%20like%20to%20get%20a%20free%20quote%20and%20consultation%20for%20my%20project.",
-  emailPrimary: "contact@zemaraspaces.com",
-  emailSecondary: "info@zemaraspaces.com",
+  emailPrimary: "zemmitechurban2019@gmail.com",
+  emailSecondary: "zemmitechurban2019@gmail.com",
 
   address: {
     line1: "Office No. 15/1, Samarth Sankul",

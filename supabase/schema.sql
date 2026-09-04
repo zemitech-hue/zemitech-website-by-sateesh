@@ -68,7 +68,7 @@ insert into company_settings (id, office_address, email, phone)
 values (
   'main',
   'Office No. 15/1, Samarth Sankul, Pune – 411041',
-  'zemitechurban@gmail.com',
+  'zemmitechurban2019@gmail.com',
   '+91 99990 67709'
 )
 on conflict (id) do nothing;
