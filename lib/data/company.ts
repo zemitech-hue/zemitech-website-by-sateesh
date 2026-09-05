@@ -7,7 +7,7 @@ export const company = {
   tagline: "Building & Renovation",
   founded: 2019,
   gstin: "27AACCZ5366K1Z5",
-  domain: "zemitech.in",
+  domain: "zemaraspaces.com",
   logo: "/images/brand/image.png",
 
   phonePrimary: "+91 77700 47188",

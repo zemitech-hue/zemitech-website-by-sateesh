@@ -15,29 +15,29 @@ Indicative pricing (2026, subject to site-specific BOQ): construction ₹1,650�
 
 ## Construction
 
-- [Construction overview](https://zemitech.in/construction): Residential, commercial and infrastructure construction end to end, with fixed BOQ and in-house engineering.
-- [Residential Construction](https://zemitech.in/construction/residential): Independent villas, duplexes and multi-floor residences, 8–11 month typical timeline for a 2,000 sq ft home.
-- [Structural & Civil Engineering](https://zemitech.in/construction/structural-civil-engineering): RCC framing, deep foundations, masonry and site civil infrastructure, executed to third-party architect/engineer drawings or our own.
-- [Turnkey Home Renovation](https://zemitech.in/construction/renovation): Civil changes, flooring, plumbing, electrical and paint under one project manager and one fixed BOQ.
-- [Industrial Warehouses & Sheds](https://zemitech.in/construction/industrial): Pre-engineered steel (PEB) sheds, heavy-load flooring and logistics warehouses.
+- [Construction overview](https://zemaraspaces.com/construction): Residential, commercial and infrastructure construction end to end, with fixed BOQ and in-house engineering.
+- [Residential Construction](https://zemaraspaces.com/construction/residential): Independent villas, duplexes and multi-floor residences, 8–11 month typical timeline for a 2,000 sq ft home.
+- [Structural & Civil Engineering](https://zemaraspaces.com/construction/structural-civil-engineering): RCC framing, deep foundations, masonry and site civil infrastructure, executed to third-party architect/engineer drawings or our own.
+- [Turnkey Home Renovation](https://zemaraspaces.com/construction/renovation): Civil changes, flooring, plumbing, electrical and paint under one project manager and one fixed BOQ.
+- [Industrial Warehouses & Sheds](https://zemaraspaces.com/construction/industrial): Pre-engineered steel (PEB) sheds, heavy-load flooring and logistics warehouses.
 
 ## Interior Design
 
-- [Interior Design overview](https://zemitech.in/interior-design): Turnkey interior design and factory modular manufacturing across single rooms and full homes.
-- [Turnkey 2BHK & 3BHK Home Interiors](https://zemitech.in/interior-design/turnkey-home-interiors): Complete home interiors from one project manager, 45–75 working days, 3D-approved before manufacturing.
-- [Modular Kitchen Design](https://zemitech.in/interior-design/kitchen): L-shaped, U-shaped, parallel and island layouts in BWP marine-grade plywood, 15–25 day execution.
-- [Living Room Design](https://zemitech.in/interior-design/living-room): TV units, false ceilings and layered lighting, 18–25 day execution.
-- [Bedroom Design](https://zemitech.in/interior-design/bedroom): Master, kids' and guest bedroom interiors with custom-measured wardrobes, 15–20 day execution.
-- [Office Interior Fit-Outs](https://zemitech.in/interior-design/office): Turnkey corporate and startup office fit-outs with full MEP coordination.
+- [Interior Design overview](https://zemaraspaces.com/interior-design): Turnkey interior design and factory modular manufacturing across single rooms and full homes.
+- [Turnkey 2BHK & 3BHK Home Interiors](https://zemaraspaces.com/interior-design/turnkey-home-interiors): Complete home interiors from one project manager, 45–75 working days, 3D-approved before manufacturing.
+- [Modular Kitchen Design](https://zemaraspaces.com/interior-design/kitchen): L-shaped, U-shaped, parallel and island layouts in BWP marine-grade plywood, 15–25 day execution.
+- [Living Room Design](https://zemaraspaces.com/interior-design/living-room): TV units, false ceilings and layered lighting, 18–25 day execution.
+- [Bedroom Design](https://zemaraspaces.com/interior-design/bedroom): Master, kids' and guest bedroom interiors with custom-measured wardrobes, 15–20 day execution.
+- [Office Interior Fit-Outs](https://zemaraspaces.com/interior-design/office): Turnkey corporate and startup office fit-outs with full MEP coordination.
 
 ## Company
 
-- [About Us](https://zemitech.in/about): Company history, timeline and team since 2019.
-- [Project Portfolio](https://zemitech.in/projects): Completed residential, commercial, infrastructure and interior projects.
-- [Certifications](https://zemitech.in/certifications): Registrations, compliance and stage-wise quality inspection process.
-- [Blog](https://zemitech.in/blog): Guides on construction timelines, BOQs, vastu, kitchen layouts and interior budgeting.
-- [Contact](https://zemitech.in/contact): Free consultation, site visit and quote requests.
+- [About Us](https://zemaraspaces.com/about): Company history, timeline and team since 2019.
+- [Project Portfolio](https://zemaraspaces.com/projects): Completed residential, commercial, infrastructure and interior projects.
+- [Certifications](https://zemaraspaces.com/certifications): Registrations, compliance and stage-wise quality inspection process.
+- [Blog](https://zemaraspaces.com/blog): Guides on construction timelines, BOQs, vastu, kitchen layouts and interior budgeting.
+- [Contact](https://zemaraspaces.com/contact): Free consultation, site visit and quote requests.
 
 ## Optional
 
-- [Full company & service reference](https://zemitech.in/llms-full.txt): Detailed FAQs and specifications for every service.
+- [Full company & service reference](https://zemaraspaces.com/llms-full.txt): Detailed FAQs and specifications for every service.
