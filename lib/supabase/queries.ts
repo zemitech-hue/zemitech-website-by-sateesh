@@ -282,9 +282,9 @@ export type TeamMember = {
 
 export const fallbackCompanySettings: CompanySettings = {
   id: "main",
-  office_address: "Office No. 15/1, Samarth Sankul, Pune – 411041",
-  email: "zemmitechurban2019@gmail.com",
-  phone: "+91 99990 67709",
+  office_address: "Office no-115, Gravity Commercial Complex, Behind Mitcon school, Balewadi-411045, Pune",
+  email: "info@zemaraspaces.com",
+  phone: "+91 98677 30900",
 };
 
 export const fallbackTeamMembers: TeamMember[] = [];

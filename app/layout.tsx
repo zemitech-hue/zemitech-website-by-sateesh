@@ -13,12 +13,23 @@ import "@fontsource/ibm-plex-mono/500.css";
 import "./globals.css";
 import SiteChrome from "@/components/SiteChrome";
 import JsonLd from "@/components/JsonLd";
+import DynamicFavicon from "@/components/DynamicFavicon";
 import { company } from "@/lib/data/company";
 
 const siteUrl = `https://${company.domain}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   title: {
     default: `${company.brandName} — Turnkey Construction & Interior Design`,
     template: `%s | ${company.brandName}`,
@@ -170,6 +181,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className="antialiased">
       <head>
+        <DynamicFavicon />
         <meta name="geo.region" content="IN-MH" />
         <meta name="geo.placename" content="Pune, Maharashtra, India" />
         <meta name="geo.position" content="18.4485;73.8262" />

@@ -8,6 +8,7 @@ import Container from "@/components/ui/Container";
 import { primaryNav } from "@/lib/data/nav";
 import { company } from "@/lib/data/company";
 import InquiryModal from "@/components/ui/InquiryModal";
+import { useCompanySettings } from "@/lib/hooks/useCompanySettings";
 import { PhoneCall, ChevronDown, ArrowRight, Building2, Home, Menu, X, CheckCircle2, MapPin, Zap } from "lucide-react";
 
 export default function Header() {
@@ -15,6 +16,7 @@ export default function Header() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const pathname = usePathname();
+  const settings = useCompanySettings();
 
   const majorCitiesStr = company.majorCities.join(" • ");
 
@@ -38,9 +40,9 @@ export default function Header() {
                 100% In-House Site Engineering &amp; Fixed BOQs
               </span>
               <span className="text-blue-500/70">|</span>
-              <a href={company.phonePrimaryHref} className="flex items-center gap-1 text-white hover:text-amber-300 font-black transition-colors shrink-0">
+              <a href={settings.phoneHref} className="flex items-center gap-1 text-white hover:text-amber-300 font-black transition-colors shrink-0">
                 <PhoneCall className="w-3.5 h-3.5 text-amber-400" />
-                <span>Call/WhatsApp: {company.phonePrimary}</span>
+                <span>Call/WhatsApp: {settings.phone}</span>
               </a>
             </div>
             
@@ -57,9 +59,9 @@ export default function Header() {
                 100% In-House Site Engineering &amp; Fixed BOQs
               </span>
               <span className="text-blue-500/70">|</span>
-              <a href={company.phonePrimaryHref} className="flex items-center gap-1 text-white hover:text-amber-300 font-black transition-colors shrink-0">
+              <a href={settings.phoneHref} className="flex items-center gap-1 text-white hover:text-amber-300 font-black transition-colors shrink-0">
                 <PhoneCall className="w-3.5 h-3.5 text-amber-400" />
-                <span>Call/WhatsApp: {company.phonePrimary}</span>
+                <span>Call/WhatsApp: {settings.phone}</span>
               </a>
             </div>
           </div>

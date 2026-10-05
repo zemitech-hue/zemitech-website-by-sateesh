@@ -15,7 +15,7 @@ export const certifications: Certification[] = [
   {
     name: "Company Registration",
     issuer: "Ministry of Corporate Affairs",
-    description: "Zemara Spaces is a registered company operating since 2019.",
+    description: "Zemara spaces is the operational trade name used by Zemitech Urban Private Limited operating since 2019.",
     icon: "registration",
   },
   {

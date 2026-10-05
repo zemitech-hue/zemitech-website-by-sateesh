@@ -1,10 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { company } from "@/lib/data/company";
 import { footerSitemap } from "@/lib/data/nav";
 import Container from "@/components/ui/Container";
+import { useCompanySettings } from "@/lib/hooks/useCompanySettings";
 
 export default function Footer() {
+  const settings = useCompanySettings();
+
   return (
     <footer className="bg-slate-50 text-slate-800 py-12 border-t border-slate-200">
       <Container>
@@ -26,8 +31,8 @@ export default function Footer() {
               Turnkey construction and interior design company based in Pune — delivering residential villas, commercial spaces, and modular interiors under one accountable team.
             </p>
             <div className="text-xs text-slate-600 font-mono-label space-y-1">
-              <p>📍 {company.address.line1}, {company.address.line2}, {company.address.state}</p>
-              <p>📞 <a href={company.phonePrimaryHref} className="hover:text-blue-700 font-bold transition-colors">{company.phonePrimary}</a> | ✉️ <a href={`mailto:${company.emailPrimary}`} className="hover:text-blue-700 font-bold transition-colors">{company.emailPrimary}</a></p>
+              <p>📍 {settings.address}</p>
+              <p>📞 <a href={settings.phoneHref} className="hover:text-blue-700 font-bold transition-colors">{settings.phone}</a> | ✉️ <a href={`mailto:${settings.email}`} className="hover:text-blue-700 font-bold transition-colors">{settings.email}</a></p>
               <p>🏛️ GSTIN: {company.gstin}</p>
             </div>
           </div>

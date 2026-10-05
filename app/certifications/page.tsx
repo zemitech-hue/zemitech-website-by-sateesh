@@ -53,10 +53,14 @@ export default function CertificationsPage() {
             ))}
           </div>
 
-          <div className="mt-10 rounded-2xl bg-slate-50 border border-slate-200 p-6 grid sm:grid-cols-2 gap-4 text-sm">
+          <div className="mt-10 rounded-2xl bg-slate-50 border border-slate-200 p-6 grid sm:grid-cols-3 gap-4 text-sm">
             <div>
               <p className="font-mono-label text-xs uppercase tracking-wide text-green-700 font-bold mb-1">Legal Entity</p>
               <p className="text-slate-900 font-semibold">{company.legalName}</p>
+            </div>
+            <div>
+              <p className="font-mono-label text-xs uppercase tracking-wide text-green-700 font-bold mb-1">Operational Trade Name</p>
+              <p className="text-slate-900 font-semibold">{company.brandName}</p>
             </div>
             <div>
               <p className="font-mono-label text-xs uppercase tracking-wide text-green-700 font-bold mb-1">GSTIN</p>

@@ -24,8 +24,8 @@ export default function CostCalculator() {
   // ================= INTERIOR STATE =================
   const [intPropType, setIntPropType] = useState<string>("3BHK");
   const [intArea, setIntArea] = useState<number>(1200);
-  const [intRooms, setIntRooms] = useState<string[]>(["Living", "Kitchen", "Bedrooms"]);
-  const [intScope, setIntScope] = useState<"modular" | "full">("full");
+  const [intRooms, setIntRooms] = useState<string[]>(["Living"]);
+  const [intScope, setIntScope] = useState<"modular" | "full" | null>("full");
   const [intQuality, setIntQuality] = useState<"standard" | "premium" | "luxury">("premium");
 
   // Toggle room checkboxes
@@ -62,22 +62,32 @@ export default function CostCalculator() {
   const getInteriorEstimate = () => {
     const rates = { standard: 450, premium: 750, luxury: 1200 };
     const propMultipliers: Record<string, number> = { "2BHK": 0.95, "3BHK": 1.0, "4BHK": 1.1, Villa: 1.25, Office: 1.05 };
-    const scopeMultipliers = { modular: 0.65, full: 1.0 };
-    const roomFactor = Math.max(0.75, Math.min(1.2, intRooms.length * 0.25));
+    const scopeMultiplier = intScope === "modular" ? 0.65 : intScope === "full" ? 1.0 : 0.80;
+    
+    // Proportional room factor: accurately scales when user chooses only 1 section (e.g. Living)
+    const roomFactor =
+      intRooms.length === 0
+        ? 1.0
+        : intRooms.length === 1
+        ? 0.35
+        : intRooms.length === 2
+        ? 0.60
+        : intRooms.length === 3
+        ? 0.85
+        : 1.0;
 
     const baseRate = rates[intQuality];
     const prMult = propMultipliers[intPropType] || 1.0;
-    const scMult = scopeMultipliers[intScope];
 
-    const totalRaw = intArea * baseRate * prMult * scMult * roomFactor;
+    const totalRaw = intArea * baseRate * prMult * scopeMultiplier * roomFactor;
     const minLakhs = (totalRaw * 0.90 / 100000).toFixed(1);
     const maxLakhs = (totalRaw * 1.10 / 100000).toFixed(1);
     const minPerSq = Math.round((totalRaw * 0.90) / intArea);
     const maxPerSq = Math.round((totalRaw * 1.10) / intArea);
 
-    let timeline = "45–60 Days";
-    if (intScope === "modular") timeline = "25–35 Days";
-    else if (intArea >= 2000) timeline = "60–75 Days";
+    let timeline = "35–50 Days";
+    if (intScope === "modular") timeline = "20–30 Days";
+    else if (intScope === "full") timeline = intArea >= 2000 ? "60–75 Days" : "45–60 Days";
 
     return { minLakhs, maxLakhs, minPerSq, maxPerSq, timeline };
   };
@@ -111,7 +121,7 @@ I would like to speak directly with an engineer about this calculation!`;
 🏠 *Property Type:* ${intPropType}
 📐 *Carpet Area:* ${intArea.toLocaleString()} sq. ft.
 🚪 *Rooms Included:* ${intRooms.join(", ") || "Full Home"}
-🛠️ *Scope:* ${intScope === "modular" ? "Modular Only (Kitchen & Wardrobes)" : "Full Turnkey Interior"}
+🛠️ *Scope:* ${intScope === "modular" ? "Modular Only (Woodwork & Storage)" : intScope === "full" ? "Full Turnkey Interior" : "Custom Scope / Room Fit-Out"}
 ⭐ *Material Quality:* ${intQuality.toUpperCase()} (₹${intQuality === "standard" ? "450" : intQuality === "premium" ? "750" : "1,200"}/sq ft)
 
 💰 *Calculated Price Range:* ₹${intEst.minLakhs} – ₹${intEst.maxLakhs} Lakhs
@@ -401,10 +411,10 @@ I would like to speak directly with an interior designer about this calculation!
                         </div>
                       </div>
 
-                      {/* Rooms Required */}
+                      {/* Section Required */}
                       <div>
                         <label className="block text-xs font-mono-label font-bold uppercase tracking-wider text-slate-700 mb-2.5">
-                          Rooms Required
+                          Section Required
                         </label>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                           {["Living", "Kitchen", "Bedrooms", "Dining"].map((rm) => {
@@ -430,38 +440,47 @@ I would like to speak directly with an interior designer about this calculation!
 
                       {/* Scope */}
                       <div>
-                        <label className="block text-xs font-mono-label font-bold uppercase tracking-wider text-slate-700 mb-2.5">
-                          Interior Scope
-                        </label>
+                        <div className="flex items-center justify-between mb-2.5">
+                          <label className="block text-xs font-mono-label font-bold uppercase tracking-wider text-slate-700">
+                            Interior Scope
+                          </label>
+                          <span className="text-[11px] text-slate-600 font-medium">Click to select / toggle off</span>
+                        </div>
                         <div className="grid grid-cols-2 gap-2.5">
                           <button
                             type="button"
                             onClick={() => {
-                              setIntScope("modular");
+                              setIntScope((prev) => (prev === "modular" ? null : "modular"));
                               resetCalc();
                             }}
                             className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
                               intScope === "modular"
-                                ? "bg-blue-50/90 border-blue-600 shadow-xs"
+                                ? "bg-blue-50/90 border-blue-600 shadow-xs ring-2 ring-blue-600/20"
                                 : "bg-white border-slate-200 hover:border-slate-300"
                             }`}
                           >
-                            <span className="block text-xs font-bold text-slate-950">Modular Only</span>
-                            <span className="block text-[11px] text-slate-500 mt-0.5">Kitchen &amp; Wardrobes</span>
+                            <div className="flex items-center justify-between">
+                              <span className="block text-xs font-bold text-slate-950">Modular Only</span>
+                              {intScope === "modular" && <Check className="w-3.5 h-3.5 text-blue-700" />}
+                            </div>
+                            <span className="block text-[11px] text-slate-500 mt-0.5">Woodwork &amp; Storage</span>
                           </button>
                           <button
                             type="button"
                             onClick={() => {
-                              setIntScope("full");
+                              setIntScope((prev) => (prev === "full" ? null : "full"));
                               resetCalc();
                             }}
                             className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
                               intScope === "full"
-                                ? "bg-blue-50/90 border-blue-600 shadow-xs"
+                                ? "bg-blue-50/90 border-blue-600 shadow-xs ring-2 ring-blue-600/20"
                                 : "bg-white border-slate-200 hover:border-slate-300"
                             }`}
                           >
-                            <span className="block text-xs font-bold text-slate-950">Full Turnkey Interior</span>
+                            <div className="flex items-center justify-between">
+                              <span className="block text-xs font-bold text-slate-950">Full Turnkey Interior</span>
+                              {intScope === "full" && <Check className="w-3.5 h-3.5 text-blue-700" />}
+                            </div>
                             <span className="block text-[11px] text-slate-500 mt-0.5">Complete Fit-Out &amp; Lighting</span>
                           </button>
                         </div>

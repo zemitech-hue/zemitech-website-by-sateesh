@@ -5,7 +5,19 @@ import { NextResponse, type NextRequest } from "next/server";
 // export name). This refreshes the Supabase auth session on every request
 // and gates /admin/dashboard behind a signed-in session.
 export async function proxy(request: NextRequest) {
-  const isAdminRoute = request.nextUrl.pathname.startsWith("/admin/dashboard");
+  const pathname = request.nextUrl.pathname;
+
+  // Multi-domain favicon rewrite:
+  // Serves Zemitech icon if accessed via any zemitech domain (zemitech.in, zemitechurban.com),
+  // and Zemara Spaces icon for all other domains (zemaraspaces.com, localhost, etc.).
+  if (pathname === "/favicon.ico" || pathname === "/icon.png" || pathname === "/apple-icon.png") {
+    const host = (request.headers.get("x-forwarded-host") || request.headers.get("host") || "").toLowerCase();
+    const isZemitech = host.includes("zemitech");
+    const brand = isZemitech ? "zemitech" : "zemara";
+    return NextResponse.rewrite(new URL(`/favicons/${brand}${pathname}`, request.url));
+  }
+
+  const isAdminRoute = pathname.startsWith("/admin/dashboard");
 
   // No Supabase project connected yet (see .env.local.example) — there's no
   // way to have a session, so just bounce straight to the login page (which
@@ -51,5 +63,10 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: [
+    "/admin/:path*",
+    "/favicon.ico",
+    "/icon.png",
+    "/apple-icon.png",
+  ],
 };

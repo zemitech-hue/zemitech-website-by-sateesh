@@ -2,7 +2,7 @@
 // Editing this file updates the footer, contact page, and structured data everywhere.
 
 export const company = {
-  legalName: "Zemara Spaces",
+  legalName: "Zemitech Urban Pvt LTD",
   brandName: "Zemara Spaces",
   tagline: "Building & Renovation",
   founded: 2019,
@@ -10,19 +10,19 @@ export const company = {
   domain: "zemaraspaces.com",
   logo: "/images/brand/image.png",
 
-  phonePrimary: "+91 77700 47188",
-  phonePrimaryHref: "tel:+917770047188",
-  whatsappNumber: "917770047188",
-  whatsappLink: "https://wa.me/917770047188?text=Hello%20Zemara%20Spaces%2C%20I%20would%20like%20to%20get%20a%20free%20quote%20and%20consultation%20for%20my%20project.",
-  emailPrimary: "zemmitechurban2019@gmail.com",
-  emailSecondary: "zemmitechurban2019@gmail.com",
+  phonePrimary: "+91 98677 30900",
+  phonePrimaryHref: "tel:+919867730900",
+  whatsappNumber: "919867730900",
+  whatsappLink: "https://wa.me/919867730900?text=Hello%20Zemara%20Spaces%2C%20I%20would%20like%20to%20get%20a%20free%20quote%20and%20consultation%20for%20my%20project.",
+  emailPrimary: "info@zemaraspaces.com",
+  emailSecondary: "info@zemaraspaces.com",
 
   address: {
-    line1: "Office No. 15/1, Samarth Sankul",
-    line2: "Pune – 411041",
+    line1: "Office no-115, Gravity Commercial Complex",
+    line2: "Behind Mitcon school, Balewadi-411045",
     state: "Maharashtra",
     country: "India",
-    mapEmbedQuery: "Samarth Sankul, Pune 411041",
+    mapEmbedQuery: "Gravity Commercial Complex, Balewadi, Pune 411045",
   },
 
   hours: [
@@ -52,24 +52,28 @@ export const company = {
 
   // Primary Cities & Operational Footprint
   majorCities: [
+    "BENGALURU",
     "PUNE",
     "MUMBAI",
+    "HYDERABAD",
     "INDORE",
     "BHOPAL",
-    "HYDERABAD",
-    "RANCHI",
-    "PATNA",
-    "KOLKATA",
-    "JAMSHEDPUR",
     "NAGPUR",
+    "KOLKATA",
+    "PATNA",
+    "RANCHI",
+    "JAMSHEDPUR",
   ],
 
   areasServed: [
+    "Bengaluru",
     "Pune",
     "Mumbai",
+    "Bangalore",
+    "Hyderabad",
     "Indore",
     "Bhopal",
-    "Hyderabad",
+    "Nagpur",
     "Ranchi",
     "Patna",
     "Kolkata",

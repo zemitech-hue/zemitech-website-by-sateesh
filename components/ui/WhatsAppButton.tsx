@@ -1,13 +1,19 @@
+"use client";
+
 import { company } from "@/lib/data/company";
+import { useCompanySettings } from "@/lib/hooks/useCompanySettings";
 
 export default function WhatsAppButton() {
+  const settings = useCompanySettings();
+  const whatsappNumber = settings.whatsappNumber || company.whatsappNumber;
+
   const message = encodeURIComponent(
     "Hi Zemara Spaces, I would like to enquire about your construction & interior design services."
   );
 
   return (
     <a
-      href={`https://wa.me/${company.whatsappNumber}?text=${message}`}
+      href={`https://wa.me/${whatsappNumber}?text=${message}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
