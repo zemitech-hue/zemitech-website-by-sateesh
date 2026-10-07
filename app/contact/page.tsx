@@ -48,7 +48,7 @@ export default function ContactPage() {
       />
 
       {/* 1. TOP HERO & CONTACT FORM SECTION */}
-      <section className="bg-slate-100/70 pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24">
+      <section className="bg-slate-100/70 pt-36 pb-16 sm:pt-40 sm:pb-20 lg:pt-44 lg:pb-24">
         <Container>
           
           {/* Centered Main Title */}

@@ -12,7 +12,11 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     qualities: [75, 92],
     minimumCacheTTL: 31536000,
-    remotePatterns: [{ protocol: "https", hostname: "*.supabase.co" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "*.supabase.co" },
+      { protocol: "https", hostname: "img.youtube.com" },
+      { protocol: "https", hostname: "i.ytimg.com" },
+    ],
     localPatterns: [{ pathname: "/**" }],
   },
   async headers() {

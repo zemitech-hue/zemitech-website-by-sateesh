@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AddTeamMemberForm from "./AddTeamMemberForm";
+import { createTeamMember } from "@/lib/supabase/actions";
 import { ArrowLeft, UserPlus } from "lucide-react";
 
 export default function AddNewTeamMemberPage() {
@@ -23,7 +24,7 @@ export default function AddNewTeamMemberPage() {
         </p>
       </div>
 
-      <AddTeamMemberForm />
+      <AddTeamMemberForm action={createTeamMember} />
     </div>
   );
 }

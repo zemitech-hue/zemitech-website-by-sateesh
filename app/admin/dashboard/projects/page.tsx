@@ -1,9 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Plus, Building2 } from "lucide-react";
 import { getAllProjectsForAdmin } from "@/lib/supabase/queries";
-import DeleteButton from "@/components/admin/DeleteButton";
-import { deleteProject } from "@/lib/supabase/actions";
+import AdminItemRow from "@/components/admin/AdminItemRow";
+import { deleteProject, setProjectPublished } from "@/lib/supabase/actions";
 
 export default async function AdminProjectsPage() {
   const projects = await getAllProjectsForAdmin();
@@ -46,39 +45,24 @@ export default async function AdminProjectsPage() {
       ) : (
         <div className="space-y-3">
           {projects.map((p) => (
-            <div
+            <AdminItemRow
               key={p.id}
-              className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200 rounded-2xl p-4 shadow-xs hover:border-slate-300 transition-all"
-            >
-              <div className="flex items-center gap-3.5 min-w-0">
-                <div className="relative w-16 h-16 sm:w-20 sm:h-14 rounded-xl overflow-hidden bg-slate-900 shrink-0 border border-slate-200">
-                  {p.coverImage && <Image src={p.coverImage} alt="" fill className="object-cover" unoptimized />}
-                </div>
-
-                <div className="min-w-0">
-                  <p className="font-bold text-slate-900 text-sm sm:text-base truncate">{p.title}</p>
-                  <p className="text-xs font-mono-label text-slate-500 truncate mt-0.5">
-                    {p.location} • {p.year} • <span className="capitalize">{p.category}</span>
-                    {!p.published && <span className="ml-2 text-amber-600 font-bold">Draft</span>}
-                  </p>
-                  {p.clientQuote?.author && (
-                    <p className="text-xs text-slate-600 font-semibold truncate mt-0.5">
-                      Client: {p.clientQuote.author}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 self-end sm:self-center shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 w-full sm:w-auto justify-end">
-                <Link
-                  href={`/admin/dashboard/projects/${p.id}`}
-                  className="text-xs font-bold text-blue-700 bg-blue-50 px-3.5 py-2 rounded-xl border border-blue-200 hover:bg-blue-100 transition-colors"
-                >
-                  Edit
-                </Link>
-                <DeleteButton id={p.id} action={deleteProject} label="project" />
-              </div>
-            </div>
+              id={p.id}
+              title={p.title}
+              image={p.coverImage}
+              meta={
+                <>
+                  {[p.location, p.year].filter(Boolean).join(" • ")} • <span className="capitalize">{p.category}</span>
+                  {p.clientQuote?.author && <> • Client: {p.clientQuote.author}</>}
+                </>
+              }
+              editHref={`/admin/dashboard/projects/${p.id}`}
+              liveHref={`/projects/${p.slug}`}
+              published={p.published}
+              label="property"
+              onDelete={deleteProject}
+              onTogglePublish={setProjectPublished}
+            />
           ))}
         </div>
       )}

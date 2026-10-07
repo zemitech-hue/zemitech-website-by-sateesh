@@ -42,122 +42,212 @@ function getYouTubeThumbnail(url: string | null): string | null {
   return null;
 }
 
+// Every admin mutation can surface on many public pages (home featured grid,
+// /projects, /gallery, /blog, detail pages, related strips), so refresh the
+// whole route tree instead of maintaining a fragile list of paths.
+function revalidateSite() {
+  revalidatePath("/", "layout");
+}
+
+function slugify(text: string) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+// Slugs are unique in both tables; append a short suffix instead of failing
+// with a duplicate-key error when two items share a title.
+async function uniqueSlug(table: "projects" | "blog_posts", base: string, fallbackPrefix: string) {
+  const slug = base || `${fallbackPrefix}-${Date.now().toString(36)}`;
+  const supabase = await createClient();
+  const { data } = await supabase.from(table).select("id").eq("slug", slug).maybeSingle();
+  return data ? `${slug}-${Date.now().toString(36).slice(-5)}` : slug;
+}
+
+function readText(formData: FormData, ...keys: string[]): string | undefined {
+  for (const key of keys) {
+    if (formData.has(key)) return String(formData.get(key) ?? "").trim();
+  }
+  return undefined;
+}
+
 // ===================== PROJECTS =====================
 
-function projectFields(formData: FormData) {
-  const title = String(formData.get("title") ?? "").trim();
-  const clientName = String(formData.get("client_name") ?? formData.get("client_quote_author") ?? "").trim();
-  const clientLocation = String(formData.get("client_location") ?? formData.get("client_quote_location") ?? "").trim();
-  const location = String(formData.get("location") ?? "").trim();
-  const year = String(formData.get("year") ?? "").trim();
-  const category = String(formData.get("category") ?? "residential");
-  const rawSlug = String(formData.get("slug") ?? "").trim();
-  const slug = rawSlug || title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || `project-${Date.now()}`;
-  const videoUrl = String(formData.get("video_url") ?? "").trim() || null;
-  const defaultCategoryImages: Record<string, string> = {
-    residential: "/images/construction/residential/hero.png",
-    commercial: "/images/construction/industrial/hero.png",
-    interior: "/images/interior/turnkey-home-interiors/hero.png",
-    infrastructure: "/images/construction/structural-civil-engineering/hero.png",
-  };
+const defaultCategoryImages: Record<string, string> = {
+  residential: "/images/construction/residential/hero.png",
+  commercial: "/images/construction/industrial/hero.png",
+  interior: "/images/interior/turnkey-home-interiors/hero.png",
+  infrastructure: "/images/construction/structural-civil-engineering/hero.png",
+};
 
-  const userCoverImage = String(formData.get("cover_image_url") ?? "").trim();
-  const ytThumbnail = getYouTubeThumbnail(videoUrl);
-  const coverImage = userCoverImage || ytThumbnail || defaultCategoryImages[category] || "/images/construction/residential/hero.png";
+// Only the fields actually present in the submitted form are returned, so an
+// edit form that doesn't expose e.g. summary/scope/gallery never wipes them.
+function projectPatch(formData: FormData) {
+  const patch: Record<string, unknown> = {};
 
-  return {
-    slug,
-    title,
-    category,
-    location: location || "Pune",
-    year: year || new Date().getFullYear().toString(),
-    area: String(formData.get("area") ?? "Turnkey Site"),
-    summary: String(formData.get("summary") ?? title),
-    description: linesToArray(formData.get("description")).length > 0 ? linesToArray(formData.get("description")) : [title],
-    scope: linesToArray(formData.get("scope")),
-    challenge: String(formData.get("challenge") ?? ""),
-    solution: String(formData.get("solution") ?? ""),
-    cover_image_url: coverImage,
-    gallery_urls: linesToArray(formData.get("gallery_urls")),
-    video_url: videoUrl,
-    client_quote_text: clientName ? `Delivered for ${clientName}` : null,
-    client_quote_author: clientName || null,
-    client_quote_location: clientLocation || location || null,
-    published: formData.get("published") === "on",
-  };
+  const title = readText(formData, "title");
+  if (title !== undefined) patch.title = title;
+
+  const category = readText(formData, "category");
+  if (category) patch.category = category;
+
+  const location = readText(formData, "location");
+  if (location !== undefined) patch.location = location || "Pune";
+
+  const year = readText(formData, "year");
+  if (year !== undefined) patch.year = year || new Date().getFullYear().toString();
+
+  for (const key of ["area", "summary", "challenge", "solution"] as const) {
+    const value = readText(formData, key);
+    if (value !== undefined) patch[key] = value;
+  }
+  for (const key of ["description", "scope", "gallery_urls"] as const) {
+    if (formData.has(key)) patch[key] = linesToArray(formData.get(key));
+  }
+  // Keep the card / SEO summary in step with the description when the form
+  // only exposes the description.
+  const firstParagraph = (patch.description as string[] | undefined)?.[0];
+  if (firstParagraph && patch.summary === undefined) patch.summary = firstParagraph;
+
+  const videoUrl = readText(formData, "video_url");
+  if (videoUrl !== undefined) patch.video_url = videoUrl || null;
+
+  const cover = readText(formData, "cover_image_url");
+  if (cover !== undefined) {
+    patch.cover_image_url =
+      cover ||
+      getYouTubeThumbnail((patch.video_url as string | null) ?? null) ||
+      defaultCategoryImages[(patch.category as string) ?? "residential"] ||
+      defaultCategoryImages.residential;
+  }
+
+  const clientName = readText(formData, "client_name", "client_quote_author");
+  if (clientName !== undefined) {
+    patch.client_quote_author = clientName || null;
+    patch.client_quote_text = clientName ? `Delivered for ${clientName}` : null;
+    patch.client_quote_location = readText(formData, "client_location", "client_quote_location") || location || null;
+  }
+
+  // Unchecked checkboxes are omitted from FormData, so presence of the form
+  // itself means "published" must always be written.
+  patch.published = formData.get("published") === "on";
+  return patch;
 }
 
 export async function createProject(_prevState: unknown, formData: FormData) {
+  const patch = projectPatch(formData);
+  const title = String(patch.title ?? "");
+  const category = String(patch.category ?? "residential");
+
+  const row = {
+    title,
+    category,
+    location: "Pune",
+    year: new Date().getFullYear().toString(),
+    area: "Turnkey Site",
+    summary: title,
+    description: [title],
+    scope: [],
+    challenge: "",
+    solution: "",
+    gallery_urls: [],
+    cover_image_url: defaultCategoryImages[category] ?? defaultCategoryImages.residential,
+    ...patch,
+    slug: await uniqueSlug("projects", slugify(readText(formData, "slug") || title), "project"),
+  };
+
   const supabase = await createClient();
-  const { error } = await supabase.from("projects").insert(projectFields(formData));
+  const { error } = await supabase.from("projects").insert(row);
   if (error) return { error: error.message };
-  revalidatePath("/projects");
-  revalidatePath("/gallery");
-  revalidatePath("/admin/dashboard/projects");
-  redirect("/admin/dashboard/projects");
+  revalidateSite();
+  redirect(patch.video_url ? "/admin/dashboard/videos" : "/admin/dashboard/projects");
 }
 
 export async function updateProject(id: string, formData: FormData) {
+  const patch = projectPatch(formData);
   const supabase = await createClient();
-  const { error } = await supabase.from("projects").update(projectFields(formData)).eq("id", id);
+  const { error } = await supabase.from("projects").update(patch).eq("id", id);
   if (error) return { error: error.message };
-  revalidatePath("/projects");
-  revalidatePath("/gallery");
-  revalidatePath("/admin/dashboard/projects");
-  redirect("/admin/dashboard/projects");
+  revalidateSite();
+  redirect(patch.video_url ? "/admin/dashboard/videos" : "/admin/dashboard/projects");
 }
 
 export async function deleteProject(id: string) {
   const supabase = await createClient();
-  await supabase.from("projects").delete().eq("id", id);
-  revalidatePath("/projects");
-  revalidatePath("/gallery");
-  revalidatePath("/admin/dashboard/projects");
+  const { error } = await supabase.from("projects").delete().eq("id", id);
+  if (error) return { error: error.message };
+  revalidateSite();
+}
+
+export async function setProjectPublished(id: string, published: boolean) {
+  const supabase = await createClient();
+  const { error } = await supabase.from("projects").update({ published }).eq("id", id);
+  if (error) return { error: error.message };
+  revalidateSite();
 }
 
 // ===================== BLOG =====================
 
+function markdownToPlainText(md: string) {
+  return md
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/[#>*_`|~-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function blogFields(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim();
-  const rawSlug = String(formData.get("slug") ?? "").trim();
-  const slug = rawSlug || title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || `post-${Date.now()}`;
-  const excerpt = String(formData.get("excerpt") ?? "").trim() || title;
+  const contentMd = String(formData.get("content_md") ?? "").trim();
+  const plain = markdownToPlainText(contentMd);
+  const words = plain ? plain.split(" ").length : 0;
+  const excerpt =
+    String(formData.get("excerpt") ?? "").trim() ||
+    (plain.length > 180 ? `${plain.slice(0, 177).replace(/\s+\S*$/, "")}…` : plain) ||
+    title;
 
   return {
-    slug,
     title,
-    category: String(formData.get("category") ?? "General").trim(),
+    category: String(formData.get("category") ?? "").trim() || "General",
     excerpt,
     cover_image_url: String(formData.get("cover_image_url") ?? "").trim() || null,
-    content_md: String(formData.get("content_md") ?? ""),
-    read_minutes: Number(formData.get("read_minutes") ?? 5) || 5,
+    content_md: contentMd,
+    read_minutes: Math.max(1, Math.round(words / 200)),
     published: formData.get("published") === "on",
   };
 }
 
 export async function createBlogPost(formData: FormData) {
+  const fields = blogFields(formData);
+  const slug = await uniqueSlug("blog_posts", slugify(readText(formData, "slug") || fields.title), "post");
   const supabase = await createClient();
-  const { error } = await supabase.from("blog_posts").insert(blogFields(formData));
+  const { error } = await supabase.from("blog_posts").insert({ ...fields, slug, published_at: new Date().toISOString() });
   if (error) return { error: error.message };
-  revalidatePath("/blog");
-  revalidatePath("/admin/dashboard/blog");
+  revalidateSite();
   redirect("/admin/dashboard/blog");
 }
 
+// The slug is kept on edit so existing links / search results don't break
+// when a title is tweaked.
 export async function updateBlogPost(id: string, formData: FormData) {
   const supabase = await createClient();
   const { error } = await supabase.from("blog_posts").update(blogFields(formData)).eq("id", id);
   if (error) return { error: error.message };
-  revalidatePath("/blog");
-  revalidatePath("/admin/dashboard/blog");
+  revalidateSite();
   redirect("/admin/dashboard/blog");
 }
 
 export async function deleteBlogPost(id: string) {
   const supabase = await createClient();
-  await supabase.from("blog_posts").delete().eq("id", id);
-  revalidatePath("/blog");
-  revalidatePath("/admin/dashboard/blog");
+  const { error } = await supabase.from("blog_posts").delete().eq("id", id);
+  if (error) return { error: error.message };
+  revalidateSite();
+}
+
+export async function setBlogPostPublished(id: string, published: boolean) {
+  const supabase = await createClient();
+  const { error } = await supabase.from("blog_posts").update({ published }).eq("id", id);
+  if (error) return { error: error.message };
+  revalidateSite();
 }
 
 // ===================== COMPANY SETTINGS =====================
@@ -173,46 +263,106 @@ export async function updateCompanySettings(formData: FormData) {
     .upsert({ id: "main", office_address, email, phone, updated_at: new Date().toISOString() });
 
   if (error) return { error: error.message };
-  revalidatePath("/");
-  revalidatePath("/contact");
-  revalidatePath("/admin/dashboard/company");
+  revalidateSite();
   return { success: true };
 }
 
 // ===================== TEAM MEMBERS =====================
 
+import { saveStoredTeamMember, deleteStoredTeamMember } from "@/lib/data/team-storage";
+import type { TeamMember } from "@/lib/supabase/queries";
+
+function teamFields(formData: FormData) {
+  return {
+    name: String(formData.get("name") ?? "").trim(),
+    role: String(formData.get("role") ?? "").trim(),
+    experience: String(formData.get("experience") ?? "").trim(),
+    image_url: String(formData.get("image_url") ?? "").trim() || "/images/about/zemara-team.png",
+  };
+}
+
 export async function createTeamMember(formData: FormData) {
-  const name = String(formData.get("name") ?? "").trim();
-  const role = String(formData.get("role") ?? "").trim();
-  const experience = String(formData.get("experience") ?? "").trim();
-  const image_url = String(formData.get("image_url") ?? "").trim() || "/images/about/zemara-team.png";
+  const fields = teamFields(formData);
+  if (!fields.name) return { error: "Employee name is required" };
+  if (!fields.role) return { error: "Role or designation is required" };
 
-  const supabase = await createClient();
-  const { error } = await supabase.from("team_members").insert({
-    name,
-    role,
-    experience,
-    image_url,
-  });
+  const id = `tm-${Date.now()}`;
+  const newMember: TeamMember = {
+    id,
+    name: fields.name,
+    role: fields.role,
+    experience: fields.experience || "Experienced",
+    image_url: fields.image_url,
+    created_at: new Date().toISOString(),
+  };
 
-  if (error) {
-    if (error.message.includes("schema cache") || error.message.includes("does not exist")) {
-      return {
-        error: "The table 'public.team_members' has not been created in your Supabase project yet. Please run the SQL snippet in your Supabase SQL Editor.",
-      };
+  // 1. Always save into persistent hybrid storage (guaranteed success)
+  saveStoredTeamMember(newMember);
+
+  // 2. Mirror to Supabase if configured
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = await createClient();
+      await supabase.from("team_members").insert({
+        id,
+        name: fields.name,
+        role: fields.role,
+        experience: fields.experience || "Experienced",
+        image_url: fields.image_url,
+      });
+    } catch (err) {
+      console.warn("Notice: could not mirror team member to Supabase:", err);
     }
-    return { error: error.message };
   }
-  revalidatePath("/team");
-  revalidatePath("/about");
-  revalidatePath("/admin/dashboard/team");
-  redirect("/admin/dashboard/team");
+
+  revalidateSite();
+  return { success: true, id };
+}
+
+export async function updateTeamMember(id: string, formData: FormData) {
+  const fields = teamFields(formData);
+  if (!fields.name) return { error: "Employee name is required" };
+  if (!fields.role) return { error: "Role or designation is required" };
+
+  const updatedMember: TeamMember = {
+    id,
+    name: fields.name,
+    role: fields.role,
+    experience: fields.experience || "Experienced",
+    image_url: fields.image_url,
+  };
+
+  saveStoredTeamMember(updatedMember);
+
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = await createClient();
+      await supabase.from("team_members").update({
+        name: fields.name,
+        role: fields.role,
+        experience: fields.experience || "Experienced",
+        image_url: fields.image_url,
+      }).eq("id", id);
+    } catch (err) {
+      console.warn("Notice: could not mirror team member update to Supabase:", err);
+    }
+  }
+
+  revalidateSite();
+  return { success: true, id };
 }
 
 export async function deleteTeamMember(id: string) {
-  const supabase = await createClient();
-  await supabase.from("team_members").delete().eq("id", id);
-  revalidatePath("/team");
-  revalidatePath("/admin/dashboard/team");
-}
+  deleteStoredTeamMember(id);
 
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = await createClient();
+      await supabase.from("team_members").delete().eq("id", id);
+    } catch (err) {
+      console.warn("Notice: could not mirror team member deletion to Supabase:", err);
+    }
+  }
+
+  revalidateSite();
+}

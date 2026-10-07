@@ -6,6 +6,13 @@ function slugify(text: string) {
   return String(text).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
+// Admins usually paste plain text where a single Enter means a new line, but
+// Markdown would merge those lines into one paragraph. Turn single newlines
+// into hard breaks (trailing double space) so pasted copy reads as written.
+function preserveLineBreaks(content: string) {
+  return content.replace(/\r\n?/g, "\n").replace(/([^\n])\n(?=[^\n])/g, "$1  \n");
+}
+
 export default function BlogContent({ content }: { content: string }) {
   return (
     <div className="space-y-5">
@@ -50,7 +57,7 @@ export default function BlogContent({ content }: { content: string }) {
           ),
         }}
       >
-        {content}
+        {preserveLineBreaks(content)}
       </ReactMarkdown>
     </div>
   );

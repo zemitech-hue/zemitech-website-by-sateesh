@@ -2,99 +2,127 @@ import { createClient, createPublicClient, isSupabaseConfigured } from "@/lib/su
 import { fallbackProjects, type Project } from "@/lib/data/projects";
 import { fallbackBlogPosts, type BlogPost } from "@/lib/data/blog";
 
+// Row shapes mirror supabase/schema.sql exactly — these are the same column
+// names lib/supabase/actions.ts writes. A few legacy aliases (content,
+// cover_image, gallery, built_up_area, youtube_url) are kept optional so rows
+// created by older versions of the admin still render.
 export type ProjectRow = {
   id: string;
   slug: string;
   title: string;
-  category: "residential" | "commercial" | "infrastructure";
-  project_type: string;
-  location: string;
-  client: string;
-  timeline: string;
-  built_up_area: string;
-  status: "Completed" | "In Progress" | "Upcoming";
-  year: number;
-  cover_image: string;
-  hero_image: string;
-  gallery: string[];
-  scope: string[];
-  challenge: string;
-  solution: string;
-  key_outcomes: string[];
-  sort_order: number;
+  category: Project["category"];
+  location: string | null;
+  year: string | number | null;
+  area: string | null;
+  summary: string | null;
+  description: string[] | null;
+  scope: string[] | null;
+  challenge: string | null;
+  solution: string | null;
+  cover_image_url: string | null;
+  gallery_urls: string[] | null;
+  video_url: string | null;
+  client_quote_text: string | null;
+  client_quote_author: string | null;
+  client_quote_location: string | null;
   published: boolean;
-  video_url?: string | null;
-  youtube_url?: string | null;
+  sort_order: number | null;
   created_at: string;
+  updated_at?: string;
+  cover_image?: string | null;
+  gallery?: string[] | null;
+  built_up_area?: string | null;
+  youtube_url?: string | null;
 };
 
 export type BlogPostRow = {
   id: string;
   slug: string;
   title: string;
-  excerpt: string;
-  content: string;
-  category: string;
-  cover_image: string;
-  author_name: string;
-  author_avatar: string;
-  read_minutes: number;
-  published_at: string;
+  category: string | null;
+  excerpt: string | null;
+  cover_image_url: string | null;
+  content_md: string | null;
+  read_minutes: number | null;
   published: boolean;
+  published_at: string | null;
   created_at: string;
+  updated_at?: string;
+  content?: string | null;
+  cover_image?: string | null;
 };
 
-// Helper to assign reliable fallback images when cover_image is missing or empty
+// Columns needed to render blog listing cards — skips the (potentially large)
+// markdown body so /blog and the related-posts strip stay fast.
+const BLOG_LIST_COLUMNS = "id, slug, title, category, excerpt, cover_image_url, read_minutes, published, published_at, created_at";
+
+function nonEmpty(value?: string | null): string | null {
+  return value && value.trim() !== "" ? value : null;
+}
+
+// Helper to assign reliable fallback images when cover_image_url is missing or empty
 function getCategoryFallbackImage(category?: string): string {
   switch (category) {
     case "residential":
       return "/images/construction/residential/hero.png";
     case "commercial":
-      return "/images/construction/structural-civil-engineering/hero.png";
-    case "infrastructure":
       return "/images/construction/industrial/hero.png";
+    case "infrastructure":
+      return "/images/construction/structural-civil-engineering/hero.png";
     default:
       return "/images/interior/turnkey-home-interiors/hero.png";
   }
 }
 
 function mapProject(row: ProjectRow): Project {
-  const fallbackImg = getCategoryFallbackImage(row.category);
-  const validCoverImage = row.cover_image && row.cover_image.trim() !== "" ? row.cover_image : fallbackImg;
-  const validGallery = row.gallery && row.gallery.length > 0 ? row.gallery : [validCoverImage];
+  const coverImage = nonEmpty(row.cover_image_url) ?? nonEmpty(row.cover_image) ?? getCategoryFallbackImage(row.category);
+  const gallery = (row.gallery_urls?.length ? row.gallery_urls : row.gallery) ?? [];
+  const description = (row.description ?? []).filter((d) => d && d.trim() !== "");
+  const author = nonEmpty(row.client_quote_author);
 
   return {
     id: row.id,
     slug: row.slug,
     title: row.title,
-    category: row.category as any,
-    location: row.location,
-    year: String(row.year),
-    area: row.built_up_area || "N/A",
-    summary: row.challenge || row.title,
-    description: [row.challenge || "", row.solution || ""].filter(Boolean),
-    scope: row.scope || [],
-    challenge: row.challenge || "",
-    solution: row.solution || "",
-    coverImage: validCoverImage,
-    galleryUrls: validGallery,
-    videoUrl: row.video_url || row.youtube_url || null,
+    category: row.category,
+    location: row.location || "",
+    year: row.year != null ? String(row.year) : "",
+    area: nonEmpty(row.area) ?? nonEmpty(row.built_up_area) ?? "",
+    summary: nonEmpty(row.summary) ?? row.title,
+    description: description.length > 0 ? description : [nonEmpty(row.summary) ?? row.title],
+    scope: row.scope ?? [],
+    challenge: row.challenge ?? "",
+    solution: row.solution ?? "",
+    coverImage,
+    galleryUrls: gallery.filter((g) => g !== coverImage),
+    videoUrl: nonEmpty(row.video_url) ?? nonEmpty(row.youtube_url),
+    clientQuote: author
+      ? {
+          quote: row.client_quote_text || `Delivered for ${author}`,
+          author,
+          location: row.client_quote_location || row.location || "",
+        }
+      : undefined,
     published: row.published,
   };
 }
 
-function mapBlogPost(row: BlogPostRow): BlogPost {
+function mapBlogPost(row: Partial<BlogPostRow> & Pick<BlogPostRow, "id" | "slug" | "title">): BlogPost {
+  let contentMd = nonEmpty(row.content_md) ?? nonEmpty(row.content) ?? "";
+  // Rows seeded from the bundled demo posts without a body still get one.
+  if (!contentMd) contentMd = fallbackBlogPosts.find((p) => p.slug === row.slug)?.contentMd ?? "";
+
   return {
     id: row.id,
     slug: row.slug,
     title: row.title,
-    excerpt: row.excerpt,
-    contentMd: row.content,
-    category: row.category,
-    coverImage: row.cover_image || "/images/interior/turnkey-home-interiors/hero.png",
+    excerpt: nonEmpty(row.excerpt) ?? "",
+    contentMd,
+    category: nonEmpty(row.category) ?? "General",
+    coverImage: nonEmpty(row.cover_image_url) ?? nonEmpty(row.cover_image) ?? "/images/blog/hero.png",
     readMinutes: row.read_minutes || 5,
-    publishedAt: row.published_at,
-    published: row.published,
+    publishedAt: row.published_at || row.created_at || new Date().toISOString(),
+    published: row.published ?? true,
   };
 }
 
@@ -102,16 +130,12 @@ function mapBlogPost(row: BlogPostRow): BlogPost {
 function isIgnorableQueryError(error?: { message?: string } | null): boolean {
   if (!error || !error.message) return false;
   const msg = error.message.toLowerCase();
-  return (
-    msg.includes("schema cache") ||
-    msg.includes("jwt issued at future") ||
-    msg.includes("jwt") ||
-    msg.includes("clock") ||
-    msg.includes("expired")
-  );
+  return msg.includes("schema cache") || msg.includes("jwt") || msg.includes("clock") || msg.includes("expired");
 }
 
-// Public-facing reads — published rows only, works with or without a signed-in session
+// Public-facing reads — published rows only, works with or without a signed-in session.
+// Bundled demo content is only used when Supabase isn't configured or the query
+// fails; an empty table means "nothing published", so admin deletes show up live.
 export async function getProjects(limit: number = 100): Promise<Project[]> {
   if (!isSupabaseConfigured()) return fallbackProjects.slice(0, limit);
   try {
@@ -124,14 +148,12 @@ export async function getProjects(limit: number = 100): Promise<Project[]> {
       .order("created_at", { ascending: false })
       .limit(limit);
 
-    if (error || !data || data.length === 0) {
-      if (error && !isIgnorableQueryError(error)) {
-        console.error("getProjects:", error.message);
-      }
+    if (error || !data) {
+      if (error && !isIgnorableQueryError(error)) console.error("getProjects:", error.message);
       return fallbackProjects.slice(0, limit);
     }
     return (data as ProjectRow[]).map(mapProject);
-  } catch (err) {
+  } catch {
     return fallbackProjects.slice(0, limit);
   }
 }
@@ -147,8 +169,8 @@ export async function getProject(slug: string): Promise<Project | null> {
       .eq("published", true)
       .maybeSingle();
 
-    if (error || !data) return fallbackProjects.find((p) => p.slug === slug) || null;
-    return mapProject(data as ProjectRow);
+    if (error) return fallbackProjects.find((p) => p.slug === slug) || null;
+    return data ? mapProject(data as ProjectRow) : null;
   } catch {
     return fallbackProjects.find((p) => p.slug === slug) || null;
   }
@@ -160,15 +182,13 @@ export async function getBlogPosts(limit: number = 100): Promise<BlogPost[]> {
     const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("blog_posts")
-      .select("*")
+      .select(BLOG_LIST_COLUMNS)
       .eq("published", true)
       .order("published_at", { ascending: false })
       .limit(limit);
 
-    if (error || !data || data.length === 0) {
-      if (error && !isIgnorableQueryError(error)) {
-        console.error("getBlogPosts:", error.message);
-      }
+    if (error || !data) {
+      if (error && !isIgnorableQueryError(error)) console.error("getBlogPosts:", error.message);
       return fallbackBlogPosts.slice(0, limit);
     }
     return (data as BlogPostRow[]).map(mapBlogPost);
@@ -188,8 +208,8 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       .eq("published", true)
       .maybeSingle();
 
-    if (error || !data) return fallbackBlogPosts.find((p) => p.slug === slug) || null;
-    return mapBlogPost(data as BlogPostRow);
+    if (error) return fallbackBlogPosts.find((p) => p.slug === slug) || null;
+    return data ? mapBlogPost(data as BlogPostRow) : null;
   } catch {
     return fallbackBlogPosts.find((p) => p.slug === slug) || null;
   }
@@ -207,9 +227,7 @@ export async function getAllProjectsForAdmin(): Promise<Project[]> {
       .order("created_at", { ascending: false });
 
     if (error) {
-      if (!isIgnorableQueryError(error)) {
-        console.error("getAllProjectsForAdmin:", error.message);
-      }
+      if (!isIgnorableQueryError(error)) console.error("getAllProjectsForAdmin:", error.message);
       return [];
     }
     return (data as ProjectRow[]).map(mapProject);
@@ -236,13 +254,11 @@ export async function getAllBlogPostsForAdmin(): Promise<BlogPost[]> {
     const supabase = await createClient();
     const { data, error } = await supabase
       .from("blog_posts")
-      .select("*")
+      .select(BLOG_LIST_COLUMNS)
       .order("published_at", { ascending: false });
 
     if (error) {
-      if (!isIgnorableQueryError(error)) {
-        console.error("getAllBlogPostsForAdmin:", error.message);
-      }
+      if (!isIgnorableQueryError(error)) console.error("getAllBlogPostsForAdmin:", error.message);
       return [];
     }
     return (data as BlogPostRow[]).map(mapBlogPost);
@@ -301,15 +317,35 @@ export async function getCompanySettings(): Promise<CompanySettings> {
   }
 }
 
+import { getStoredTeamMembers, getStoredTeamMemberById } from "@/lib/data/team-storage";
+
 export async function getTeamMembers(): Promise<TeamMember[]> {
-  if (!isSupabaseConfigured()) return [];
+  const localMembers = getStoredTeamMembers();
+  if (!isSupabaseConfigured()) return localMembers;
   try {
     const supabase = createPublicClient();
     const { data, error } = await supabase.from("team_members").select("*").order("created_at", { ascending: false });
-    if (error || !data) return [];
-    return data as TeamMember[];
+    if (error || !data || data.length === 0) {
+      return localMembers;
+    }
+    // Merge: ensure any recently saved local members are included
+    const supabaseIds = new Set((data as TeamMember[]).map((m) => m.id));
+    const pendingLocal = localMembers.filter((m) => !supabaseIds.has(m.id));
+    return [...(data as TeamMember[]), ...pendingLocal];
   } catch {
-    return [];
+    return localMembers;
   }
 }
 
+export async function getTeamMemberByIdForAdmin(id: string): Promise<TeamMember | null> {
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = await createClient();
+      const { data, error } = await supabase.from("team_members").select("*").eq("id", id).maybeSingle();
+      if (!error && data) return data as TeamMember;
+    } catch {
+      // Fallback to local store
+    }
+  }
+  return getStoredTeamMemberById(id);
+}

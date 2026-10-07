@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Link from "next/link";
 import ImageUploadField from "@/components/admin/ImageUploadField";
 import type { Project } from "@/lib/types/project";
-import { Building2, Video, User, MapPin, Calendar, CheckCircle2 } from "lucide-react";
+import { Building2, Video, User, MapPin, Calendar, CheckCircle2, ArrowLeft, Ruler, Loader2 } from "lucide-react";
 
 const categories = [
   { value: "residential", label: "Residential Construction" },
@@ -31,11 +32,18 @@ export default function ProjectForm({
           if (result?.error) setError(result.error);
         });
       }}
-      className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-8"
+      className="bg-white rounded-3xl border border-slate-200 p-4 sm:p-8 shadow-sm space-y-6 sm:space-y-8"
     >
       {/* Header Banner */}
-      <div className="flex items-center justify-between border-b border-slate-100 pb-5">
-        <div>
+      <div className="flex items-start justify-between gap-3 border-b border-slate-100 pb-5">
+        <div className="min-w-0">
+          <Link
+            href={project?.videoUrl ? "/admin/dashboard/videos" : "/admin/dashboard/projects"}
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-blue-700 mb-2 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to list
+          </Link>
           <h2 className="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
             <Building2 className="w-5 h-5 text-blue-700" />
             {project ? "Edit Property / Video Listing" : "Upload Built Property or Video Reel"}
@@ -44,9 +52,15 @@ export default function ProjectForm({
             Fill required project details and upload 1 photo or video reel URL.
           </p>
         </div>
-        <span className="text-xs font-mono-label font-bold text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-          Required Fields Only
-        </span>
+        {project?.published && (
+          <Link
+            href={`/projects/${project.slug}`}
+            target="_blank"
+            className="shrink-0 text-xs font-bold text-blue-700 bg-blue-50 px-3 py-2 rounded-xl border border-blue-200 hover:bg-blue-100 transition-colors"
+          >
+            View live
+          </Link>
+        )}
       </div>
 
       {/* Row 1: Title & Client Name */}
@@ -64,7 +78,6 @@ export default function ProjectForm({
           name="client_name"
           defaultValue={project?.clientQuote?.author}
           placeholder="e.g. Mr. S. Kulkarni"
-          required
           icon={<User className="w-4 h-4 text-slate-400" />}
         />
       </div>
@@ -107,9 +120,32 @@ export default function ProjectForm({
         />
       </div>
 
+      {/* Row 3: Area & Description (shown on the public project page) */}
+      <div className="grid sm:grid-cols-3 gap-5">
+        <Field
+          label="Built-up Area"
+          name="area"
+          defaultValue={project?.area}
+          placeholder="e.g. 2,400 sq ft"
+          icon={<Ruler className="w-4 h-4 text-slate-400" />}
+        />
+        <div className="sm:col-span-2">
+          <label className="block text-xs font-mono-label font-bold text-slate-700 uppercase tracking-wider mb-2">
+            Project Description <span className="normal-case font-medium text-slate-400">(one paragraph per line)</span>
+          </label>
+          <textarea
+            name="description"
+            defaultValue={project?.description.join("\n")}
+            rows={3}
+            placeholder="What was built, materials used, highlights…"
+            className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
+          />
+        </div>
+      </div>
+
       {/* Upload Feature 1: Single Property Cover Photo (9:16 Vertical Ratio Ready) */}
-      <div className="bg-slate-50/70 rounded-2xl p-6 border border-slate-200/80 space-y-4">
-        <div className="flex items-center justify-between">
+      <div className="bg-slate-50/70 rounded-2xl p-4 sm:p-6 border border-slate-200/80 space-y-4">
+        <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
               <Building2 className="w-4 h-4 text-blue-700" />
@@ -133,7 +169,7 @@ export default function ProjectForm({
       </div>
 
       {/* Upload Feature 2: YouTube Video Reel Link (Shorts or Watch URL) */}
-      <div className="bg-slate-50/70 rounded-2xl p-6 border border-slate-200/80 space-y-4">
+      <div className="bg-slate-50/70 rounded-2xl p-4 sm:p-6 border border-slate-200/80 space-y-4">
         <div>
           <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
             <Video className="w-4 h-4 text-purple-700" />
@@ -157,7 +193,7 @@ export default function ProjectForm({
       </div>
 
       {/* Live Status Checkbox */}
-      <div className="pt-2 flex items-center justify-between flex-wrap gap-4 border-t border-slate-100">
+      <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-100">
         <label className="flex items-center gap-3 text-sm font-bold text-slate-800 cursor-pointer">
           <input
             type="checkbox"
@@ -176,8 +212,9 @@ export default function ProjectForm({
         <button
           type="submit"
           disabled={isPending}
-          className="px-8 py-3.5 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-sm tracking-wide shadow-md shadow-blue-700/20 hover:shadow-lg disabled:opacity-60 transition-all cursor-pointer"
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-sm tracking-wide shadow-md shadow-blue-700/20 hover:shadow-lg disabled:opacity-60 transition-all cursor-pointer"
         >
+          {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
           {isPending ? "Saving Property..." : project ? "Update Listing" : "Upload Property Details"}
         </button>
       </div>

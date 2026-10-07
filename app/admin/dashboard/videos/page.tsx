@@ -1,9 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
-import { Plus, Video, Play } from "lucide-react";
+import { Plus, Video } from "lucide-react";
 import { getAllProjectsForAdmin } from "@/lib/supabase/queries";
-import DeleteButton from "@/components/admin/DeleteButton";
-import { deleteProject } from "@/lib/supabase/actions";
+import AdminItemRow from "@/components/admin/AdminItemRow";
+import { deleteProject, setProjectPublished } from "@/lib/supabase/actions";
 
 export default async function AdminVideosPage() {
   const allProjects = await getAllProjectsForAdmin();
@@ -47,42 +46,25 @@ export default async function AdminVideosPage() {
       ) : (
         <div className="space-y-3">
           {videoProjects.map((p) => (
-            <div
+            <AdminItemRow
               key={p.id}
-              className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200 rounded-2xl p-4 shadow-xs hover:border-slate-300 transition-all"
-            >
-              <div className="flex items-center gap-3.5 min-w-0">
-                <div className="relative w-16 h-20 rounded-xl overflow-hidden bg-slate-950 shrink-0 border border-slate-200 flex items-center justify-center">
-                  {p.coverImage && <Image src={p.coverImage} alt="" fill className="object-cover" unoptimized />}
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <Play className="w-5 h-5 text-white fill-current" />
-                  </div>
-                </div>
-
-                <div className="min-w-0">
-                  <p className="font-bold text-slate-900 text-sm sm:text-base truncate">{p.title}</p>
-                  <p className="text-xs font-mono-label text-slate-500 truncate mt-0.5">
-                    {p.location} • {p.year} • <span className="capitalize">{p.category}</span>
-                    {!p.published && <span className="ml-2 text-amber-600 font-bold">Draft</span>}
-                  </p>
-                  {p.videoUrl && (
-                    <p className="text-xs text-purple-700 font-mono truncate mt-1">
-                      {p.videoUrl}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 self-end sm:self-center shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 w-full sm:w-auto justify-end">
-                <Link
-                  href={`/admin/dashboard/projects/${p.id}`}
-                  className="text-xs font-bold text-purple-700 bg-purple-50 px-3.5 py-2 rounded-xl border border-purple-200 hover:bg-purple-100 transition-colors"
-                >
-                  Edit
-                </Link>
-                <DeleteButton id={p.id} action={deleteProject} label="video" />
-              </div>
-            </div>
+              id={p.id}
+              title={p.title}
+              image={p.coverImage}
+              video
+              meta={
+                <>
+                  {[p.location, p.year].filter(Boolean).join(" • ")} • <span className="capitalize">{p.category}</span>
+                  <span className="block text-purple-700 truncate">{p.videoUrl}</span>
+                </>
+              }
+              editHref={`/admin/dashboard/projects/${p.id}`}
+              liveHref={`/projects/${p.slug}`}
+              published={p.published}
+              label="video reel"
+              onDelete={deleteProject}
+              onTogglePublish={setProjectPublished}
+            />
           ))}
         </div>
       )}

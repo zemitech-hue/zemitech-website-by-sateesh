@@ -8,10 +8,5 @@ export default async function EditBlogPostPage({ params }: { params: Promise<{ i
   const post = await getBlogPostByIdForAdmin(id);
   if (!post) return notFound();
 
-  return (
-    <div>
-      <h1 className="text-2xl font-semibold text-blue-950 mb-6">Edit post</h1>
-      <BlogForm post={post} action={updateBlogPost.bind(null, id)} />
-    </div>
-  );
+  return <BlogForm post={post} action={updateBlogPost.bind(null, id)} />;
 }

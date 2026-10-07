@@ -18,8 +18,8 @@ export default function VideoProjectForm({
   const error = errorState?.error;
 
   return (
-    <div className="w-full flex justify-center py-4">
-      <form action={formAction} className="bg-white rounded-3xl border border-slate-200/90 p-7 sm:p-9 shadow-xl w-full max-w-xl space-y-6">
+    <div className="w-full flex justify-center sm:py-4">
+      <form action={formAction} className="bg-white rounded-3xl border border-slate-200/90 p-5 sm:p-9 shadow-xl w-full max-w-xl space-y-6">
         
         {/* Header Info with Supabase Connection Badge */}
         <div className="flex items-center justify-between border-b border-slate-100 pb-4 flex-wrap gap-2">

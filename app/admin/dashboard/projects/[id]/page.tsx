@@ -8,10 +8,5 @@ export default async function EditProjectPage({ params }: { params: Promise<{ id
   const project = await getProjectByIdForAdmin(id);
   if (!project) return notFound();
 
-  return (
-    <div>
-      <h1 className="text-2xl font-semibold text-blue-950 mb-6">Edit project</h1>
-      <ProjectForm project={project} action={updateProject.bind(null, id)} />
-    </div>
-  );
+  return <ProjectForm project={project} action={updateProject.bind(null, id)} />;
 }

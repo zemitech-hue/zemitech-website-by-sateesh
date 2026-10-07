@@ -85,7 +85,8 @@ export default function AdminDashboardLayoutClient({
 
         <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive =
+              item.href === "/admin/dashboard" ? pathname === item.href : pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}

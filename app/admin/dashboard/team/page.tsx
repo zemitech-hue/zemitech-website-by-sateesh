@@ -2,7 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { getTeamMembers } from "@/lib/supabase/queries";
 import { deleteTeamMember } from "@/lib/supabase/actions";
-import { Users, Plus, Trash2, Award, UserCheck, AlertCircle } from "lucide-react";
+import { Users, Plus, Award, UserCheck, Pencil } from "lucide-react";
+import DeleteButton from "@/components/admin/DeleteButton";
 import InitialsAvatar from "@/components/ui/InitialsAvatar";
 
 export default async function TeamMembersPage() {
@@ -62,7 +63,7 @@ export default async function TeamMembersPage() {
           {members.map((member) => (
             <div
               key={member.id}
-              className="bg-white rounded-3xl p-6 border border-slate-200 shadow-md flex flex-col justify-between hover:shadow-xl transition-all duration-300"
+              className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-md flex flex-col justify-between hover:shadow-xl transition-all duration-300"
             >
               <div>
                 <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-slate-100 mb-4 border border-slate-200 shadow-xs">
@@ -87,21 +88,16 @@ export default async function TeamMembersPage() {
                 </div>
               </div>
 
-              <form
-                action={async () => {
-                  "use server";
-                  await deleteTeamMember(member.id);
-                }}
-                className="mt-6 pt-4 border-t border-slate-100 flex justify-end"
-              >
-                <button
-                  type="submit"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-600 hover:text-rose-800 hover:bg-rose-50 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-end gap-2">
+                <Link
+                  href={`/admin/dashboard/team/${member.id}`}
+                  className="inline-flex items-center gap-1.5 h-10 text-xs font-bold text-blue-700 bg-blue-50 px-3.5 rounded-xl border border-blue-200 hover:bg-blue-100 transition-colors"
                 >
-                  <Trash2 className="w-3.5 h-3.5" />
-                  <span>Remove Employee</span>
-                </button>
-              </form>
+                  <Pencil className="w-3.5 h-3.5" />
+                  Edit
+                </Link>
+                <DeleteButton id={member.id} action={deleteTeamMember} label="employee" />
+              </div>
             </div>
           ))}
         </div>

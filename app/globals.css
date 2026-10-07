@@ -171,6 +171,7 @@ h1, h2, h3, h4, .font-display, .font-mono-label {
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 112px;
 }
 
 :focus-visible {

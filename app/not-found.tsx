@@ -4,7 +4,7 @@ import Button from "@/components/ui/Button";
 
 export default function NotFound() {
   return (
-    <Container className="py-28 text-center">
+    <Container className="pt-40 pb-28 text-center">
       <p className="font-mono-label text-sm text-green-700 uppercase tracking-wide">404</p>
       <h1 className="text-3xl sm:text-4xl font-semibold text-blue-950 mt-3">This page isn&apos;t built yet.</h1>
       <p className="text-ink-soft mt-4 max-w-md mx-auto">
