@@ -5,6 +5,7 @@ import { deleteTeamMember } from "@/lib/supabase/actions";
 import { Users, Plus, Award, UserCheck, Pencil } from "lucide-react";
 import DeleteButton from "@/components/admin/DeleteButton";
 import InitialsAvatar from "@/components/ui/InitialsAvatar";
+import { formatTeamMember } from "@/components/ui/TeamMemberCard";
 
 export default async function TeamMembersPage() {
   const members = await getTeamMembers();
@@ -60,33 +61,36 @@ export default async function TeamMembersPage() {
       ) : (
         /* Real Employee Cards Grid */
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {members.map((member) => (
-            <div
-              key={member.id}
-              className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-md flex flex-col justify-between hover:shadow-xl transition-all duration-300"
-            >
-              <div>
-                <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-slate-100 mb-4 border border-slate-200 shadow-xs">
-                  {member.image_url ? (
-                    <Image
-                      src={member.image_url}
-                      alt={member.name}
-                      fill
-                      className="object-cover"
-                    />
-                  ) : (
-                    <InitialsAvatar name={member.name} className="w-full h-full text-xl" />
-                  )}
-                </div>
+          {members.map((rawMember) => {
+            const member = formatTeamMember(rawMember);
+            return (
+              <div
+                key={member.id}
+                className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-md flex flex-col justify-between hover:shadow-xl transition-all duration-300"
+              >
+                <div>
+                  <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-slate-100 mb-4 border border-slate-200 shadow-xs">
+                    {member.image_url ? (
+                      <Image
+                        src={member.image_url}
+                        alt={member.name}
+                        fill
+                        className="object-cover"
+                        unoptimized={member.image_url.startsWith("data:")}
+                      />
+                    ) : (
+                      <InitialsAvatar name={member.name} className="w-full h-full text-xl" />
+                    )}
+                  </div>
 
-                <h3 className="text-lg font-extrabold text-slate-950">{member.name}</h3>
-                <p className="text-xs font-mono-label font-bold text-amber-600 uppercase tracking-wide mt-0.5">{member.role}</p>
+                  <h3 className="text-lg font-extrabold text-slate-950">{member.name}</h3>
+                  <p className="text-xs font-mono-label font-bold text-amber-600 uppercase tracking-wide mt-0.5">{member.role}</p>
 
-                <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700">
-                  <Award className="w-3.5 h-3.5 text-amber-500" />
-                  <span>{member.experience} Experience</span>
+                  <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700">
+                    <Award className="w-3.5 h-3.5 text-amber-500" />
+                    <span>{member.experienceBadge}</span>
+                  </div>
                 </div>
-              </div>
 
               <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-end gap-2">
                 <Link
@@ -99,8 +103,9 @@ export default async function TeamMembersPage() {
                 <DeleteButton id={member.id} action={deleteTeamMember} label="employee" />
               </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
+      </div>
       )}
     </div>
   );

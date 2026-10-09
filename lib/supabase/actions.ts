@@ -273,10 +273,17 @@ import { saveStoredTeamMember, deleteStoredTeamMember } from "@/lib/data/team-st
 import type { TeamMember } from "@/lib/supabase/queries";
 
 function teamFields(formData: FormData) {
+  let exp = String(formData.get("experience") ?? "").trim();
+  // If someone pastes a whole paragraph into experience, sanitize to concise badge format
+  if (exp.length > 30) {
+    const match = exp.match(/\b(\d+\+?\s*(?:years?|yrs?))\b/i);
+    exp = match ? match[1] : "5+ Years";
+  }
+
   return {
     name: String(formData.get("name") ?? "").trim(),
     role: String(formData.get("role") ?? "").trim(),
-    experience: String(formData.get("experience") ?? "").trim(),
+    experience: exp || "Experienced",
     image_url: String(formData.get("image_url") ?? "").trim() || "/images/about/zemara-team.png",
   };
 }

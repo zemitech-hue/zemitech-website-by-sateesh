@@ -301,16 +301,19 @@ export default function AddTeamMemberForm({ member, action }: AddTeamMemberFormP
       <div>
         <label className="block text-xs font-mono-label font-bold uppercase text-slate-700 tracking-wider mb-2 flex items-center gap-1.5">
           <Award className="w-4 h-4 text-amber-600" />
-          <span>4. Years of Experience</span>
+          <span>4. Years of Experience (Badge)</span>
         </label>
         <input
           type="text"
           name="experience"
           defaultValue={member?.experience || ""}
           required
-          placeholder="e.g. 8+ Years"
+          placeholder="e.g. 5+ Years"
           className="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-900 font-medium text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none"
         />
+        <p className="text-[11px] text-slate-500 mt-1.5">
+          Short badge format only (e.g. <strong>5+ Years</strong>, <strong>8+ Years</strong>, or <strong>14+ Years</strong>).
+        </p>
       </div>
 
       {/* FORM ACTION BUTTONS */}
