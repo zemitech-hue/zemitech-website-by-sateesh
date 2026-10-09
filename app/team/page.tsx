@@ -3,7 +3,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import PageHero from "@/components/sections/PageHero";
 import CTASection from "@/components/sections/CTASection";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import TeamMemberCard from "@/components/ui/TeamMemberCard";
+import TeamCarousel from "@/components/sections/TeamCarousel";
 import JsonLd, { breadcrumbJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/data/company";
 import { getTeamMembers } from "@/lib/supabase/queries";
@@ -41,7 +41,7 @@ export default async function TeamPage() {
 
       {/* Dynamic Team Members Section from Supabase */}
       {dbMembers.length > 0 && (
-        <section className="py-16 sm:py-20 bg-slate-50/60 border-b border-slate-200">
+        <section className="py-16 sm:py-20 bg-slate-50 border-b border-slate-200">
           <Container>
             <SectionHeading
               eyebrow="Key Team Members"
@@ -50,10 +50,8 @@ export default async function TeamPage() {
               align="center"
             />
 
-            <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-              {dbMembers.map((member) => (
-                <TeamMemberCard key={member.id} member={member} />
-              ))}
+            <div className="mt-12">
+              <TeamCarousel members={dbMembers} />
             </div>
           </Container>
         </section>

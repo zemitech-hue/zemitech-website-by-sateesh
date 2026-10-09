@@ -317,35 +317,64 @@ export async function getCompanySettings(): Promise<CompanySettings> {
   }
 }
 
-import { getStoredTeamMembers, getStoredTeamMemberById } from "@/lib/data/team-storage";
+import { defaultTeamMembers, getStoredTeamMembers, getStoredTeamMemberById } from "@/lib/data/team-storage";
 
+function sortTeam(members: TeamMember[]): TeamMember[] {
+  return [...members].sort((a, b) => (a.created_at ?? "").localeCompare(b.created_at ?? ""));
+}
+
+export type TeamMembersForAdmin = {
+  members: TeamMember[];
+  // "database" — live Supabase rows (editable)
+  // "defaults" — Supabase is connected but has no rows yet; the bundled team
+  //              is what the public site shows until it's imported
+  // "local"    — no Supabase project; edits go to lib/data/team-members.json
+  source: "database" | "defaults" | "local";
+  error?: string;
+};
+
+// Public read. Supabase is the source of truth once connected; the bundled
+// leadership team only fills in while the table is still empty.
 export async function getTeamMembers(): Promise<TeamMember[]> {
-  const localMembers = getStoredTeamMembers();
-  if (!isSupabaseConfigured()) return localMembers;
+  if (!isSupabaseConfigured()) return sortTeam(getStoredTeamMembers());
   try {
     const supabase = createPublicClient();
-    const { data, error } = await supabase.from("team_members").select("*").order("created_at", { ascending: false });
-    if (error || !data || data.length === 0) {
-      return localMembers;
+    const { data, error } = await supabase.from("team_members").select("*").order("created_at", { ascending: true });
+    if (error) {
+      if (!isIgnorableQueryError(error)) console.error("getTeamMembers:", error.message);
+      return sortTeam(defaultTeamMembers);
     }
-    // Merge: ensure any recently saved local members are included
-    const supabaseIds = new Set((data as TeamMember[]).map((m) => m.id));
-    const pendingLocal = localMembers.filter((m) => !supabaseIds.has(m.id));
-    return [...(data as TeamMember[]), ...pendingLocal];
+    return data && data.length > 0 ? (data as TeamMember[]) : sortTeam(defaultTeamMembers);
   } catch {
-    return localMembers;
+    return sortTeam(defaultTeamMembers);
+  }
+}
+
+export async function getTeamMembersForAdmin(): Promise<TeamMembersForAdmin> {
+  if (!isSupabaseConfigured()) return { members: sortTeam(getStoredTeamMembers()), source: "local" };
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase.from("team_members").select("*").order("created_at", { ascending: true });
+    if (error) return { members: sortTeam(defaultTeamMembers), source: "defaults", error: error.message };
+    if (!data || data.length === 0) return { members: sortTeam(defaultTeamMembers), source: "defaults" };
+    return { members: data as TeamMember[], source: "database" };
+  } catch (err) {
+    return {
+      members: sortTeam(defaultTeamMembers),
+      source: "defaults",
+      error: err instanceof Error ? err.message : "Could not reach Supabase",
+    };
   }
 }
 
 export async function getTeamMemberByIdForAdmin(id: string): Promise<TeamMember | null> {
-  if (isSupabaseConfigured()) {
-    try {
-      const supabase = await createClient();
-      const { data, error } = await supabase.from("team_members").select("*").eq("id", id).maybeSingle();
-      if (!error && data) return data as TeamMember;
-    } catch {
-      // Fallback to local store
-    }
+  if (!isSupabaseConfigured()) return getStoredTeamMemberById(id);
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase.from("team_members").select("*").eq("id", id).maybeSingle();
+    if (error || !data) return null;
+    return data as TeamMember;
+  } catch {
+    return null;
   }
-  return getStoredTeamMemberById(id);
 }

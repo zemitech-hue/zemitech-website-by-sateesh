@@ -125,18 +125,19 @@ create policy "public read company_settings" on company_settings for select usin
 drop policy if exists "public read team_members" on team_members;
 create policy "public read team_members" on team_members for select using (true);
 
--- Admin / Authenticated full access policies
+-- Admin full access — signed-in users only (the anon key is public, so
+-- writes must never be open to it)
 drop policy if exists "admin full access projects" on projects;
-create policy "admin full access projects" on projects for all using (true) with check (true);
+create policy "admin full access projects" on projects for all to authenticated using (true) with check (true);
 
 drop policy if exists "admin full access posts" on blog_posts;
-create policy "admin full access posts" on blog_posts for all using (true) with check (true);
+create policy "admin full access posts" on blog_posts for all to authenticated using (true) with check (true);
 
 drop policy if exists "admin full access company_settings" on company_settings;
-create policy "admin full access company_settings" on company_settings for all using (true) with check (true);
+create policy "admin full access company_settings" on company_settings for all to authenticated using (true) with check (true);
 
 drop policy if exists "admin full access team_members" on team_members;
-create policy "admin full access team_members" on team_members for all using (true) with check (true);
+create policy "admin full access team_members" on team_members for all to authenticated using (true) with check (true);
 
 -- ============================================================
 -- STORAGE — image uploads from the admin panel
@@ -153,10 +154,10 @@ drop policy if exists "public read project images" on storage.objects;
 create policy "public read project images" on storage.objects for select using (bucket_id = 'project-images');
 
 drop policy if exists "admin write project images" on storage.objects;
-create policy "admin write project images" on storage.objects for all using (bucket_id = 'project-images') with check (bucket_id = 'project-images');
+create policy "admin write project images" on storage.objects for all to authenticated using (bucket_id = 'project-images') with check (bucket_id = 'project-images');
 
 drop policy if exists "public read blog images" on storage.objects;
 create policy "public read blog images" on storage.objects for select using (bucket_id = 'blog-images');
 
 drop policy if exists "admin write blog images" on storage.objects;
-create policy "admin write blog images" on storage.objects for all using (bucket_id = 'blog-images') with check (bucket_id = 'blog-images');
+create policy "admin write blog images" on storage.objects for all to authenticated using (bucket_id = 'blog-images') with check (bucket_id = 'blog-images');

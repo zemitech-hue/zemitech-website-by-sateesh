@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createTeamMember } from "@/lib/supabase/actions";
+import { createClient } from "@/lib/supabase/client";
 import type { TeamMember } from "@/lib/supabase/queries";
 import {
   UserPlus,
@@ -17,7 +17,26 @@ import {
   Image as ImageIcon,
   Link2,
   Sparkles,
+  Loader2,
 } from "lucide-react";
+
+const supabaseConfigured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+
+// Stores the photo in the public project-images bucket so the database row
+// holds a short URL instead of a ~100 KB base64 string.
+async function uploadPhoto(blob: Blob): Promise<string> {
+  const supabase = createClient();
+  const path = `team/${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}.jpg`;
+  const { error } = await supabase.storage
+    .from("project-images")
+    .upload(path, blob, { cacheControl: "31536000", contentType: "image/jpeg", upsert: false });
+  if (error) throw error;
+  return supabase.storage.from("project-images").getPublicUrl(path).data.publicUrl;
+}
+
+function canvasToBlob(canvas: HTMLCanvasElement): Promise<Blob | null> {
+  return new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.85));
+}
 
 interface AddTeamMemberFormProps {
   member?: TeamMember;
@@ -29,60 +48,65 @@ export default function AddTeamMemberForm({ member, action }: AddTeamMemberFormP
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   const [inputMode, setInputMode] = useState<"upload" | "url">("upload");
   const [imagePreview, setImagePreview] = useState<string | null>(member?.image_url || null);
   const [urlInput, setUrlInput] = useState(member?.image_url || "");
 
-  // Compress and convert uploaded image file directly to lightweight Data URL
+  // Resize to max 800px, then upload to Supabase Storage. Falls back to an
+  // inline data URL when Storage isn't available so saving still works.
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    e.target.value = "";
     if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      setError("Please choose an image file (JPG, PNG or WEBP).");
+      return;
+    }
 
     setError(null);
+    setUploading(true);
     const reader = new FileReader();
-
-    reader.onload = (event) => {
-      const img = document.createElement("img");
-      img.src = event.target?.result as string;
-      img.onload = () => {
-        try {
-          const canvas = document.createElement("canvas");
-          const MAX_DIM = 800; // Optimal 800px photo resolution
-          let width = img.width;
-          let height = img.height;
-
-          if (width > height) {
-            if (width > MAX_DIM) {
-              height = Math.round((height * MAX_DIM) / width);
-              width = MAX_DIM;
-            }
-          } else {
-            if (height > MAX_DIM) {
-              width = Math.round((width * MAX_DIM) / height);
-              height = MAX_DIM;
-            }
-          }
-
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext("2d");
-          if (ctx) {
-            ctx.drawImage(img, 0, 0, width, height);
-            const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.85);
-            setImagePreview(compressedDataUrl);
-          } else {
-            setImagePreview(event.target?.result as string);
-          }
-        } catch {
-          setImagePreview(event.target?.result as string);
-        }
-      };
-      img.onerror = () => {
-        setImagePreview(event.target?.result as string);
-      };
+    reader.onerror = () => {
+      setError("Could not read that file. Please try another photo.");
+      setUploading(false);
     };
+    reader.onload = (event) => {
+      const original = event.target?.result as string;
+      const img = document.createElement("img");
+      img.onerror = () => {
+        setError("That file doesn't look like a valid image.");
+        setUploading(false);
+      };
+      img.onload = async () => {
+        const MAX_DIM = 800;
+        const scale = Math.min(1, MAX_DIM / Math.max(img.width, img.height));
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          setImagePreview(original);
+          setUploading(false);
+          return;
+        }
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+        setImagePreview(dataUrl);
 
+        if (supabaseConfigured) {
+          try {
+            const blob = await canvasToBlob(canvas);
+            if (blob) setImagePreview(await uploadPhoto(blob));
+          } catch (err) {
+            console.warn("Photo upload to Supabase Storage failed, saving inline instead:", err);
+          }
+        }
+        setUploading(false);
+      };
+      img.src = original;
+    };
     reader.readAsDataURL(file);
   };
 
@@ -182,13 +206,14 @@ export default function AddTeamMemberForm({ member, action }: AddTeamMemberFormP
           <div className="flex flex-col sm:flex-row items-center gap-5">
             {imagePreview ? (
               <div className="relative w-24 h-24 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-md shrink-0 bg-slate-100">
-                <Image
-                  src={imagePreview}
-                  alt="Employee Preview"
-                  fill
-                  className="object-cover"
-                  unoptimized={imagePreview.startsWith("data:")}
-                />
+                {/* Plain <img>: the preview may be any pasted URL, which next/image would reject */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={imagePreview} alt="Employee preview" className="w-full h-full object-cover object-top" />
+                {uploading && (
+                  <div className="absolute inset-0 bg-slate-950/50 flex items-center justify-center">
+                    <Loader2 className="w-6 h-6 text-white animate-spin" />
+                  </div>
+                )}
               </div>
             ) : (
               <div className="w-24 h-24 rounded-2xl bg-slate-100 border border-slate-300 flex flex-col items-center justify-center text-slate-400 shrink-0">
@@ -202,11 +227,12 @@ export default function AddTeamMemberForm({ member, action }: AddTeamMemberFormP
                 <>
                   <label className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs shadow-md transition-all cursor-pointer border border-amber-300">
                     <Upload className="w-4 h-4" />
-                    <span>{imagePreview ? "Change Photo" : "Select Photo File"}</span>
+                    <span>{uploading ? "Uploading…" : imagePreview ? "Change Photo" : "Select Photo File"}</span>
                     <input
                       type="file"
                       accept="image/*"
                       onChange={handleFileChange}
+                      disabled={uploading}
                       className="hidden"
                     />
                   </label>
@@ -326,7 +352,7 @@ export default function AddTeamMemberForm({ member, action }: AddTeamMemberFormP
         </Link>
         <button
           type="submit"
-          disabled={loading || success}
+          disabled={loading || success || uploading}
           className="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-500 text-slate-950 text-xs font-black px-6 py-3 rounded-xl shadow-md transition-all cursor-pointer disabled:opacity-50 border border-amber-300"
         >
           <UserPlus className="w-4 h-4" />

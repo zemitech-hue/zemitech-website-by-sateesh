@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Award, CheckCircle2 } from "lucide-react";
 import InitialsAvatar from "@/components/ui/InitialsAvatar";
 import type { TeamMember } from "@/lib/supabase/queries";
+import { needsUnoptimizedImage } from "@/lib/utils";
 
 /**
  * Normalizes member fields defensively so unexpected data (e.g. an entire bio
@@ -33,7 +34,7 @@ export function formatTeamMember(member: TeamMember) {
   }
 
   // 3. Format Experience Badge (safely extract "X+ Years" if someone pasted a full bio)
-  let exp = (member.experience || "").trim();
+  const exp = (member.experience || "").trim();
   let cleanExpBadge = "5+ Years";
 
   if (exp) {
@@ -62,23 +63,22 @@ export function formatTeamMember(member: TeamMember) {
 
 export default function TeamMemberCard({ member }: { member: TeamMember }) {
   const formatted = formatTeamMember(member);
-  const isDataUrl = formatted.image_url?.startsWith("data:");
 
   return (
-    <div className="group relative bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-amber-400/80 transition-all duration-300 flex flex-col overflow-hidden">
+    <article className="group relative h-full bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-amber-400/80 transition-all duration-300 flex flex-col overflow-hidden">
       {/* Portrait Image Header */}
-      <div className="relative w-full aspect-[4/5] bg-slate-100 overflow-hidden">
+      <div className="relative w-full aspect-[4/5] lg:aspect-[6/7] bg-slate-100 overflow-hidden">
         {formatted.image_url ? (
           <Image
             src={formatted.image_url}
             alt={formatted.name}
             fill
             className="object-cover object-top group-hover:scale-105 transition-transform duration-500 ease-out"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            unoptimized={isDataUrl}
+            sizes="(max-width: 640px) 85vw, (max-width: 1024px) 45vw, 400px"
+            unoptimized={needsUnoptimizedImage(formatted.image_url)}
           />
         ) : (
-          <InitialsAvatar name={formatted.name} className="w-full h-full text-3xl font-bold" />
+          <InitialsAvatar name={formatted.name} className="w-full h-full rounded-none text-3xl font-bold" />
         )}
 
         {/* Ambient Dark Gradient Vignette for Contrast */}
@@ -103,7 +103,7 @@ export default function TeamMemberCard({ member }: { member: TeamMember }) {
       {/* Card Content Footer */}
       <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between bg-white">
         <div>
-          <h3 className="text-lg sm:text-xl font-extrabold text-slate-950 group-hover:text-amber-600 transition-colors leading-snug">
+          <h3 className="text-lg sm:text-xl font-extrabold text-slate-950 group-hover:text-amber-600 transition-colors leading-snug line-clamp-2">
             {formatted.name}
           </h3>
           <p className="text-xs font-mono-label font-bold text-amber-800 uppercase tracking-wide mt-1.5">
@@ -121,6 +121,6 @@ export default function TeamMemberCard({ member }: { member: TeamMember }) {
           </span>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

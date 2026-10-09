@@ -1,50 +1,27 @@
 import fs from "fs";
 import path from "path";
 import type { TeamMember } from "@/lib/supabase/queries";
+import bundledMembers from "./team-members.json";
 
+// The bundled leadership team. Shown on the public site until the admin has
+// imported/added members in Supabase, and used as the starting data for the
+// local JSON store below.
+export const defaultTeamMembers: TeamMember[] = bundledMembers as TeamMember[];
+
+// Local-only store used when no Supabase project is connected (local dev).
+// Serverless hosts like Vercel have a read-only filesystem, so production
+// must always go through Supabase instead — see lib/supabase/actions.ts.
 const STORAGE_FILE = path.join(process.cwd(), "lib", "data", "team-members.json");
 
-// Default initial team members derived from company leadership
-const defaultInitialMembers: TeamMember[] = [
-  {
-    id: "tm-1",
-    name: "Er. Manish K. Sah",
-    role: "Director & Project Head",
-    experience: "10+ Years",
-    image_url: "/images/about/zemara-team.png",
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30).toISOString(),
-  },
-  {
-    id: "tm-2",
-    name: "Er. Ashutosh Kumar",
-    role: "Director & Structural Head",
-    experience: "8+ Years",
-    image_url: "/images/about/milestone-2019-construction.png",
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 24 * 20).toISOString(),
-  },
-  {
-    id: "tm-3",
-    name: "Dr. Kumar S. Chandra",
-    role: "Principal Advisory Architect",
-    experience: "14+ Years",
-    image_url: "/images/about/milestone-2022-interiors.png",
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 24 * 10).toISOString(),
-  },
-];
-
-// In-memory cache for ultra-fast serverless & local runtime access
 let inMemoryStore: TeamMember[] | null = null;
 
 export function getStoredTeamMembers(): TeamMember[] {
-  if (inMemoryStore !== null) {
-    return [...inMemoryStore];
-  }
+  if (inMemoryStore !== null) return [...inMemoryStore];
 
   try {
     if (fs.existsSync(STORAGE_FILE)) {
-      const raw = fs.readFileSync(STORAGE_FILE, "utf-8");
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      const parsed = JSON.parse(fs.readFileSync(STORAGE_FILE, "utf-8"));
+      if (Array.isArray(parsed)) {
         inMemoryStore = parsed;
         return [...parsed];
       }
@@ -53,52 +30,38 @@ export function getStoredTeamMembers(): TeamMember[] {
     console.warn("Could not read team-members.json from disk:", err);
   }
 
-  inMemoryStore = [...defaultInitialMembers];
+  inMemoryStore = [...defaultTeamMembers];
   return [...inMemoryStore];
+}
+
+function persist(members: TeamMember[]) {
+  inMemoryStore = members;
+  try {
+    fs.writeFileSync(STORAGE_FILE, JSON.stringify(members, null, 2) + "\n", "utf-8");
+  } catch (err) {
+    console.warn("Could not write team-members.json to disk:", err);
+  }
 }
 
 export function saveStoredTeamMember(member: TeamMember): TeamMember {
   const current = getStoredTeamMembers();
   const existingIndex = current.findIndex((m) => m.id === member.id);
 
-  let updated: TeamMember[];
   if (existingIndex >= 0) {
-    updated = [...current];
-    updated[existingIndex] = { ...updated[existingIndex], ...member };
+    current[existingIndex] = { ...current[existingIndex], ...member };
   } else {
-    updated = [member, ...current];
+    current.push(member);
   }
 
-  inMemoryStore = updated;
-
-  try {
-    const dir = path.dirname(STORAGE_FILE);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    fs.writeFileSync(STORAGE_FILE, JSON.stringify(updated, null, 2), "utf-8");
-  } catch (err) {
-    console.warn("Could not write team-members.json to disk (read-only filesystem or serverless):", err);
-  }
-
+  persist(current);
   return member;
 }
 
 export function deleteStoredTeamMember(id: string): boolean {
-  const current = getStoredTeamMembers();
-  const filtered = current.filter((m) => m.id !== id);
-  inMemoryStore = filtered;
-
-  try {
-    fs.writeFileSync(STORAGE_FILE, JSON.stringify(filtered, null, 2), "utf-8");
-  } catch (err) {
-    console.warn("Could not write team-members.json to disk:", err);
-  }
-
+  persist(getStoredTeamMembers().filter((m) => m.id !== id));
   return true;
 }
 
 export function getStoredTeamMemberById(id: string): TeamMember | null {
-  const current = getStoredTeamMembers();
-  return current.find((m) => m.id === id) || null;
+  return getStoredTeamMembers().find((m) => m.id === id) || null;
 }

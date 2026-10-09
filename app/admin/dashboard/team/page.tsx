@@ -1,14 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getTeamMembers } from "@/lib/supabase/queries";
+import { getTeamMembersForAdmin } from "@/lib/supabase/queries";
 import { deleteTeamMember } from "@/lib/supabase/actions";
-import { Users, Plus, Award, UserCheck, Pencil } from "lucide-react";
+import { Users, Plus, Award, UserCheck, Pencil, Info, AlertCircle } from "lucide-react";
 import DeleteButton from "@/components/admin/DeleteButton";
 import InitialsAvatar from "@/components/ui/InitialsAvatar";
 import { formatTeamMember } from "@/components/ui/TeamMemberCard";
+import ImportDefaultTeamButton from "@/components/admin/ImportDefaultTeamButton";
+import { needsUnoptimizedImage } from "@/lib/utils";
 
 export default async function TeamMembersPage() {
-  const members = await getTeamMembers();
+  const { members, source, error } = await getTeamMembersForAdmin();
+  const editable = source !== "defaults";
 
   return (
     <div className="space-y-6">
@@ -36,6 +39,36 @@ export default async function TeamMembersPage() {
         </Link>
       </div>
 
+      {error && (
+        <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-sm font-bold flex items-start gap-2">
+          <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+          <span>Couldn&apos;t load team members from Supabase: {error}</span>
+        </div>
+      )}
+
+      {source === "defaults" && !error && (
+        <div className="p-5 rounded-2xl bg-amber-50 border border-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-start gap-2.5">
+            <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-extrabold text-slate-950">The website is showing the built-in team</p>
+              <p className="text-xs text-slate-600 mt-0.5">
+                Your database has no team members yet. Import these to edit or remove them, or add a new employee —
+                once the database has members, only those are shown on the website.
+              </p>
+            </div>
+          </div>
+          <ImportDefaultTeamButton />
+        </div>
+      )}
+
+      {source === "local" && (
+        <div className="p-4 rounded-2xl bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold flex items-start gap-2">
+          <Info className="w-4 h-4 text-blue-700 shrink-0 mt-0.5" />
+          <span>Local mode — no Supabase project connected, so changes are saved to lib/data/team-members.json on this machine only.</span>
+        </div>
+      )}
+
       {/* Empty State when no real employees exist */}
       {members.length === 0 ? (
         <div className="bg-white rounded-3xl p-10 border border-slate-200 text-center max-w-xl mx-auto my-12 space-y-4 shadow-sm">
@@ -43,9 +76,9 @@ export default async function TeamMembersPage() {
             <UserCheck className="w-8 h-8" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-lg font-extrabold text-slate-950">No Real Employees Added Yet</h3>
+            <h3 className="text-lg font-extrabold text-slate-950">No Employees Added Yet</h3>
             <p className="text-xs text-slate-500 max-w-sm mx-auto">
-              All fake sample data has been removed. Upload real employee photos and details to display your active team.
+              Add employee photos and details to show your team on the website.
             </p>
           </div>
           <div className="pt-2">
@@ -76,7 +109,8 @@ export default async function TeamMembersPage() {
                         alt={member.name}
                         fill
                         className="object-cover"
-                        unoptimized={member.image_url.startsWith("data:")}
+                        sizes="96px"
+                        unoptimized={needsUnoptimizedImage(member.image_url)}
                       />
                     ) : (
                       <InitialsAvatar name={member.name} className="w-full h-full text-xl" />
@@ -92,6 +126,7 @@ export default async function TeamMembersPage() {
                   </div>
                 </div>
 
+              {editable && (
               <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-end gap-2">
                 <Link
                   href={`/admin/dashboard/team/${member.id}`}
@@ -102,6 +137,7 @@ export default async function TeamMembersPage() {
                 </Link>
                 <DeleteButton id={member.id} action={deleteTeamMember} label="employee" />
               </div>
+              )}
             </div>
           );
         })}

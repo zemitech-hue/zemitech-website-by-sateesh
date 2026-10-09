@@ -33,6 +33,18 @@ export async function signOut() {
   redirect("/admin");
 }
 
+// Server actions are plain POST endpoints, so each mutation re-checks the
+// session itself instead of trusting that only the dashboard UI calls it.
+async function requireAdmin() {
+  if (!isSupabaseConfigured()) return { supabase: null, error: null };
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { supabase: null, error: "Your admin session has expired — please sign in again." };
+  return { supabase, error: null };
+}
+
 function getYouTubeThumbnail(url: string | null): string | null {
   if (!url) return null;
   const match = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/);
@@ -154,7 +166,8 @@ export async function createProject(_prevState: unknown, formData: FormData) {
     slug: await uniqueSlug("projects", slugify(readText(formData, "slug") || title), "project"),
   };
 
-  const supabase = await createClient();
+  const { supabase, error: authError } = await requireAdmin();
+  if (authError || !supabase) return { error: authError ?? "Supabase is not connected." };
   const { error } = await supabase.from("projects").insert(row);
   if (error) return { error: error.message };
   revalidateSite();
@@ -163,7 +176,8 @@ export async function createProject(_prevState: unknown, formData: FormData) {
 
 export async function updateProject(id: string, formData: FormData) {
   const patch = projectPatch(formData);
-  const supabase = await createClient();
+  const { supabase, error: authError } = await requireAdmin();
+  if (authError || !supabase) return { error: authError ?? "Supabase is not connected." };
   const { error } = await supabase.from("projects").update(patch).eq("id", id);
   if (error) return { error: error.message };
   revalidateSite();
@@ -171,14 +185,16 @@ export async function updateProject(id: string, formData: FormData) {
 }
 
 export async function deleteProject(id: string) {
-  const supabase = await createClient();
+  const { supabase, error: authError } = await requireAdmin();
+  if (authError || !supabase) return { error: authError ?? "Supabase is not connected." };
   const { error } = await supabase.from("projects").delete().eq("id", id);
   if (error) return { error: error.message };
   revalidateSite();
 }
 
 export async function setProjectPublished(id: string, published: boolean) {
-  const supabase = await createClient();
+  const { supabase, error: authError } = await requireAdmin();
+  if (authError || !supabase) return { error: authError ?? "Supabase is not connected." };
   const { error } = await supabase.from("projects").update({ published }).eq("id", id);
   if (error) return { error: error.message };
   revalidateSite();
@@ -219,7 +235,8 @@ function blogFields(formData: FormData) {
 export async function createBlogPost(formData: FormData) {
   const fields = blogFields(formData);
   const slug = await uniqueSlug("blog_posts", slugify(readText(formData, "slug") || fields.title), "post");
-  const supabase = await createClient();
+  const { supabase, error: authError } = await requireAdmin();
+  if (authError || !supabase) return { error: authError ?? "Supabase is not connected." };
   const { error } = await supabase.from("blog_posts").insert({ ...fields, slug, published_at: new Date().toISOString() });
   if (error) return { error: error.message };
   revalidateSite();
@@ -229,7 +246,8 @@ export async function createBlogPost(formData: FormData) {
 // The slug is kept on edit so existing links / search results don't break
 // when a title is tweaked.
 export async function updateBlogPost(id: string, formData: FormData) {
-  const supabase = await createClient();
+  const { supabase, error: authError } = await requireAdmin();
+  if (authError || !supabase) return { error: authError ?? "Supabase is not connected." };
   const { error } = await supabase.from("blog_posts").update(blogFields(formData)).eq("id", id);
   if (error) return { error: error.message };
   revalidateSite();
@@ -237,14 +255,16 @@ export async function updateBlogPost(id: string, formData: FormData) {
 }
 
 export async function deleteBlogPost(id: string) {
-  const supabase = await createClient();
+  const { supabase, error: authError } = await requireAdmin();
+  if (authError || !supabase) return { error: authError ?? "Supabase is not connected." };
   const { error } = await supabase.from("blog_posts").delete().eq("id", id);
   if (error) return { error: error.message };
   revalidateSite();
 }
 
 export async function setBlogPostPublished(id: string, published: boolean) {
-  const supabase = await createClient();
+  const { supabase, error: authError } = await requireAdmin();
+  if (authError || !supabase) return { error: authError ?? "Supabase is not connected." };
   const { error } = await supabase.from("blog_posts").update({ published }).eq("id", id);
   if (error) return { error: error.message };
   revalidateSite();
@@ -257,7 +277,8 @@ export async function updateCompanySettings(formData: FormData) {
   const email = String(formData.get("email") ?? "").trim();
   const phone = String(formData.get("phone") ?? "").trim();
 
-  const supabase = await createClient();
+  const { supabase, error: authError } = await requireAdmin();
+  if (authError || !supabase) return { error: authError ?? "Supabase is not connected." };
   const { error } = await supabase
     .from("company_settings")
     .upsert({ id: "main", office_address, email, phone, updated_at: new Date().toISOString() });
@@ -269,8 +290,7 @@ export async function updateCompanySettings(formData: FormData) {
 
 // ===================== TEAM MEMBERS =====================
 
-import { saveStoredTeamMember, deleteStoredTeamMember } from "@/lib/data/team-storage";
-import type { TeamMember } from "@/lib/supabase/queries";
+import { defaultTeamMembers, saveStoredTeamMember, deleteStoredTeamMember } from "@/lib/data/team-storage";
 
 function teamFields(formData: FormData) {
   let exp = String(formData.get("experience") ?? "").trim();
@@ -288,42 +308,29 @@ function teamFields(formData: FormData) {
   };
 }
 
+// Supabase is the only store in production (Vercel's filesystem is read-only
+// and per-instance). The JSON file is used only when no project is connected.
 export async function createTeamMember(formData: FormData) {
   const fields = teamFields(formData);
   if (!fields.name) return { error: "Employee name is required" };
   if (!fields.role) return { error: "Role or designation is required" };
 
-  const id = `tm-${Date.now()}`;
-  const newMember: TeamMember = {
-    id,
-    name: fields.name,
-    role: fields.role,
-    experience: fields.experience || "Experienced",
-    image_url: fields.image_url,
-    created_at: new Date().toISOString(),
-  };
-
-  // 1. Always save into persistent hybrid storage (guaranteed success)
-  saveStoredTeamMember(newMember);
-
-  // 2. Mirror to Supabase if configured
-  if (isSupabaseConfigured()) {
-    try {
-      const supabase = await createClient();
-      await supabase.from("team_members").insert({
-        id,
-        name: fields.name,
-        role: fields.role,
-        experience: fields.experience || "Experienced",
-        image_url: fields.image_url,
-      });
-    } catch (err) {
-      console.warn("Notice: could not mirror team member to Supabase:", err);
-    }
+  if (!isSupabaseConfigured()) {
+    const id = `tm-${Date.now()}`;
+    saveStoredTeamMember({ id, ...fields, created_at: new Date().toISOString() });
+    revalidateSite();
+    return { success: true, id };
   }
 
+  const { supabase, error: authError } = await requireAdmin();
+  if (authError || !supabase) return { error: authError ?? "Supabase is not connected." };
+
+  // id is a uuid column with a database default — let Postgres generate it.
+  const { data, error } = await supabase.from("team_members").insert(fields).select("id").single();
+  if (error) return { error: `Could not save employee: ${error.message}` };
+
   revalidateSite();
-  return { success: true, id };
+  return { success: true, id: data.id as string };
 }
 
 export async function updateTeamMember(id: string, formData: FormData) {
@@ -331,45 +338,60 @@ export async function updateTeamMember(id: string, formData: FormData) {
   if (!fields.name) return { error: "Employee name is required" };
   if (!fields.role) return { error: "Role or designation is required" };
 
-  const updatedMember: TeamMember = {
-    id,
-    name: fields.name,
-    role: fields.role,
-    experience: fields.experience || "Experienced",
-    image_url: fields.image_url,
-  };
-
-  saveStoredTeamMember(updatedMember);
-
-  if (isSupabaseConfigured()) {
-    try {
-      const supabase = await createClient();
-      await supabase.from("team_members").update({
-        name: fields.name,
-        role: fields.role,
-        experience: fields.experience || "Experienced",
-        image_url: fields.image_url,
-      }).eq("id", id);
-    } catch (err) {
-      console.warn("Notice: could not mirror team member update to Supabase:", err);
-    }
+  if (!isSupabaseConfigured()) {
+    saveStoredTeamMember({ id, ...fields });
+    revalidateSite();
+    return { success: true, id };
   }
+
+  const { supabase, error: authError } = await requireAdmin();
+  if (authError || !supabase) return { error: authError ?? "Supabase is not connected." };
+
+  const { data, error } = await supabase.from("team_members").update(fields).eq("id", id).select("id");
+  if (error) return { error: `Could not update employee: ${error.message}` };
+  if (!data || data.length === 0) return { error: "Employee not found — it may have been deleted." };
 
   revalidateSite();
   return { success: true, id };
 }
 
 export async function deleteTeamMember(id: string) {
-  deleteStoredTeamMember(id);
-
-  if (isSupabaseConfigured()) {
-    try {
-      const supabase = await createClient();
-      await supabase.from("team_members").delete().eq("id", id);
-    } catch (err) {
-      console.warn("Notice: could not mirror team member deletion to Supabase:", err);
-    }
+  if (!isSupabaseConfigured()) {
+    deleteStoredTeamMember(id);
+    revalidateSite();
+    return;
   }
 
+  const { supabase, error: authError } = await requireAdmin();
+  if (authError || !supabase) return { error: authError ?? "Supabase is not connected." };
+
+  const { error } = await supabase.from("team_members").delete().eq("id", id);
+  if (error) return { error: error.message };
   revalidateSite();
+}
+
+// Copies the bundled leadership team into Supabase so it can be edited from
+// the dashboard. Only runs while the table is empty, so it never duplicates.
+export async function importDefaultTeamMembers() {
+  const { supabase, error: authError } = await requireAdmin();
+  if (authError || !supabase) return { error: authError ?? "Supabase is not connected." };
+
+  const { count, error: countError } = await supabase
+    .from("team_members")
+    .select("id", { count: "exact", head: true });
+  if (countError) return { error: countError.message };
+  if (count && count > 0) return { error: "The team table already has members — refresh the page." };
+
+  const rows = defaultTeamMembers.map(({ name, role, experience, image_url, created_at }) => ({
+    name,
+    role,
+    experience,
+    image_url,
+    created_at,
+  }));
+  const { error } = await supabase.from("team_members").insert(rows);
+  if (error) return { error: error.message };
+
+  revalidateSite();
+  return { success: true };
 }

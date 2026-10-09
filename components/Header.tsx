@@ -88,7 +88,7 @@ export default function Header() {
               </Link>
 
               {/* Desktop Navigation Links */}
-              <nav className="hidden lg:flex items-center gap-1 xl:gap-2" aria-label="Primary">
+              <nav className="hidden xl:flex items-center gap-0.5" aria-label="Primary">
                 {primaryNav.map((item) => {
                   const isActive = pathname === item.href || (item.children && item.children.some((c) => pathname === c.href));
                   const isHovered = openDropdown === item.label;
@@ -102,7 +102,7 @@ export default function Header() {
                     >
                       <Link
                         href={item.href}
-                        className={`group relative flex items-center gap-1.5 px-3.5 py-2 text-xs xl:text-sm font-extrabold rounded-xl transition-all duration-200 whitespace-nowrap uppercase tracking-wider border ${
+                        className={`group relative flex items-center gap-1 px-2.5 2xl:px-3 py-2 text-xs font-extrabold rounded-xl transition-all duration-200 whitespace-nowrap uppercase tracking-wide border ${
                           isActive || isHovered
                             ? "text-slate-950 bg-amber-400 border-amber-300 shadow-2xs font-black"
                             : "text-slate-800 hover:text-amber-700 hover:bg-amber-50/80 border-transparent"
@@ -168,11 +168,11 @@ export default function Header() {
               </nav>
 
               {/* Conversion-Focused Gold/Yellow CTA Button with Phone Icon */}
-              <div className="hidden lg:block shrink-0">
+              <div className="hidden xl:block shrink-0">
                 <button
                   type="button"
                   onClick={() => setModalOpen(true)}
-                  className="relative group inline-flex items-center gap-2 px-5 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black text-xs xl:text-sm tracking-wider uppercase shadow-md shadow-amber-400/30 hover:shadow-lg hover:shadow-amber-400/40 hover:scale-105 transition-all duration-300 cursor-pointer border border-amber-300"
+                  className="relative group inline-flex items-center gap-2 px-4 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black text-xs tracking-wider uppercase shadow-md shadow-amber-400/30 hover:shadow-lg hover:shadow-amber-400/40 hover:scale-105 transition-all duration-300 cursor-pointer border border-amber-300"
                 >
                   <PhoneCall className="w-4 h-4 text-slate-950 animate-pulse" />
                   <span>GET A FREE QUOTE</span>
@@ -182,7 +182,7 @@ export default function Header() {
 
               {/* Mobile / Tablet Hamburger Toggle */}
               <button
-                className="lg:hidden p-2 sm:p-2.5 rounded-xl text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer border border-slate-200"
+                className="xl:hidden p-2 sm:p-2.5 rounded-xl text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer border border-slate-200"
                 aria-label="Toggle menu"
                 aria-expanded={mobileOpen}
                 onClick={() => setMobileOpen((v) => !v)}
@@ -193,7 +193,7 @@ export default function Header() {
 
             {/* Mobile / Tablet Responsive Drawer */}
             {mobileOpen && (
-              <div className="lg:hidden mt-2 mb-3 p-4 bg-white border border-slate-200 rounded-2xl max-h-[80vh] overflow-y-auto space-y-3 shadow-xl">
+              <div className="xl:hidden mt-2 mb-3 p-4 bg-white border border-slate-200 rounded-2xl max-h-[80vh] overflow-y-auto space-y-3 shadow-xl">
                 <div className="flex flex-col gap-1">
                   {primaryNav.map((item) => (
                     <div key={item.href}>
